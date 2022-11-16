@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">AppBibliotecas</string>
+    <string name="password">Introduce tu contraseña</string>
+    <string name="user">Introduce tu correo electrónico</string>
+    <string name="genero_novelas">Novelas</string>
+    <string name="login">Login</string>
+    <string name="usuario">usuario</string>
+</resources>
