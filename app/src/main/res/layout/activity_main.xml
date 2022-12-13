@@ -6,12 +6,71 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview_portada"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="20dp"
+        android:src="@drawable/icon_user"
+        app:flow_horizontalBias="1"
+        app:flow_verticalBias="0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.956"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.001" />
+
+    <TextView
+        android:id="@+id/bibliotecas_texto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:text="Bibliotecas Atenea"
+        android:textColor="@color/black"
+        app:layout_constraintHorizontal_bias="0"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageView2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.033" />
+
+    <EditText
+        android:id="@+id/search_editext"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="search"
+        android:background="@drawable/search_bar"
+        android:paddingLeft="20dp"
+        android:paddingTop="15dp"
+        android:textSize="14sp"
+        app:flow_horizontalBias="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.009"
+        app:layout_constraintStart_toStartOf="@id/bibliotecas_texto"
+        app:layout_constraintTop_toBottomOf="@id/bibliotecas_texto"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintWidth_percent=".7"
+        android:elevation="4dp"
+        android:paddingBottom="10dp"
+        android:layout_marginTop="15dp"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/search_icon"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/search_editext"
+        app:layout_constraintTop_toTopOf="@id/search_editext"
+        />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
