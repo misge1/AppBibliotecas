@@ -5,4 +5,9 @@
     <string name="genero_novelas">Novelas</string>
     <string name="login">Login</string>
     <string name="usuario">usuario</string>
+    <string name="favoritos">Favoritos</string>
+    <string name="en_curso">En curso</string>
+    <string name="devolver">A devolver</string>
+    <string name="recogida">A recoger</string>
+    <string name="mirena_gerova">Mirena Gerova</string>
 </resources>
