@@ -18,4 +18,11 @@
     <style name="InputTextLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox.Dense">
 
     </style>
+    <style name="Theme.AppBibliotecas.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.AppBibliotecas.AppBarOverlay"
+        parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.AppBibliotecas.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

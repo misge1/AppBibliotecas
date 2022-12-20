@@ -30,10 +30,11 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:background="@color/white"
+
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax"
+                android:src="@drawable/background_profile"
                 />
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -52,6 +53,7 @@
                 android:text="Mirena Gerova"
                 android:textSize="30dp"
                 android:gravity="center"
+                android:fontFamily="@font/sarabun_light"
                 android:textColor="@color/black"
                 android:layout_gravity="center|bottom"
 
