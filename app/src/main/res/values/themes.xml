@@ -10,7 +10,7 @@
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
 
@@ -18,4 +18,13 @@
     <style name="InputTextLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox.Dense">
 
     </style>
+
+    <style name="Theme.AppBibliotecas.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.AppBibliotecas.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.AppBibliotecas.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

@@ -13,5 +13,5 @@
     <color name="texto_color">#531100</color>
     <color name="text_color_dark">#290901</color>
     <color name="background_clear">#fff2df</color>
-    <color name="background_dark">#ffddb0 </color>
+    <color name="background_dark">#FFEBCF</color>
 </resources>
