@@ -104,7 +104,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/background_clear"
-                android:layout_marginTop="30dp">
+                android:layout_marginTop="30dp"
+                >
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
@@ -120,7 +121,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-
+                    android:paddingBottom="10dp"
 
                     android:fitsSystemWindows="true"
                     android:gravity="center"
