@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".AccountActivity">
+    tools:context=".Account.AccountActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -48,6 +48,7 @@
                 />
 
             <TextView
+                android:id="@+id/titulo_nombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Mirena Gerova"
@@ -282,56 +283,6 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardview_apellidos"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/background_clear"
-                android:layout_margin="8dp"
-                android:layout_gravity="center_horizontal"
-                app:cardElevation="4dp"
-                app:cardCornerRadius="15dp"
-                app:contentPadding="16dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Apellidos: "
-                            android:textSize="16sp"
-                            android:fontFamily="@font/sarabun_bold"
-                            android:textColor="@color/texto_color">
-
-                        </TextView>
-
-                        <TextView
-                            android:id="@+id/apellidos_text"
-                            android:layout_width="wrap_content"
-                            android:textSize="16sp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:textColor="@color/texto_color"
-                            android:fontFamily="@font/sarabun_light"
-                            android:text="Apellidos"
-                            >
-
-                        </TextView>
-
-                        <ImageButton
-                            android:id="@+id/apellidos_edit"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/edit_icon"
-                            android:background="@color/background_clear"
-                            android:scaleType="fitEnd"
-                            />
-
-                    </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardview_alta"

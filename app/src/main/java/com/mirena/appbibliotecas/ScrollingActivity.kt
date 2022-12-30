@@ -1,6 +1,5 @@
 package com.mirena.appbibliotecas
 
-import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -8,14 +7,12 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.mirena.appbibliotecas.Account.AccountActivity
 import com.mirena.appbibliotecas.adapters.AdapterGeneros
 import com.mirena.appbibliotecas.adapters.AdapterLibros
 import com.mirena.appbibliotecas.databinding.ActivityScrollingBinding
-import com.mirena.appbibliotecas.mainActivity.MainActivityViewModel
 import com.mirena.appbibliotecas.objects.Generos
 import com.mirena.appbibliotecas.objects.LibroPre
 import com.mirena.appbibliotecas.retrofit.RetrofitInstance
@@ -27,20 +24,20 @@ import kotlin.math.abs
 class ScrollingActivity : AppCompatActivity() {
 
 private lateinit var binding: ActivityScrollingBinding
-    private lateinit var mainActivityViewModel: MainActivityViewModel
     lateinit var mAdapter: AdapterGeneros
     lateinit var librosAdapter: AdapterLibros
     private lateinit var context: Context
     private var appBarExpanded: Boolean = true
     lateinit var collapsedMenu: Menu
     lateinit var searchView: SearchView
+    private lateinit var sessionManager: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        mainActivityViewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
         context = this
 
+        sessionManager = SessionManager(this)
         binding = ActivityScrollingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -65,7 +62,6 @@ private lateinit var binding: ActivityScrollingBinding
                             mrecyclerview.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                             mAdapter = AdapterGeneros(context, listaNoticias);
                             mrecyclerview.adapter = mAdapter
-
                         }
                     }
                 }
@@ -79,7 +75,6 @@ private lateinit var binding: ActivityScrollingBinding
                             recyclerviewlibros.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                             librosAdapter = AdapterLibros(context, listaLibros)
                             recyclerviewlibros.adapter = librosAdapter
-
                         }
                     }
                 }
@@ -91,8 +86,6 @@ private lateinit var binding: ActivityScrollingBinding
                 //collapsed
                 appBarExpanded = false
                 binding.toolbarLayout.title =""
-
-
                 invalidateOptionsMenu()
 
             }else{
@@ -100,7 +93,6 @@ private lateinit var binding: ActivityScrollingBinding
                 appBarExpanded = true
                 invalidateOptionsMenu()
             }
-
         }
     }
 
@@ -113,15 +105,15 @@ private lateinit var binding: ActivityScrollingBinding
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
        return when (item.itemId) {
             R.id.usuario -> {
-                val intent = Intent(this, AccountActivity::class.java)
-                startActivity(intent)
+                if (sessionManager.fetchAuthToken() == 0){
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
+                }else{
+                    val intent = Intent(this, AccountActivity::class.java)
+                    startActivity(intent)
+                }
                 true
             }
-           R.id.cesta -> {
-               val intent = Intent(this, LibroActivity::class.java)
-               startActivity(intent)
-               true
-           }
             else -> super.onOptionsItemSelected(item)
         }
 

@@ -1,6 +1,7 @@
 package com.mirena.appbibliotecas.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mirena.appbibliotecas.LibroActivity2;
 import com.mirena.appbibliotecas.R;
+import com.mirena.appbibliotecas.SubgenerosActivity;
 import com.mirena.appbibliotecas.objects.Generos;
 
 import java.util.List;
@@ -40,6 +43,16 @@ public class AdapterGeneros extends RecyclerView.Adapter<AdapterGeneros.ViewHold
         TextView textViewCategoria= holder.getTextview_genero();
         textViewCategoria.setText(lista.get(position).getGenero());
 
+        Generos generos = lista.get(position);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, SubgenerosActivity.class);
+                intent.putExtra("id_genero", generos.getId_genero());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
