@@ -28,11 +28,6 @@
             android:label="@string/title_activity_libro2"
             android:theme="@style/Theme.AppBibliotecas.NoActionBar" />
         <activity
-            android:name=".LibroActivity"
-            android:exported="false"
-            android:label="@string/title_activity_libro"
-            android:theme="@style/Theme.AppBibliotecas.NoActionBar" />
-        <activity
             android:name=".ScrollingActivity"
             android:exported="true"
             android:label=""
@@ -52,9 +47,6 @@
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
-        <activity
-            android:name=".mainActivity.MainActivity"
-            android:exported="true" />
     </application>
 
 </manifest>
