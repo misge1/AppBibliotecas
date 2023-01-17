@@ -64,6 +64,7 @@ public class AdapterLibros  extends RecyclerView.Adapter<AdapterLibros.ViewHolde
                 intent.putExtra("descripcion", libro.getDescription());
                 intent.putExtra("idioma", libro.getIdioma());
                 intent.putExtra("isbn", libro.getIsbn_issn());
+                intent.putExtra("editorial", libro.getEditorial());
                 context.startActivity(intent);
             }
         });
@@ -95,6 +96,7 @@ public class AdapterLibros  extends RecyclerView.Adapter<AdapterLibros.ViewHolde
             textView_autor = itemView.findViewById(R.id.textview_autor);
             textView_isbn = itemView.findViewById(R.id.textview_isbn);
             buttonejemplares = itemView.findViewById(R.id.button_ejemplares);
+
         }
 
         public TextView getTextView_autor() {
@@ -108,6 +110,7 @@ public class AdapterLibros  extends RecyclerView.Adapter<AdapterLibros.ViewHolde
         public TextView getTextview_titulo() {
             return textview_titulo;
         }
+
 
         public Button getButtonejemplares(){return buttonejemplares;}
     }

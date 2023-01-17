@@ -44,7 +44,6 @@ private lateinit var binding: ActivityScrollingBinding
         searchView = binding.searchView
 
         setSupportActionBar(findViewById(R.id.toolbar))
-        binding.toolbarLayout.title = "Bibliotecas Atenea"
 
         CoroutineScope(Dispatchers.IO).launch {
             val calls = RetrofitInstance.api.getGeneros()
@@ -85,7 +84,6 @@ private lateinit var binding: ActivityScrollingBinding
             if (abs(verticalOffset) -appBarLayout.totalScrollRange == 0){
                 //collapsed
                 appBarExpanded = false
-                binding.toolbarLayout.title =""
                 invalidateOptionsMenu()
 
             }else{
@@ -120,15 +118,4 @@ private lateinit var binding: ActivityScrollingBinding
     }
 
 
-    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
-        val searchView2 = SearchView(this)
-        if (!appBarExpanded){
-
-            collapsedMenu.add("filter")
-                .setIcon(R.drawable.filter)
-                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
-        }
-
-        return super.onPrepareOptionsMenu(menu)
-    }
 }

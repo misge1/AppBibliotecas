@@ -107,4 +107,5 @@
     <string name="title_activity_subgeneros">SubgenerosActivity</string>
     <string name="bibliotecas">Elige una biblioteca</string>
     <string name="disponibles">Ejemplares disponibles en las siguientes bibliotecas</string>
+    <string name="cerrar_sesi_n">CERRAR SESIÓN</string>
 </resources>

@@ -9,6 +9,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:fillViewport="true"
+    android:paddingBottom="100dp"
+    android:clipToPadding="false"
     tools:context=".ScrollingActivity">
 
     <LinearLayout
@@ -58,11 +60,10 @@
                 android:orientation="vertical">
 
                 <TextView
-
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
-                    android:text="isbn"
+                    android:text="ISBN"
                     />
                 <TextView
                     android:id="@+id/textview_isbn"
@@ -83,7 +84,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
-                    android:text="idioma"
+                    android:text="Idioma"
                     />
                 <TextView
                     android:id="@+id/textview_idioma"
@@ -92,6 +93,30 @@
                     android:layout_marginTop="5sp"
                     android:text="español"
                     />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:text="Editorial"
+                    />
+                <TextView
+                    android:id="@+id/textview_editorial"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5sp"
+                    android:text="español"
+                    />
+
+
 
             </LinearLayout>
 
@@ -118,17 +143,6 @@
 
         </TextView>
 
-
-        <Button
-            android:id="@+id/button_ejemplares"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="8dp"
-            android:text="Pedir"
-            style="@style/Widget.Material3.Button.TextButton"
-            android:textSize="16sp"
-            android:textAlignment="center"
-            />
 
     </LinearLayout>
 

@@ -1,8 +1,11 @@
 package com.mirena.appbibliotecas.Account
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
+import com.mirena.appbibliotecas.LoginActivity
 import com.mirena.appbibliotecas.R
 import com.mirena.appbibliotecas.SessionManager
 import com.mirena.appbibliotecas.objects.Usuario
@@ -20,6 +23,7 @@ class AccountActivity : AppCompatActivity() {
     private lateinit var domicilio_textview: TextView
     private lateinit var localidad_textview: TextView
     private lateinit var sessionManager: SessionManager
+    private lateinit var cerrar_sesion_button: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +36,7 @@ class AccountActivity : AppCompatActivity() {
         email_textview = findViewById(R.id.email_text)
         domicilio_textview = findViewById(R.id.domicilio_text)
         localidad_textview = findViewById(R.id.localidad_text)
+        cerrar_sesion_button = findViewById(R.id.cerrar_sesion_button)
 
         sessionManager = SessionManager(this)
 
@@ -54,7 +59,13 @@ class AccountActivity : AppCompatActivity() {
                     }
                 }
             }
+        }
 
+        cerrar_sesion_button.setOnClickListener {
+            sessionManager.deleteAuthToken()
+            val intent = Intent(this, LoginActivity::class.java)
+            finish()
+            startActivity(intent)
 
         }
     }

@@ -7,4 +7,5 @@ data class LibroPre(
     var idioma: String,
     var description: String,
     var isbn_issn: String,
+    var editorial: String
 )

@@ -1,24 +1,44 @@
 package com.mirena.appbibliotecas
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
+import android.graphics.Color
+import android.graphics.ColorFilter
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.mirena.appbibliotecas.adapters.AdapterLibros
 import com.mirena.appbibliotecas.databinding.ActivityLibro2Binding
 import com.mirena.appbibliotecas.objects.Biblioteca
+import com.mirena.appbibliotecas.objects.Favoritos
 import com.mirena.appbibliotecas.objects.LibroPre
+import com.mirena.appbibliotecas.objects.Prestamo
 import com.mirena.appbibliotecas.retrofit.RetrofitInstance
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
+import org.w3c.dom.Text
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.Month
+import java.util.*
+import kotlin.collections.ArrayList
 
 class LibroActivity2 : AppCompatActivity() {
 
@@ -28,9 +48,12 @@ class LibroActivity2 : AppCompatActivity() {
     private lateinit var textview_descripcion: TextView
     private lateinit var textview_isbn: TextView
     private lateinit var textview_idioma: TextView
+    private lateinit var textview_editorial: TextView
     private lateinit var butonejemplares: Button
     private lateinit var context: Context
-    private lateinit var materialDialog: MaterialAlertDialogBuilder
+    private lateinit var sessionManager: SessionManager
+    private lateinit var buttonFavoritos: ImageButton
+    private lateinit var libroActivity2ViewModel: LibroActivity2ViewModel
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +61,14 @@ class LibroActivity2 : AppCompatActivity() {
         binding = ActivityLibro2Binding.inflate(layoutInflater)
         setContentView(binding.root)
         context = this
+        sessionManager = SessionManager(this)
 
+        libroActivity2ViewModel = ViewModelProvider(this).get(
+            LibroActivity2ViewModel::class.java
+        )
+
+        val myDrawable = ContextCompat.getDrawable(context, R.drawable.favorito_icono)
+        val colorFavoritos = PorterDuffColorFilter(Color.RED, PorterDuff.Mode.SRC_IN)
 
 
         setSupportActionBar(findViewById(R.id.toolbar))
@@ -49,13 +79,16 @@ class LibroActivity2 : AppCompatActivity() {
         var descripcion = intent.getStringExtra("descripcion")
         var idioma = intent.getStringExtra("idioma")
         var isbn = intent.getStringExtra("isbn")
+        var editorial = intent.getStringExtra("editorial")
 
         textview_autor = binding.layoutInclude.textviewAutor
         textview_titulo = binding.layoutInclude.textviewTitulo
         textview_descripcion = binding.layoutInclude.textviewDescripcion
         textview_isbn = binding.layoutInclude.textviewIsbn
         textview_idioma = binding.layoutInclude.textviewIdioma
-        butonejemplares = binding.layoutInclude.buttonEjemplares
+        textview_editorial = binding.layoutInclude.textviewEditorial
+        butonejemplares = binding.buttonEjemplares
+        buttonFavoritos = binding.buttonFavoritos
 
         
         textview_titulo.text = titulo
@@ -63,50 +96,40 @@ class LibroActivity2 : AppCompatActivity() {
         textview_isbn.text = isbn
         textview_descripcion.text = descripcion
         textview_idioma.text = idioma
+        textview_editorial.text = editorial
 
-        CoroutineScope(Dispatchers.IO).launch {
-            val calldisponibilidad = RetrofitInstance.api.getDisponibilidad(id)
-            var listaBiblios = listOf<Biblioteca>()
-
-            runOnUiThread{
-
-                var listalibros = ArrayList<String>()
-
-                if (calldisponibilidad.isSuccessful){
-                    calldisponibilidad.body().let {
-                        if (it != null){
-                            listaBiblios = it
-                            listaBiblios.forEach{
-                                listalibros.add(it.biblioteca)
-
-                            }
-                            val arrayLibros = listalibros.toTypedArray()
-                            val checkedItem = 0
-
-                            materialDialog = MaterialAlertDialogBuilder(context)
-                                .setTitle(resources.getString(R.string.bibliotecas))
-                                .setSingleChoiceItems(arrayLibros, checkedItem){ dialog, which ->
-
-                                }
-                                .setNeutralButton("cerrar") { dialog, which ->
-                                    dialog.cancel()
-                                }
-                        }
-                    }
-                }
-            }
-        }
-
-
+        buttonFavoritos.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.boton_favoritos_selector, null))
 
         butonejemplares.setOnClickListener {
-            materialDialog.show()
+            val intent2 = Intent(this, PedidoActivity::class.java)
+            intent2.putExtra("id_libro", id)
+            startActivity(intent2)
         }
 
+        val savedStateButton = sessionManager.fetchButtonState()
+        buttonFavoritos.isSelected = savedStateButton != 0
+
+
+        buttonFavoritos.setOnClickListener {
+
+            val nuevoFavrito = Favoritos(null, id, sessionManager.fetchAuthToken())
+
+            buttonFavoritos.isSelected = !buttonFavoritos.isSelected
+
+            if (buttonFavoritos.isSelected){
+                sessionManager.saveButtonState(1)
+                libroActivity2ViewModel.addFavoritos(nuevoFavrito, applicationContext, this)
+
+            }else{
+                sessionManager.saveButtonState(0)
+                libroActivity2ViewModel.deletefavoritos(id,sessionManager.fetchAuthToken(), applicationContext, this)
+            }
 
 
 
 
+        }
 
     }
+
 }

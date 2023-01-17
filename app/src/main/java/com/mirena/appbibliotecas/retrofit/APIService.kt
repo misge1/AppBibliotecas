@@ -1,12 +1,10 @@
 package com.mirena.appbibliotecas.retrofit
 
 import com.mirena.appbibliotecas.objects.*
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface APIService {
 
@@ -30,6 +28,12 @@ interface APIService {
 
     @GET("/getdisponibilidad/{id}")
     suspend fun getDisponibilidad(@Path("id") id: Int): Response<List<Biblioteca>>
+
+    @POST("/addfavorito")
+    fun addFavorito(@Body favoritos: Favoritos): Call<ResponseBody>
+
+    @DELETE("/deletefavoritos")
+    fun deleteFavorito(@Query("id_libro") id_libro: Int, @Query("id_usuario") id_usuario: Int): Call<ResponseBody>
 
 
 }
