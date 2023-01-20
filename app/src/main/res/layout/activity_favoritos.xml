@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".ScrollingActivity">
+    tools:context=".FavoritosActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
@@ -17,14 +16,14 @@
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
-                android:layout_height="?attr/actionBarSize"
                 android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="parallax"
                 app:menu="@menu/upper_menu"
-                app:popupTheme="@style/Theme.AppBibliotecas.PopupOverlay"
-                >
+                app:popupTheme="@style/Theme.AppBibliotecas.PopupOverlay">
+
                 <androidx.appcompat.widget.SearchView
-                    android:id="@+id/search_view_scrolling"
+                    android:id="@+id/search_view_favoritos"
                     android:layout_width="260dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/text_margin"
@@ -37,24 +36,12 @@
 
             </androidx.appcompat.widget.Toolbar>
 
-
-
     </com.google.android.material.appbar.AppBarLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity=""
-        />
-
-
     <include
-        android:id="@+id/layout_include_main"
-        layout="@layout/content_scrolling" />
-
-
-
-
+        android:id="@+id/layout_include_favoritos"
+        layout="@layout/content_scrolling_subgeneros"
+        />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

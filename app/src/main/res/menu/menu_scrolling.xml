@@ -2,12 +2,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.mirena.appbibliotecas.ScrollingActivity" >
-    <item android:title="cesta"
-        android:id="@+id/cesta"
-        android:icon="@drawable/cart_icon"
-        app:showAsAction="ifRoom">
-    </item>
-
     <item android:title="@string/usuario"
         android:id="@+id/usuario"
         android:icon="@drawable/icon_user"

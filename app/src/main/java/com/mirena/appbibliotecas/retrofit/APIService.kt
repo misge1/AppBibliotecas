@@ -11,6 +11,9 @@ interface APIService {
     @GET("/login")
     fun login(@Query("email") email: String, @Query("password") pass: String): Call<Usuario>
 
+    @POST("/editUserInfo/{id}")
+    fun updateUserInfo(@Path("id") id: Int, @Body usuario: Usuario): Call<ResponseBody>
+
     @GET("/getUser/{id}")
     suspend fun getUser(@Path("id") id: Int): Response<Usuario>
 
@@ -28,6 +31,9 @@ interface APIService {
 
     @GET("/getdisponibilidad/{id}")
     suspend fun getDisponibilidad(@Path("id") id: Int): Response<List<Biblioteca>>
+
+    @GET("/getFavoritos/{id}")
+    suspend fun getFavoritos(@Path("id") id: Int): Response<List<LibroPre>>
 
     @POST("/addfavorito")
     fun addFavorito(@Body favoritos: Favoritos): Call<ResponseBody>

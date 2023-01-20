@@ -8,6 +8,8 @@ import android.graphics.ColorFilter
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
@@ -22,6 +24,7 @@ import androidx.lifecycle.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.mirena.appbibliotecas.Account.AccountActivity
 import com.mirena.appbibliotecas.adapters.AdapterLibros
 import com.mirena.appbibliotecas.databinding.ActivityLibro2Binding
 import com.mirena.appbibliotecas.objects.Biblioteca
@@ -54,6 +57,7 @@ class LibroActivity2 : AppCompatActivity() {
     private lateinit var sessionManager: SessionManager
     private lateinit var buttonFavoritos: ImageButton
     private lateinit var libroActivity2ViewModel: LibroActivity2ViewModel
+    private lateinit var materialDialog: MaterialAlertDialogBuilder
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -98,12 +102,50 @@ class LibroActivity2 : AppCompatActivity() {
         textview_idioma.text = idioma
         textview_editorial.text = editorial
 
-        buttonFavoritos.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.boton_favoritos_selector, null))
+        CoroutineScope(Dispatchers.IO).launch {
+            val calldisponibilidad = RetrofitInstance.api.getDisponibilidad(id)
+            var listaBiblios = listOf<Biblioteca>()
+
+            runOnUiThread{
+
+                var listalibros = ArrayList<String>()
+
+                if (calldisponibilidad.isSuccessful){
+                    calldisponibilidad.body().let {
+                        if (it != null){
+                            listaBiblios = it
+                            listaBiblios.forEach{
+                                listalibros.add(it.biblioteca)
+
+                            }
+                            val arrayLibros = listalibros.toTypedArray()
+                            val checkedItem = 0
+                            var id_biblio: Int = 0
+
+                            materialDialog = MaterialAlertDialogBuilder(context)
+                                .setTitle(resources.getString(R.string.bibliotecas))
+                                .setSingleChoiceItems(arrayLibros, checkedItem){ dialog, which ->
+                                    val choice = arrayLibros[checkedItem]
+                                    id_biblio = listaBiblios.find { it.biblioteca==choice }!!.id_bilioteca
+                                }
+                                .setNeutralButton("cerrar") { dialog, which ->
+                                    dialog.cancel()
+                                }
+                                .setPositiveButton("Pedir"){ dialog, which ->
+                                    val intent = Intent(context, PedidoActivity::class.java)
+                                    intent.putExtra("id_biblioteca", id_biblio)
+                                    startActivity(intent)
+
+
+                                }
+                        }
+                    }
+                }
+            }
+        }
 
         butonejemplares.setOnClickListener {
-            val intent2 = Intent(this, PedidoActivity::class.java)
-            intent2.putExtra("id_libro", id)
-            startActivity(intent2)
+           materialDialog.show()
         }
 
         val savedStateButton = sessionManager.fetchButtonState()
@@ -128,6 +170,28 @@ class LibroActivity2 : AppCompatActivity() {
 
 
 
+        }
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.upper_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.usuario -> {
+                if (sessionManager.fetchAuthToken() == 0){
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
+                }else{
+                    val intent = Intent(this, AccountActivity::class.java)
+                    startActivity(intent)
+                }
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
 
     }

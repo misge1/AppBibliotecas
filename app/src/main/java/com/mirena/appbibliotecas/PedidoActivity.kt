@@ -51,18 +51,6 @@ class PedidoActivity : AppCompatActivity() {
                 }
             }
         }
-
-        /*materialDialog = MaterialAlertDialogBuilder(context)
-            .setTitle(resources.getString(R.string.bibliotecas))
-            .setSingleChoiceItems(arrayLibros, checkedItem){ dialog, which ->
-
-            }
-            .setNeutralButton("cerrar") { dialog, which ->
-                dialog.cancel()
-            }
-            .setPositiveButton("Pedir"){ dialog, which ->
-
-            }*/
     }
 
 

@@ -45,7 +45,6 @@ public class AdapterLibros  extends RecyclerView.Adapter<AdapterLibros.ViewHolde
         TextView textviewTitulo = holder.getTextview_titulo();
         TextView textViewAutor= holder.getTextView_autor();
         TextView textViewIsbn = holder.getTextView_isbn();
-        Button buttonejemplares = holder.getButtonejemplares();
 
         textviewTitulo.setText(lista.get(position).getTitulo());
         textViewAutor.setText(lista.get(position).getAutor());
@@ -69,11 +68,6 @@ public class AdapterLibros  extends RecyclerView.Adapter<AdapterLibros.ViewHolde
             }
         });
 
-        buttonejemplares.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
 
     }
 
@@ -87,7 +81,6 @@ public class AdapterLibros  extends RecyclerView.Adapter<AdapterLibros.ViewHolde
         private final TextView textview_titulo;
         private  final TextView textView_autor;
         private  final TextView textView_isbn;
-        private final Button buttonejemplares;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -95,7 +88,7 @@ public class AdapterLibros  extends RecyclerView.Adapter<AdapterLibros.ViewHolde
             textview_titulo = (TextView)itemView.findViewById(R.id.textview_titulo);
             textView_autor = itemView.findViewById(R.id.textview_autor);
             textView_isbn = itemView.findViewById(R.id.textview_isbn);
-            buttonejemplares = itemView.findViewById(R.id.button_ejemplares);
+
 
         }
 
@@ -111,8 +104,6 @@ public class AdapterLibros  extends RecyclerView.Adapter<AdapterLibros.ViewHolde
             return textview_titulo;
         }
 
-
-        public Button getButtonejemplares(){return buttonejemplares;}
     }
 
     public void setOnItemClickListener(View.OnClickListener itemClickListener){

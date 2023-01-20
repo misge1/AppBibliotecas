@@ -73,17 +73,6 @@
                     />
 
 
-                <Button
-                    android:id="@+id/button_ejemplares"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="8dp"
-                    android:text="Ver disponibilidad"
-                    style="@style/Widget.Material3.Button.TextButton"
-                    android:textSize="16sp"
-                    android:textAlignment="center"
-                    />
-
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/boton_pedir"
                     android:layout_width="match_parent"

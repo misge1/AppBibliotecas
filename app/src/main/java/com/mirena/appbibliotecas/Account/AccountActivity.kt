@@ -4,7 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
+import com.mirena.appbibliotecas.FavoritosActivity
 import com.mirena.appbibliotecas.LoginActivity
 import com.mirena.appbibliotecas.R
 import com.mirena.appbibliotecas.SessionManager
@@ -13,6 +15,7 @@ import com.mirena.appbibliotecas.retrofit.RetrofitInstance
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.w3c.dom.Text
 
 class AccountActivity : AppCompatActivity() {
     private lateinit var titulo_textview: TextView
@@ -22,8 +25,13 @@ class AccountActivity : AppCompatActivity() {
     private lateinit var email_textview: TextView
     private lateinit var domicilio_textview: TextView
     private lateinit var localidad_textview: TextView
+    private lateinit var cp_textview: TextView
     private lateinit var sessionManager: SessionManager
     private lateinit var cerrar_sesion_button: Button
+    private lateinit var boton_favorito: ImageButton
+    private lateinit var boton_recogida: ImageButton
+    private lateinit var boton_edit: ImageButton
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +44,11 @@ class AccountActivity : AppCompatActivity() {
         email_textview = findViewById(R.id.email_text)
         domicilio_textview = findViewById(R.id.domicilio_text)
         localidad_textview = findViewById(R.id.localidad_text)
+        cp_textview = findViewById(R.id.cp_text)
         cerrar_sesion_button = findViewById(R.id.cerrar_sesion_button)
+        boton_favorito = findViewById(R.id.boton_favoritos)
+        boton_recogida = findViewById(R.id.boton_recogida)
+        boton_edit = findViewById(R.id.edit_information)
 
         sessionManager = SessionManager(this)
 
@@ -55,6 +67,9 @@ class AccountActivity : AppCompatActivity() {
                             telefono_textview.text = usuario.telefono
                             email_textview.text = usuario.email
                             domicilio_textview.text = usuario.domicilio
+                            localidad_textview.text = usuario.localidad
+                            cp_textview.text = usuario.codigo_postal
+
                         }
                     }
                 }
@@ -66,6 +81,14 @@ class AccountActivity : AppCompatActivity() {
             val intent = Intent(this, LoginActivity::class.java)
             finish()
             startActivity(intent)
+        }
+
+        boton_favorito.setOnClickListener {
+            val intent = Intent(this, FavoritosActivity::class.java)
+            startActivity(intent)
+        }
+
+        boton_edit.setOnClickListener {
 
         }
     }

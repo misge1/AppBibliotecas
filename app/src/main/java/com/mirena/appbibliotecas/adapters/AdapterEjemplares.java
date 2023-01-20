@@ -42,7 +42,7 @@ public class AdapterEjemplares extends RecyclerView.Adapter<AdapterEjemplares.Vi
         TextView textViewCantidad = holder.getTextViewCantidad();
 
         textViewBiblioteca.setText(lista.get(position).getBiblioteca());
-        textViewCantidad.setText(String.valueOf(lista.get(position).getEjemplares()));
+
 
         holder.elegirButton.setOnClickListener(new View.OnClickListener() {
             @Override

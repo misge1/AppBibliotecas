@@ -2,13 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-    <item android:title="cesta"
-        android:id="@+id/cesta"
-        android:icon="@drawable/cart_icon"
-        app:showAsAction="always">
-    </item>
-
     <item android:title="@string/usuario"
         android:id="@+id/usuario"
         android:icon="@drawable/icon_user"

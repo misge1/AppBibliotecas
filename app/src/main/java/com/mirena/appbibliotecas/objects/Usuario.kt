@@ -8,6 +8,8 @@ package com.mirena.appbibliotecas.objects
     var fecha_baja: String?,
     var telefono: String,
     var domicilio: String,
+    var codigo_postal: String,
+    var localidad: String,
     var email: String,
     var password: String,
     var foto: String?
@@ -15,6 +17,6 @@ package com.mirena.appbibliotecas.objects
 
     constructor() : this(0,"" ,0,
        "", "", "",
-       "", "", "", ""
+       "","", "", "", "", ""
     )
 }

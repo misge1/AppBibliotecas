@@ -41,7 +41,7 @@ private lateinit var binding: ActivityScrollingBinding
         binding = ActivityScrollingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        searchView = binding.searchView
+        searchView = binding.searchViewScrolling
 
         setSupportActionBar(findViewById(R.id.toolbar))
 

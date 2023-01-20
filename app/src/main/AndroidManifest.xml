@@ -18,6 +18,11 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".FavoritosActivity"
+            android:exported="false"
+            android:label="@string/title_activity_favoritos"
+            android:theme="@style/Theme.AppBibliotecas.NoActionBar" />
+        <activity
             android:name=".PedidoActivity"
             android:exported="false" />
         <activity

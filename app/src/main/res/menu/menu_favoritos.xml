@@ -1,7 +1,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.mirena.appbibliotecas.SubgenerosActivity">
+    tools:context="com.mirena.appbibliotecas.FavoritosActivity">
+
     <item
         android:title="@string/home"
         android:icon="@drawable/home_icon"

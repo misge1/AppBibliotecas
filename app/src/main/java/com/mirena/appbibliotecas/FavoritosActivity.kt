@@ -9,58 +9,70 @@ import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mirena.appbibliotecas.Account.AccountActivity
-import com.mirena.appbibliotecas.adapters.AdapterGeneros
 import com.mirena.appbibliotecas.adapters.AdapterLibros
-import com.mirena.appbibliotecas.databinding.ActivitySubgenerosBinding
-import com.mirena.appbibliotecas.objects.Generos
+import com.mirena.appbibliotecas.databinding.ActivityFavoritosBinding
 import com.mirena.appbibliotecas.objects.LibroPre
 import com.mirena.appbibliotecas.retrofit.RetrofitInstance
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class SubgenerosActivity : AppCompatActivity() {
+class FavoritosActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivitySubgenerosBinding
-    lateinit var librosAdapter: AdapterLibros
-    private lateinit var context: Context
+    private lateinit var binding: ActivityFavoritosBinding
     private lateinit var sessionManager: SessionManager
+    private lateinit var favoritosViewModel: FavoritosViewModel
+    private lateinit var mAdapter: AdapterLibros
+    private lateinit var context: Context
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivitySubgenerosBinding.inflate(layoutInflater)
+
+        binding = ActivityFavoritosBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(findViewById(R.id.toolbar))
         context = this
 
-        val id_genero = intent.getIntExtra("id_genero", 0)
+
         sessionManager = SessionManager(this)
 
+        setSupportActionBar(findViewById(R.id.toolbar))
+
+        favoritosViewModel = ViewModelProvider(this)[FavoritosViewModel::class.java]
+
         CoroutineScope(Dispatchers.IO).launch {
-            val callibro = RetrofitInstance.api.getLibrosSubgenero(id_genero)
-            var listaLibros = listOf<LibroPre>()
+
+            val call = RetrofitInstance.api.getFavoritos(sessionManager.fetchAuthToken())
+            var listafaovritos = listOf<LibroPre>()
 
             runOnUiThread{
 
-                if (callibro.isSuccessful){
-                    callibro.body().let {
-                        if (it != null){
-                            listaLibros = it
-                            val recyclerviewlibros =
-                                findViewById<RecyclerView>(R.id.recyclerview_libros_subgenero)
-                            recyclerviewlibros.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                            librosAdapter = AdapterLibros(context, listaLibros)
-                            recyclerviewlibros.adapter = librosAdapter
+                if (call.isSuccessful){
+                    call.body().let {
+                        if (it!=null){
+                            listafaovritos= it
+                            val mrecyclerview = findViewById<RecyclerView>(R.id.recyclerview_libros_subgenero)
+
+                            mrecyclerview.layoutManager = LinearLayoutManager(context)
+                            mAdapter = AdapterLibros(context, listafaovritos)
+                            mrecyclerview.adapter = mAdapter
                         }
+
                     }
                 }
+
             }
+
         }
+        //var listaFavoritos = favoritosViewModel.getFavoritos()
+
+
+
 
     }
 
