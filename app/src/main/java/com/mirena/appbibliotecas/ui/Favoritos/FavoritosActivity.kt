@@ -1,18 +1,18 @@
-package com.mirena.appbibliotecas
+package com.mirena.appbibliotecas.ui.Favoritos
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import com.google.android.material.appbar.CollapsingToolbarLayout
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mirena.appbibliotecas.Account.AccountActivity
+import com.mirena.appbibliotecas.ui.Login.LoginActivity
+import com.mirena.appbibliotecas.R
+import com.mirena.appbibliotecas.SessionManager
+import com.mirena.appbibliotecas.ui.Account.AccountActivity
 import com.mirena.appbibliotecas.adapters.AdapterLibros
 import com.mirena.appbibliotecas.databinding.ActivityFavoritosBinding
 import com.mirena.appbibliotecas.objects.LibroPre

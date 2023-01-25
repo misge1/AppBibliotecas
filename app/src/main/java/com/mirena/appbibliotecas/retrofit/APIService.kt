@@ -41,5 +41,13 @@ interface APIService {
     @DELETE("/deletefavoritos")
     fun deleteFavorito(@Query("id_libro") id_libro: Int, @Query("id_usuario") id_usuario: Int): Call<ResponseBody>
 
+    @GET("/getEjemplar")
+    suspend fun getEjemplar(@Query("id_libro") id_libro: Int, @Query("id_biblioteca") id_biblioteca: Int): Response<Ejemplar>
+
+    @POST("/crearPrestamo")
+    fun crearNuevoPrestamo(@Body prestamo: Prestamo): Call<ResponseBody>
+
+    @GET("/getPrestamo")
+    suspend fun getPrestamo(@Path("id") id: Int): Response<List<Prestamo>>
 
 }

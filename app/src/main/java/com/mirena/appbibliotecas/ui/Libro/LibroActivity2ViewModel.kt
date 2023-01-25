@@ -1,4 +1,4 @@
-package com.mirena.appbibliotecas
+package com.mirena.appbibliotecas.ui.Libro
 
 import android.app.Activity
 import android.app.Application
@@ -6,13 +6,13 @@ import android.content.Context
 import android.content.Intent
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
-import com.mirena.appbibliotecas.Account.AccountActivity
+import com.mirena.appbibliotecas.ui.Login.LoginActivity
+import com.mirena.appbibliotecas.SessionManager
 import com.mirena.appbibliotecas.objects.Favoritos
 import com.mirena.appbibliotecas.retrofit.RetrofitInstance
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
-import javax.security.auth.callback.Callback
 
 class LibroActivity2ViewModel(application: Application): AndroidViewModel(application) {
 

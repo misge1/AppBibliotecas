@@ -1,10 +1,8 @@
-package com.mirena.appbibliotecas
+package com.mirena.appbibliotecas.ui.Libro
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.ColorFilter
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
@@ -13,34 +11,21 @@ import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
-import com.google.android.material.appbar.CollapsingToolbarLayout
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.mirena.appbibliotecas.Account.AccountActivity
-import com.mirena.appbibliotecas.adapters.AdapterLibros
+import com.mirena.appbibliotecas.*
+import com.mirena.appbibliotecas.ui.Account.AccountActivity
 import com.mirena.appbibliotecas.databinding.ActivityLibro2Binding
 import com.mirena.appbibliotecas.objects.Biblioteca
 import com.mirena.appbibliotecas.objects.Favoritos
-import com.mirena.appbibliotecas.objects.LibroPre
-import com.mirena.appbibliotecas.objects.Prestamo
 import com.mirena.appbibliotecas.retrofit.RetrofitInstance
+import com.mirena.appbibliotecas.ui.Login.LoginActivity
+import com.mirena.appbibliotecas.ui.Pedido.PedidoActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
-import org.w3c.dom.Text
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.Month
-import java.util.*
 import kotlin.collections.ArrayList
 
 class LibroActivity2 : AppCompatActivity() {
@@ -102,6 +87,9 @@ class LibroActivity2 : AppCompatActivity() {
         textview_idioma.text = idioma
         textview_editorial.text = editorial
 
+        val intent = Intent(context, PedidoActivity::class.java)
+        intent.putExtra("id_libro", id)
+
         CoroutineScope(Dispatchers.IO).launch {
             val calldisponibilidad = RetrofitInstance.api.getDisponibilidad(id)
             var listaBiblios = listOf<Biblioteca>()
@@ -119,24 +107,21 @@ class LibroActivity2 : AppCompatActivity() {
 
                             }
                             val arrayLibros = listalibros.toTypedArray()
-                            val checkedItem = 0
-                            var id_biblio: Int = 0
+                            var checkedItem = -1
+
 
                             materialDialog = MaterialAlertDialogBuilder(context)
                                 .setTitle(resources.getString(R.string.bibliotecas))
                                 .setSingleChoiceItems(arrayLibros, checkedItem){ dialog, which ->
-                                    val choice = arrayLibros[checkedItem]
-                                    id_biblio = listaBiblios.find { it.biblioteca==choice }!!.id_bilioteca
+                                    var choice = arrayLibros[which]
+                                    var id_biblio = listaBiblios.find { it.biblioteca==choice }!!.id_biblioteca
+                                    intent.putExtra("id_biblioteca", id_biblio)
                                 }
                                 .setNeutralButton("cerrar") { dialog, which ->
                                     dialog.cancel()
                                 }
                                 .setPositiveButton("Pedir"){ dialog, which ->
-                                    val intent = Intent(context, PedidoActivity::class.java)
-                                    intent.putExtra("id_biblioteca", id_biblio)
                                     startActivity(intent)
-
-
                                 }
                         }
                     }

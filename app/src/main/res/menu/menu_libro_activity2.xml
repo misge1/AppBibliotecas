@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.mirena.appbibliotecas.LibroActivity2">
+    tools:context="com.mirena.appbibliotecas.ui.Libro.LibroActivity2">
     <item
         android:title="@string/home"
         android:icon="@drawable/home_icon"

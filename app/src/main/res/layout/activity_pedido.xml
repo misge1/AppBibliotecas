@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".PedidoActivity">
+    tools:context=".ui.Pedido.PedidoActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
@@ -25,27 +25,39 @@
             >
         </androidx.appcompat.widget.Toolbar>
 
+
+
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.core.widget.NestedScrollView
+    <include
+        android:id="@+id/layout_pedido"
+        layout="@layout/pedido_content_scrolling"/>
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottom_app_bar2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        >
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:backgroundTint="@color/white"
+        style="@style/Widget.MaterialComponents.BottomAppBar.Colored">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview_prestamos"
+
+        <Button
+            android:id="@+id/button_finalizar_pedido"
             android:layout_width="match_parent"
-            app:layout_anchorGravity="bottom"
-            app:layout_anchor="@id/toolbar"
-            android:nestedScrollingEnabled="true"
-            android:scrollbars="vertical"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_margin="8dp"
+            android:backgroundTint="@color/purple_500"
+            android:text="Finalizar Pedido"
+            >
+        </Button>
 
-        </androidx.recyclerview.widget.RecyclerView>
 
 
-    </androidx.core.widget.NestedScrollView>
+    </com.google.android.material.bottomappbar.BottomAppBar>
+
+
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

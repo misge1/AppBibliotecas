@@ -1,8 +1,9 @@
-package com.mirena.appbibliotecas
+package com.mirena.appbibliotecas.ui.Favoritos
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.mirena.appbibliotecas.SessionManager
 import com.mirena.appbibliotecas.objects.LibroPre
 import com.mirena.appbibliotecas.retrofit.RetrofitInstance
 import kotlinx.coroutines.launch

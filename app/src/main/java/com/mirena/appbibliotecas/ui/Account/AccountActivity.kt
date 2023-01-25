@@ -1,4 +1,4 @@
-package com.mirena.appbibliotecas.Account
+package com.mirena.appbibliotecas.ui.Account
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
-import com.mirena.appbibliotecas.FavoritosActivity
-import com.mirena.appbibliotecas.LoginActivity
+import com.mirena.appbibliotecas.ui.Favoritos.FavoritosActivity
+import com.mirena.appbibliotecas.ui.Login.LoginActivity
 import com.mirena.appbibliotecas.R
 import com.mirena.appbibliotecas.SessionManager
 import com.mirena.appbibliotecas.objects.Usuario
@@ -15,7 +15,6 @@ import com.mirena.appbibliotecas.retrofit.RetrofitInstance
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.w3c.dom.Text
 
 class AccountActivity : AppCompatActivity() {
     private lateinit var titulo_textview: TextView

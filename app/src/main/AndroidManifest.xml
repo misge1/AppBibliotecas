@@ -18,12 +18,17 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".FavoritosActivity"
+            android:name=".ui.Prestamos.PrestamosRecogerActivity"
+            android:exported="false"
+            android:label="@string/title_activity_prestamos"
+            android:theme="@style/Theme.AppBibliotecas.NoActionBar" />
+        <activity
+            android:name=".ui.Favoritos.FavoritosActivity"
             android:exported="false"
             android:label="@string/title_activity_favoritos"
             android:theme="@style/Theme.AppBibliotecas.NoActionBar" />
         <activity
-            android:name=".PedidoActivity"
+            android:name=".ui.Pedido.PedidoActivity"
             android:exported="false" />
         <activity
             android:name=".SubgenerosActivity"
@@ -31,7 +36,7 @@
             android:label="@string/title_activity_subgeneros"
             android:theme="@style/Theme.AppBibliotecas.NoActionBar" />
         <activity
-            android:name=".LibroActivity2"
+            android:name=".ui.Libro.LibroActivity2"
             android:exported="false"
             android:label="@string/title_activity_libro2"
             android:theme="@style/Theme.AppBibliotecas.NoActionBar" />
@@ -47,13 +52,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Account.AccountActivity"
+            android:name="com.mirena.appbibliotecas.ui.Account.AccountActivity"
             android:exported="false" />
         <activity
             android:name=".SearchActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".ui.Login.LoginActivity"
             android:exported="false" />
     </application>
 

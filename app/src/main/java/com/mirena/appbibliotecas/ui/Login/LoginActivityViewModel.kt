@@ -1,4 +1,4 @@
-package com.mirena.appbibliotecas
+package com.mirena.appbibliotecas.ui.Login
 
 import android.app.Activity
 import android.app.Application
@@ -6,7 +6,8 @@ import android.content.Context
 import android.content.Intent
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
-import com.mirena.appbibliotecas.Account.AccountActivity
+import com.mirena.appbibliotecas.SessionManager
+import com.mirena.appbibliotecas.ui.Account.AccountActivity
 import com.mirena.appbibliotecas.objects.Usuario
 import com.mirena.appbibliotecas.retrofit.RetrofitInstance
 import retrofit2.Call

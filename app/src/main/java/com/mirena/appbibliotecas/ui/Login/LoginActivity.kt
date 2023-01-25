@@ -1,13 +1,12 @@
-package com.mirena.appbibliotecas
+package com.mirena.appbibliotecas.ui.Login
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import org.w3c.dom.Text
+import com.mirena.appbibliotecas.R
 
 class LoginActivity : AppCompatActivity() {
 

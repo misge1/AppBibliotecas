@@ -10,7 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mirena.appbibliotecas.LibroActivity2;
 import com.mirena.appbibliotecas.R;
 import com.mirena.appbibliotecas.SubgenerosActivity;
 import com.mirena.appbibliotecas.objects.Generos;

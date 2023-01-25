@@ -9,13 +9,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mirena.appbibliotecas.Account.AccountActivity
+import com.mirena.appbibliotecas.ui.Account.AccountActivity
 import com.mirena.appbibliotecas.adapters.AdapterGeneros
 import com.mirena.appbibliotecas.adapters.AdapterLibros
 import com.mirena.appbibliotecas.databinding.ActivityScrollingBinding
 import com.mirena.appbibliotecas.objects.Generos
 import com.mirena.appbibliotecas.objects.LibroPre
 import com.mirena.appbibliotecas.retrofit.RetrofitInstance
+import com.mirena.appbibliotecas.ui.Login.LoginActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
