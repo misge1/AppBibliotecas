@@ -6,20 +6,42 @@ import android.content.Context
 import android.content.Intent
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.viewModelScope
 import com.mirena.appbibliotecas.ui.Login.LoginActivity
 import com.mirena.appbibliotecas.SessionManager
+import com.mirena.appbibliotecas.objects.Biblioteca
 import com.mirena.appbibliotecas.objects.Favoritos
 import com.mirena.appbibliotecas.retrofit.RetrofitInstance
+import com.mirena.appbibliotecas.retrofit.RetrofitRepository
+import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
+import kotlinx.coroutines.flow.Flow
+import androidx.lifecycle.asFlow
 
 class LibroActivity2ViewModel(application: Application): AndroidViewModel(application) {
 
     lateinit var sessionManager: SessionManager
+    private lateinit var retrofitRepository: RetrofitRepository
+    private lateinit var disponibilidadlivedata: LiveData<List<Biblioteca>>
 
     init {
         sessionManager = SessionManager(application.applicationContext)
+        retrofitRepository = RetrofitRepository(application.applicationContext)
+        disponibilidadlivedata = retrofitRepository.getDisponibilidadLiveData()
+    }
+
+
+    fun getDisponibilidad(id: Int){
+        viewModelScope.launch {
+            retrofitRepository.getDisponibilidad(id)
+        }
+    }
+
+    fun getDisponibilidadLivedata(): Flow<List<Biblioteca>>{
+        return disponibilidadlivedata.asFlow()
     }
 
     fun addFavoritos(favoritos: Favoritos, context: Context, contextActivity: Context){

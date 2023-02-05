@@ -10,12 +10,15 @@
     android:fillViewport="true"
     android:clipToPadding="false"
     android:paddingBottom="100dp"
-    tools:context=".ui.Prestamos.PrestamosRecogerActivity">
+    tools:context=".ui.Prestamos.ARecoger.PrestamosRecogerActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_prestamos"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:nestedScrollingEnabled="true"
+        android:scrollbars="vertical"
+        >
 
     </androidx.recyclerview.widget.RecyclerView>
 </androidx.core.widget.NestedScrollView>

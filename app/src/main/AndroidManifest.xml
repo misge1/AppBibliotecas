@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.mirena.appbibliotecas">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -18,14 +19,40 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ui.Prestamos.PrestamosRecogerActivity"
+            android:name=".ui.SplashScreen.SplashScreen"
+            android:exported="true"
+            android:theme="@style/SplashStyle">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ui.Ajustes.AjustesActivity"
             android:exported="false"
-            android:label="@string/title_activity_prestamos"
+            android:label=""
+            android:theme="@style/Theme.AppBibliotecas.NoActionBar" />
+        <activity
+            android:name=".ui.Prestamos.Adevolver.PrestamosAdevolverActivity"
+            android:exported="false"
+            android:label=""
+            android:theme="@style/Theme.AppBibliotecas.NoActionBar" />
+        <activity
+            android:name=".ui.Prestamos.EnCurso.PrestamosEnCursoActivity"
+            android:exported="false"
+            android:label=""
+            android:theme="@style/Theme.AppBibliotecas.NoActionBar" />
+        <activity
+            android:name=".ui.Prestamos.ARecoger.PrestamosRecogerActivity"
+            android:exported="false"
+            android:label=""
             android:theme="@style/Theme.AppBibliotecas.NoActionBar" />
         <activity
             android:name=".ui.Favoritos.FavoritosActivity"
             android:exported="false"
-            android:label="@string/title_activity_favoritos"
+            android:label=""
             android:theme="@style/Theme.AppBibliotecas.NoActionBar" />
         <activity
             android:name=".ui.Pedido.PedidoActivity"
@@ -33,27 +60,24 @@
         <activity
             android:name=".SubgenerosActivity"
             android:exported="false"
-            android:label="@string/title_activity_subgeneros"
+            android:label=""
             android:theme="@style/Theme.AppBibliotecas.NoActionBar" />
         <activity
             android:name=".ui.Libro.LibroActivity2"
             android:exported="false"
-            android:label="@string/title_activity_libro2"
+            android:label=""
             android:theme="@style/Theme.AppBibliotecas.NoActionBar" />
         <activity
-            android:name=".ScrollingActivity"
-            android:exported="true"
+            android:name=".ui.MainActivity.ScrollingActivity"
+            android:exported="false"
             android:label=""
             android:theme="@style/Theme.AppBibliotecas.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.mirena.appbibliotecas.ui.Account.AccountActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label=""
+            android:theme="@style/Theme.AppBibliotecas.NoActionBar" />
         <activity
             android:name=".SearchActivity"
             android:exported="false" />

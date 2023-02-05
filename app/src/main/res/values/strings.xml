@@ -111,4 +111,8 @@
     <string name="title_activity_favoritos">FavoritosActivity</string>
     <string name="home">home</string>
     <string name="title_activity_prestamos">PrestamosActivity</string>
+    <string name="title_activity_prestamos_en_curso">PrestamosEnCursoActivity</string>
+    <string name="title_activity_prestamos_adevolver">PrestamosAdevolverActivity</string>
+    <string name="ajustes">ajustes</string>
+    <string name="title_activity_ajustes">AjustesActivity</string>
 </resources>

@@ -10,7 +10,7 @@
     android:fillViewport="true"
     android:paddingBottom="100dp"
     android:clipToPadding="false"
-    tools:context=".ScrollingActivity">
+    tools:context=".ui.MainActivity.ScrollingActivity">
 
     <LinearLayout
 

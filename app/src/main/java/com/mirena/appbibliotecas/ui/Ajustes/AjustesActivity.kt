@@ -1,4 +1,4 @@
-package com.mirena.appbibliotecas.ui.Prestamos
+package com.mirena.appbibliotecas.ui.Ajustes
 
 import android.os.Bundle
 import com.google.android.material.appbar.CollapsingToolbarLayout
@@ -6,19 +6,20 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import com.mirena.appbibliotecas.R
-import com.mirena.appbibliotecas.databinding.ActivityPrestamosRecogerBinding
+import com.mirena.appbibliotecas.databinding.ActivityAjustesBinding
 
-class PrestamosRecogerActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityPrestamosRecogerBinding
+class AjustesActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityAjustesBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityPrestamosRecogerBinding.inflate(layoutInflater)
+        binding = ActivityAjustesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(findViewById(R.id.toolbar))
+        setSupportActionBar(findViewById(R.id.toolbar_ajustes))
 
     }
 }

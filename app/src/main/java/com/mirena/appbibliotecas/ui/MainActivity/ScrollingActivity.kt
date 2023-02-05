@@ -1,4 +1,4 @@
-package com.mirena.appbibliotecas
+package com.mirena.appbibliotecas.ui.MainActivity
 
 import android.content.Context
 import android.content.Intent
@@ -7,8 +7,11 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.mirena.appbibliotecas.R
+import com.mirena.appbibliotecas.SessionManager
 import com.mirena.appbibliotecas.ui.Account.AccountActivity
 import com.mirena.appbibliotecas.adapters.AdapterGeneros
 import com.mirena.appbibliotecas.adapters.AdapterLibros
@@ -19,6 +22,8 @@ import com.mirena.appbibliotecas.retrofit.RetrofitInstance
 import com.mirena.appbibliotecas.ui.Login.LoginActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlin.math.abs
 
@@ -32,6 +37,7 @@ private lateinit var binding: ActivityScrollingBinding
     lateinit var collapsedMenu: Menu
     lateinit var searchView: SearchView
     private lateinit var sessionManager: SessionManager
+    private lateinit var scrollingActivityViewModel: ScrollingActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,41 +50,51 @@ private lateinit var binding: ActivityScrollingBinding
 
         searchView = binding.searchViewScrolling
 
+        scrollingActivityViewModel = ViewModelProvider(this)[ScrollingActivityViewModel::class.java]
+
+        scrollingActivityViewModel.getGeneros()
+        scrollingActivityViewModel.getLibrosRandom()
+
         setSupportActionBar(findViewById(R.id.toolbar))
 
         CoroutineScope(Dispatchers.IO).launch {
-            val calls = RetrofitInstance.api.getGeneros()
-            val callibro = RetrofitInstance.api.getRandomLibros()
+
             var listaNoticias = listOf<Generos>()
             var listaLibros = listOf<LibroPre>()
 
-            runOnUiThread{
-                if (calls.isSuccessful ) {
-                    calls.body().let {
-                        if (it != null) {
-                            listaNoticias = it
-                            val mrecyclerview =
-                                findViewById<RecyclerView>(R.id.recyclerview_gender)
-                            mrecyclerview.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                            mAdapter = AdapterGeneros(context, listaNoticias);
-                            mrecyclerview.adapter = mAdapter
-                        }
-                    }
-                }
+            scrollingActivityViewModel.getgenerosflow().collectLatest {
+                listaNoticias = it
+                runOnUiThread {
 
-                if (callibro.isSuccessful){
-                    callibro.body().let {
-                        if (it != null){
-                            listaLibros = it
-                            val recyclerviewlibros =
-                                findViewById<RecyclerView>(R.id.recyclerview_novedades)
-                            recyclerviewlibros.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                            librosAdapter = AdapterLibros(context, listaLibros)
-                            recyclerviewlibros.adapter = librosAdapter
-                        }
-                    }
+                    val mrecyclerview =
+                        findViewById<RecyclerView>(R.id.recyclerview_gender)
+                    mrecyclerview.layoutManager =
+                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                    mAdapter = AdapterGeneros(context, listaNoticias);
+                    mrecyclerview.adapter = mAdapter
+
                 }
             }
+
+
+        }
+
+        CoroutineScope(Dispatchers.IO).launch{
+            var listaLibros = listOf<LibroPre>()
+            scrollingActivityViewModel.getLibrosFlow().collectLatest {
+                listaLibros = it
+
+                runOnUiThread {
+                    val recyclerviewlibros =
+                        findViewById<RecyclerView>(R.id.recyclerview_novedades)
+                    recyclerviewlibros.layoutManager =
+                        LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                    librosAdapter = AdapterLibros(context, listaLibros)
+                    recyclerviewlibros.adapter = librosAdapter
+                }
+
+            }
+
         }
 
         binding.appBar.addOnOffsetChangedListener { appBarLayout, verticalOffset ->

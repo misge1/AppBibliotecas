@@ -25,8 +25,10 @@ import com.mirena.appbibliotecas.ui.Login.LoginActivity
 import com.mirena.appbibliotecas.ui.Pedido.PedidoActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlin.collections.ArrayList
+import androidx.lifecycle.lifecycleScope
 
 class LibroActivity2 : AppCompatActivity() {
 
@@ -52,9 +54,12 @@ class LibroActivity2 : AppCompatActivity() {
         context = this
         sessionManager = SessionManager(this)
 
+        setSupportActionBar(findViewById(R.id.toolbar_libro))
+
         libroActivity2ViewModel = ViewModelProvider(this).get(
             LibroActivity2ViewModel::class.java
         )
+
 
         val myDrawable = ContextCompat.getDrawable(context, R.drawable.favorito_icono)
         val colorFavoritos = PorterDuffColorFilter(Color.RED, PorterDuff.Mode.SRC_IN)
@@ -90,47 +95,62 @@ class LibroActivity2 : AppCompatActivity() {
         val intent = Intent(context, PedidoActivity::class.java)
         intent.putExtra("id_libro", id)
 
+        //libroActivity2ViewModel.getDisponibilidad(id)
+
         CoroutineScope(Dispatchers.IO).launch {
-            val calldisponibilidad = RetrofitInstance.api.getDisponibilidad(id)
-            var listaBiblios = listOf<Biblioteca>()
+            var listalibros: ArrayList<String> = ArrayList<String>()
+            var listaBiblios: List<Biblioteca> = listOf<Biblioteca>()
 
-            runOnUiThread{
+            val call = RetrofitInstance.api.getDisponibilidad(id)
 
-                var listalibros = ArrayList<String>()
+            /*libroActivity2ViewModel.getDisponibilidadLivedata().collectLatest {
+                listaBiblios = it
 
-                if (calldisponibilidad.isSuccessful){
-                    calldisponibilidad.body().let {
-                        if (it != null){
+            }*/
+
+            runOnUiThread {
+
+                if (call.isSuccessful){
+                    call.body().let {
+                        if (it!=null){
                             listaBiblios = it
-                            listaBiblios.forEach{
-                                listalibros.add(it.biblioteca)
-
-                            }
-                            val arrayLibros = listalibros.toTypedArray()
-                            var checkedItem = -1
-
-
-                            materialDialog = MaterialAlertDialogBuilder(context)
-                                .setTitle(resources.getString(R.string.bibliotecas))
-                                .setSingleChoiceItems(arrayLibros, checkedItem){ dialog, which ->
-                                    var choice = arrayLibros[which]
-                                    var id_biblio = listaBiblios.find { it.biblioteca==choice }!!.id_biblioteca
-                                    intent.putExtra("id_biblioteca", id_biblio)
-                                }
-                                .setNeutralButton("cerrar") { dialog, which ->
-                                    dialog.cancel()
-                                }
-                                .setPositiveButton("Pedir"){ dialog, which ->
-                                    startActivity(intent)
-                                }
                         }
                     }
+
+                    listaBiblios.forEach {
+                        listalibros.add(it.biblioteca)
+                    }
+
+                    var checkedItem = -1
+                    val arrayLibros = listalibros.toTypedArray()
+
+                    materialDialog = MaterialAlertDialogBuilder(context)
+                        .setTitle(resources.getString(R.string.bibliotecas))
+                        .setSingleChoiceItems(arrayLibros, checkedItem) { dialog, which ->
+                            var choice = arrayLibros[which]
+                            var id_biblio =
+                                listaBiblios.find { it.biblioteca == choice }!!.id_biblioteca
+                            intent.putExtra("id_biblioteca", id_biblio)
+                        }
+                        .setNeutralButton("cerrar") { dialog, which ->
+                            dialog.cancel()
+                        }
+                        .setPositiveButton("Pedir") { dialog, which ->
+                            startActivity(intent)
+                        }
                 }
+
             }
         }
 
+
         butonejemplares.setOnClickListener {
-           materialDialog.show()
+            if(sessionManager.fetchAuthToken()==0){
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+            }else{
+                materialDialog.show()
+            }
         }
 
         val savedStateButton = sessionManager.fetchButtonState()
@@ -151,10 +171,6 @@ class LibroActivity2 : AppCompatActivity() {
                 sessionManager.saveButtonState(0)
                 libroActivity2ViewModel.deletefavoritos(id,sessionManager.fetchAuthToken(), applicationContext, this)
             }
-
-
-
-
         }
 
     }

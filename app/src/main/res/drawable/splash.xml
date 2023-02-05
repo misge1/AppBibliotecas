@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item >
+        <shape>
+            <gradient
+                android:gradientRadius="300dp"
+                android:startColor="#FFFFFF"
+                android:endColor="#FFFFFF"
+                android:type="radial" />
+        </shape>
+    </item>
+
+    <item>
+        <bitmap android:src="@drawable/logo_atenea" android:gravity="center">
+
+        </bitmap>
+    </item>
+
+</layer-list>

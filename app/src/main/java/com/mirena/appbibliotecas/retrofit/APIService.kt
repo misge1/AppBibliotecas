@@ -47,7 +47,16 @@ interface APIService {
     @POST("/crearPrestamo")
     fun crearNuevoPrestamo(@Body prestamo: Prestamo): Call<ResponseBody>
 
-    @GET("/getPrestamo")
-    suspend fun getPrestamo(@Path("id") id: Int): Response<List<Prestamo>>
+    @GET("/getPrestamoARecoger/{id}")
+    suspend fun getPrestamoARecoger(@Path("id") id: Int): Response<List<PrestamoUsuario>>
+
+    @GET("/getPrestamosCurso/{id}")
+    suspend fun getPrestamosCurso(@Path("id") id: Int): Response<List<PrestamoUsuario>>
+
+    @GET("/getPrestamosDevolver/{id}")
+    suspend fun getPrestamosDevolver(@Path("id") id: Int): Response<List<PrestamoUsuario>>
+
+    @GET("/comprobarfavoritos")
+    suspend fun comprobarfavoritos(@Query("id_libro") id_libro: Int, @Query("id_usuario") id_usuario: Int): Response<String>
 
 }

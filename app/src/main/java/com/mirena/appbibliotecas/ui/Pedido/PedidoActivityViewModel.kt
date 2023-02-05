@@ -4,13 +4,39 @@ import android.app.Application
 import android.content.Context
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import com.mirena.appbibliotecas.objects.Ejemplar
 import com.mirena.appbibliotecas.objects.Prestamo
 import com.mirena.appbibliotecas.retrofit.RetrofitInstance
+import com.mirena.appbibliotecas.retrofit.RetrofitRepository
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
+import kotlinx.coroutines.flow.Flow
+import androidx.lifecycle.asFlow
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 
 class PedidoActivityViewModel(application: Application): AndroidViewModel(application) {
+
+    private lateinit var retrofitRepository: RetrofitRepository
+    private lateinit var ejemplarLiveData: LiveData<Ejemplar>
+
+    init {
+        retrofitRepository = RetrofitRepository(application.applicationContext)
+        ejemplarLiveData = retrofitRepository.getEjemplaresLivedata()
+    }
+
+    fun getEjemplar(id_libro: Int, id_biblioteca:Int) {
+        viewModelScope.launch {
+            retrofitRepository.getEjemplares(id_libro, id_biblioteca)
+        }
+    }
+
+    fun getEjemplarFlow():Flow<Ejemplar> {
+        return ejemplarLiveData.asFlow()
+
+    }
 
     fun crearNuevoPrestamo(prestamo: Prestamo, context: Context, contextactivity: Context){
         val call = RetrofitInstance.api.crearNuevoPrestamo(prestamo)
@@ -33,7 +59,7 @@ class PedidoActivityViewModel(application: Application): AndroidViewModel(applic
 
             }
         )
-
-
     }
+
+
 }

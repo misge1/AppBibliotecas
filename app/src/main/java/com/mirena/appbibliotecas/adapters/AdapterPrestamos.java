@@ -44,11 +44,13 @@ public class AdapterPrestamos extends RecyclerView.Adapter<AdapterPrestamos.View
         TextView textViewFechaPrestamo = holder.getTextView_fecha_prestamo();
         TextView textViewFechaRecogida = holder.getTextView_fecha_recogida();
         TextView textViewFechaDevolucion = holder.getTextView_fecha_devolucion();
+        TextView textViewLocalizacion = holder.getTextView_localizacion();
 
         textViewTitulo.setText(lista.get(position).getTitulo());
         textViewFechaPrestamo.setText(lista.get(position).getFecha_prestamo());
         textViewFechaRecogida.setText(lista.get(position).getFecha_recogida());
         textViewFechaDevolucion.setText(lista.get(position).getFecha_devolucion());
+        textViewLocalizacion.setText(lista.get(position).getNombre());
 
     }
 
@@ -63,7 +65,7 @@ public class AdapterPrestamos extends RecyclerView.Adapter<AdapterPrestamos.View
         private final TextView textView_fecha_prestamo;
         private final TextView textView_fecha_recogida;
         private final TextView textView_fecha_devolucion;
-
+        private final TextView textView_localizacion;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -71,13 +73,14 @@ public class AdapterPrestamos extends RecyclerView.Adapter<AdapterPrestamos.View
             textView_fecha_prestamo = itemView.findViewById(R.id.textview_fecha_prestamo);
             textView_fecha_recogida = itemView.findViewById(R.id.textview_fecha_recogida);
             textView_fecha_devolucion = itemView.findViewById(R.id.textview_fecha_devolucion);
+            textView_localizacion = itemView.findViewById(R.id.textview_biblioteca_prestamo);
         }
 
         public TextView getTextview_titulo(){return textview_titulo;}
         public TextView getTextView_fecha_prestamo(){return  textView_fecha_prestamo;}
         public TextView getTextView_fecha_recogida(){return  textView_fecha_recogida;}
         public TextView getTextView_fecha_devolucion(){return textView_fecha_devolucion;}
-
+        public TextView getTextView_localizacion(){return textView_localizacion;}
 
         public void setOnItemClickListener(View.OnClickListener itemClickListener){
             mOnItemClickListener = itemClickListener;

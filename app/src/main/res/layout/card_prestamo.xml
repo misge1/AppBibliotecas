@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
@@ -63,7 +63,7 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:text="Fecha límite para recoger el libro"
+                    android:text="Fecha límite de recogida"
                     android:textSize="16sp"
                     android:layout_height="wrap_content"/>
 
@@ -80,7 +80,7 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:text="Fecha límite para devolver el libro"
+                    android:text="Fecha límite de devolución"
                     android:textSize="16sp"
                     android:layout_height="wrap_content"/>
 
@@ -94,6 +94,20 @@
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="10dp"/>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Localización"
+                    />
+
+                <TextView
+                    android:id="@+id/textview_biblioteca_prestamo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="nombre biblioteca"
+                    />
 
                 <Button
                     android:id="@+id/button_cancelar"

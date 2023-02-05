@@ -10,20 +10,19 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.mirena.appbibliotecas.R
 import com.mirena.appbibliotecas.SessionManager
-import com.mirena.appbibliotecas.adapters.AdapterEjemplares
 import com.mirena.appbibliotecas.databinding.ActivityPedidoBinding
 import com.mirena.appbibliotecas.objects.Ejemplar
 import com.mirena.appbibliotecas.objects.Prestamo
 import com.mirena.appbibliotecas.retrofit.RetrofitInstance
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
 class PedidoActivity : AppCompatActivity() {
     private lateinit var materialDialog: MaterialAlertDialogBuilder
-    private lateinit var adapterEjemplares: AdapterEjemplares
     private lateinit var context: Context
     private lateinit var binding: ActivityPedidoBinding
     private lateinit var textviewTitulo: TextView
@@ -38,6 +37,7 @@ class PedidoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pedido)
+
         binding = ActivityPedidoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -45,6 +45,9 @@ class PedidoActivity : AppCompatActivity() {
         pedidoActivityViewModel = ViewModelProvider(this).get(
             PedidoActivityViewModel::class.java
         )
+
+
+
         binding.toolbar.title = "Resumen de pedido"
         sessionManager = SessionManager(this)
         botonFinalizar = binding.buttonFinalizarPedido
@@ -62,20 +65,18 @@ class PedidoActivity : AppCompatActivity() {
         var id_biblioteca = intent.getIntExtra("id_biblioteca", 0)
         var id_libro = intent.getIntExtra("id_libro", 0)
 
-        CoroutineScope(Dispatchers.IO).launch {
-            val calldisponibilidad = RetrofitInstance.api.getEjemplar(id_libro, id_biblioteca)
+        pedidoActivityViewModel.getEjemplar(id_libro, id_biblioteca)
 
-            runOnUiThread{
-                if (calldisponibilidad.isSuccessful){
-                    calldisponibilidad.body().let {
-                        if (it != null){
-                            ejemplar = it
-                            textviewTitulo.text=ejemplar.libro
-                            textviewBiblioteca.text = ejemplar.biblioteca
-                        }
+        CoroutineScope(Dispatchers.IO).launch {
+            pedidoActivityViewModel.getEjemplarFlow().collectLatest {
+                ejemplar = it
+                    runOnUiThread{
+                        textviewTitulo.text=ejemplar.libro
+                        textviewBiblioteca.text = ejemplar.biblioteca
                     }
-                }
             }
+
+
         }
 
         botonFinalizar.setOnClickListener {

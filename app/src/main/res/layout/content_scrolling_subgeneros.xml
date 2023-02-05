@@ -9,7 +9,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:layout_marginTop="30dp"
-    tools:context=".ScrollingActivity">
+    tools:context=".ui.MainActivity.ScrollingActivity">
 
 
         <androidx.recyclerview.widget.RecyclerView
