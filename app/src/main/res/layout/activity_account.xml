@@ -250,22 +250,55 @@
                         android:orientation="vertical">
 
                         <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Nombre"
-                                android:textColor="@color/texto_color"
-                                android:textSize="16sp"
-                                android:fontFamily="@font/sarabun_bold"/>
 
+                            android:layout_width="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_height="wrap_content">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                                <Button
+                                    android:id="@+id/boton_editar"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:backgroundTint="@color/background_clear"
+                                    android:fontFamily="@font/sarabun_bold"
+                                    android:text="Editar"
+                                    style="@style/Widget.Material3.Button.TextButton"
+                                    android:layout_alignParentEnd="true"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/texto_color"
+                                    android:textSize="16sp" />
+                            </RelativeLayout>
 
 
                         </LinearLayout>
 
-                        <TextView
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Nombre"
+                                    android:textColor="@color/texto_color"
+                                    android:textSize="16sp"
+                                    android:fontFamily="@font/sarabun_bold"/>
+
+
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <EditText
+                            android:enabled="true"
                             android:id="@+id/nombre_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -273,6 +306,7 @@
                             android:textColor="@color/texto_color"
                             android:textSize="16sp"
                             android:fontFamily="@font/sarabun_light"
+                            android:background="@null"
                             android:text="Nombre"/>
 
                         <LinearLayout
@@ -299,15 +333,17 @@
                             </LinearLayout>
 
 
-                            <TextView
+                            <EditText
                                 android:id="@+id/alta_text"
                                 android:layout_width="wrap_content"
+                                android:enabled="false"
                                 android:layout_height="wrap_content"
                                 android:text="Alta"
                                 android:textColor="@color/texto_color"
+                                android:background="@null"
                                 android:fontFamily="@font/sarabun_light"
                                 android:textSize="16sp">
-                            </TextView>
+                            </EditText>
 
 
                         </LinearLayout>
@@ -327,17 +363,19 @@
 
                             </TextView>
 
-                            <TextView
+                            <EditText
                                 android:id="@+id/telefono_text"
                                 android:layout_width="wrap_content"
+                                android:enabled="false"
                                 android:layout_height="wrap_content"
                                 android:textSize="16sp"
                                 android:text="Télefono"
+                                android:background="@null"
                                 android:textColor="@color/texto_color"
                                 android:fontFamily="@font/sarabun_light"
                                 >
 
-                            </TextView>
+                            </EditText>
 
 
                         </LinearLayout>
@@ -357,16 +395,18 @@
 
                             </TextView>
 
-                            <TextView
+                            <EditText
                                 android:id="@+id/email_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="email@ejemplo.com"
+                                android:enabled="false"
                                 android:textSize="16sp"
+                                android:background="@null"
                                 android:textColor="@color/texto_color"
                                 android:fontFamily="@font/sarabun_light"
                                 >
-                            </TextView>
+                            </EditText>
 
                         </LinearLayout>
 
@@ -385,16 +425,18 @@
 
                             </TextView>
 
-                            <TextView
+                            <EditText
                                 android:id="@+id/domicilio_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:enabled="false"
                                 android:text="Domicilio"
+                                android:background="@null"
                                 android:textSize="16sp"
                                 android:textColor="@color/texto_color"
                                 android:fontFamily="@font/sarabun_light"
                                 >
-                            </TextView>
+                            </EditText>
 
                         </LinearLayout>
 
@@ -413,17 +455,19 @@
 
                             </TextView>
 
-                            <TextView
+                            <EditText
                                 android:id="@+id/localidad_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:enabled="false"
                                 android:text="Localidad"
+                                android:background="@null"
                                 android:textSize="16sp"
                                 android:textColor="@color/texto_color"
                                 android:fontFamily="@font/sarabun_light"
                                 >
 
-                            </TextView>
+                            </EditText>
 
 
                         </LinearLayout>
@@ -444,17 +488,18 @@
 
                             </TextView>
 
-                            <TextView
+                            <EditText
                                 android:id="@+id/cp_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="16sp"
+                                android:enabled="false"
                                 android:textColor="@color/texto_color"
                                 android:fontFamily="@font/sarabun_light"
                                 android:text="46023"
                                 >
 
-                            </TextView>
+                            </EditText>
 
                         </LinearLayout>
 

@@ -96,6 +96,20 @@ class LibroActivity2 : AppCompatActivity() {
         intent.putExtra("id_libro", id)
 
         //libroActivity2ViewModel.getDisponibilidad(id)
+        /*if (sessionManager.fetchAuthToken()!=0){
+            libroActivity2ViewModel.comprobarlibrofav(sessionManager.fetchAuthToken(), id)
+
+            CoroutineScope(Dispatchers.IO).launch {
+                libroActivity2ViewModel.getComprobacion().collectLatest {
+
+                    runOnUiThread {
+                        buttonFavoritos.isSelected = it != "0"
+                    }
+
+                }
+            }
+        }*/
+
 
         CoroutineScope(Dispatchers.IO).launch {
             var listalibros: ArrayList<String> = ArrayList<String>()
@@ -139,11 +153,16 @@ class LibroActivity2 : AppCompatActivity() {
                             startActivity(intent)
                         }
                 }
-
             }
         }
 
 
+
+
+
+        /**
+         * comportamiento boton click para ver los ejemplares y pedir uno
+         */
         butonejemplares.setOnClickListener {
             if(sessionManager.fetchAuthToken()==0){
                 val intent = Intent(this, LoginActivity::class.java)
@@ -153,10 +172,13 @@ class LibroActivity2 : AppCompatActivity() {
             }
         }
 
-        val savedStateButton = sessionManager.fetchButtonState()
-        buttonFavoritos.isSelected = savedStateButton != 0
 
 
+
+
+        /**
+         * Comportamiento click boton favoritos
+         */
         buttonFavoritos.setOnClickListener {
 
             val nuevoFavrito = Favoritos(null, id, sessionManager.fetchAuthToken())
@@ -164,11 +186,10 @@ class LibroActivity2 : AppCompatActivity() {
             buttonFavoritos.isSelected = !buttonFavoritos.isSelected
 
             if (buttonFavoritos.isSelected){
-                sessionManager.saveButtonState(1)
+                myDrawable!!.colorFilter = PorterDuffColorFilter(Color.RED, PorterDuff.Mode.SRC_IN)
                 libroActivity2ViewModel.addFavoritos(nuevoFavrito, applicationContext, this)
-
             }else{
-                sessionManager.saveButtonState(0)
+                myDrawable!!.clearColorFilter()
                 libroActivity2ViewModel.deletefavoritos(id,sessionManager.fetchAuthToken(), applicationContext, this)
             }
         }

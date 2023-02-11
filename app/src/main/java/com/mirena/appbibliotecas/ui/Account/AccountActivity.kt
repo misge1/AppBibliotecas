@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
@@ -39,6 +40,7 @@ class AccountActivity : AppCompatActivity() {
     private lateinit var boton_recogida: ImageButton
     private lateinit var boton_encurso: ImageButton
     private lateinit var boton_devolver: ImageButton
+    private lateinit var boton_editar: Button
     private lateinit var binding: ActivityAccountBinding
     private lateinit var accountViewModel: AccountViewModel
 
@@ -67,7 +69,7 @@ class AccountActivity : AppCompatActivity() {
         boton_recogida = findViewById(R.id.boton_recogida)
         boton_encurso = findViewById(R.id.boton_encurso)
         boton_devolver = findViewById(R.id.boton_devolver)
-
+        boton_editar = findViewById(R.id.boton_editar)
         sessionManager = SessionManager(this)
 
         CoroutineScope(Dispatchers.IO).launch {
@@ -76,7 +78,7 @@ class AccountActivity : AppCompatActivity() {
                 usuario = it
 
                 runOnUiThread {
-                    titulo_textview.text = usuario.nombre
+                    titulo_textview.text= usuario.nombre
                     nombre_textview.text = usuario.nombre
                     alta_textview.text = usuario.fecha_alta
                     telefono_textview.text = usuario.telefono
@@ -118,6 +120,10 @@ class AccountActivity : AppCompatActivity() {
         boton_devolver.setOnClickListener {
             val intent = Intent(this, PrestamosAdevolverActivity::class.java)
             startActivity(intent)
+        }
+
+        boton_editar.setOnClickListener {
+          titulo_textview.isEnabled = true
         }
 
     }

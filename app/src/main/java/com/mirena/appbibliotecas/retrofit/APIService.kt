@@ -11,8 +11,15 @@ interface APIService {
     @GET("/login")
     fun login(@Query("email") email: String, @Query("password") pass: String): Call<Usuario>
 
-    @POST("/editUserInfo/{id}")
-    fun updateUserInfo(@Path("id") id: Int, @Body usuario: Usuario): Call<ResponseBody>
+    @PUT("/editUserPass/{id}")
+    fun cambiarPass(@Path("id") id: Int, @Query("pass") pass: String): Call<ResponseBody>
+
+    @PUT("/editUserInfo/{id}")
+    fun updateUserInfo(@Path("id") id: Int, @Query("nombre") nombre: String,
+                       @Query("telefono") telefono: String,
+                       @Query("domicilio") domicilio: String,
+                       @Query("codigo_postal") codigo_postal: String,
+                       @Query("localidad") localidad: String): Call<ResponseBody>
 
     @GET("/getUser/{id}")
     suspend fun getUser(@Path("id") id: Int): Response<Usuario>

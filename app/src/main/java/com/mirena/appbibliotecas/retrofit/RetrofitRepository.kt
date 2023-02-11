@@ -18,6 +18,7 @@ class RetrofitRepository(var context: Context) {
     private var listaPrestamosDevolver: MutableLiveData<List<PrestamoUsuario>> = MutableLiveData<List<PrestamoUsuario>>()
     private var listaPrestamosRecoger: MutableLiveData<List<PrestamoUsuario>> = MutableLiveData<List<PrestamoUsuario>>()
     private var listaPrestamosEnCurso: MutableLiveData<List<PrestamoUsuario>> = MutableLiveData<List<PrestamoUsuario>>()
+    private var comprobacionfav: MutableLiveData<String> = MutableLiveData<String>()
 
     /**
      * PRESTAMOS A DEVOLVER
@@ -199,4 +200,25 @@ class RetrofitRepository(var context: Context) {
     fun getDisponibilidadLiveData(): LiveData<List<Biblioteca>> {
         return disponibilidadlivedata
     }
+
+
+    /**
+     * comprobar un favorito
+     */
+
+    suspend fun comprobarFavs(id_libro: Int, id_usuario: Int){
+        val call = RetrofitInstance.api.comprobarfavoritos(id_libro, id_usuario)
+        val body = call.body()
+
+        if(call.isSuccessful){
+            body.let {
+                comprobacionfav.postValue(it)
+            }
+        }
+    }
+
+    fun getComprobacionfavsLd(): LiveData<String>{
+        return comprobacionfav
+    }
+
 }

@@ -19,16 +19,28 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".SearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.EditarPerfil.EditarPerfilActivity"
+            android:exported="false"
+            android:label="@string/title_activity_editar_perfil"
+            android:theme="@style/Theme.AppBibliotecas.NoActionBar" />
+        <activity
+            android:name=".ui.Cambiarpass.CambiarPassActivity"
+            android:exported="false"
+            android:label="@string/title_activity_cambiar_pass"
+            android:theme="@style/Theme.AppBibliotecas.NoActionBar" />
+        <activity
             android:name=".ui.SplashScreen.SplashScreen"
             android:exported="true"
             android:theme="@style/SplashStyle">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.Ajustes.AjustesActivity"
             android:exported="false"
@@ -71,16 +83,13 @@
             android:name=".ui.MainActivity.ScrollingActivity"
             android:exported="false"
             android:label=""
-            android:theme="@style/Theme.AppBibliotecas.NoActionBar">
-        </activity>
-        <activity
-            android:name="com.mirena.appbibliotecas.ui.Account.AccountActivity"
-            android:exported="false"
-            android:label=""
             android:theme="@style/Theme.AppBibliotecas.NoActionBar" />
         <activity
-            android:name=".SearchActivity"
-            android:exported="false" />
+            android:name=".Account.AccountActivity"
+            android:exported="false"
+            android:label=""
+            android:theme="@style/Theme.AppBibliotecas.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.Login.LoginActivity"
             android:exported="false" />

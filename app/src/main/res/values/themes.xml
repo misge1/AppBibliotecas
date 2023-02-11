@@ -44,6 +44,12 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <!-- changing my icon, its color and stuff.. -->
+        <item name="searchIcon">@drawable/search_icon</item>
+    </style>
+
+
     <style name="Theme.AppBibliotecas.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.AppBibliotecas.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

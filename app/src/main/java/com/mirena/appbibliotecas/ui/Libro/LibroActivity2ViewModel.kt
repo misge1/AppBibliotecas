@@ -26,13 +26,33 @@ class LibroActivity2ViewModel(application: Application): AndroidViewModel(applic
     lateinit var sessionManager: SessionManager
     private lateinit var retrofitRepository: RetrofitRepository
     private lateinit var disponibilidadlivedata: LiveData<List<Biblioteca>>
+    private lateinit var comprobarfavs: LiveData<String>
 
     init {
         sessionManager = SessionManager(application.applicationContext)
         retrofitRepository = RetrofitRepository(application.applicationContext)
         disponibilidadlivedata = retrofitRepository.getDisponibilidadLiveData()
+        comprobarfavs = retrofitRepository.getComprobacionfavsLd()
     }
 
+
+    /**
+     * comprobacion de que un libro está en favoritos del usuario
+     */
+
+    fun comprobarlibrofav(id_usuario: Int, id_libro: Int){
+        viewModelScope.launch {
+            retrofitRepository.comprobarFavs(id_libro, id_usuario)
+        }
+    }
+
+    fun getComprobacion(): Flow<String> {
+        return comprobarfavs.asFlow()
+    }
+
+    /**
+     * disponibilidad en bibliotecas
+     */
 
     fun getDisponibilidad(id: Int){
         viewModelScope.launch {
@@ -43,6 +63,10 @@ class LibroActivity2ViewModel(application: Application): AndroidViewModel(applic
     fun getDisponibilidadLivedata(): Flow<List<Biblioteca>>{
         return disponibilidadlivedata.asFlow()
     }
+
+    /**
+     * Añadir un libro a favoritos
+     */
 
     fun addFavoritos(favoritos: Favoritos, context: Context, contextActivity: Context){
 
@@ -68,8 +92,6 @@ class LibroActivity2ViewModel(application: Application): AndroidViewModel(applic
                         else{
                             Toast.makeText(context,"onResponse ${response.errorBody().toString()}", Toast.LENGTH_LONG).show()
                         }
-
-
                     }
 
                     override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
@@ -78,10 +100,12 @@ class LibroActivity2ViewModel(application: Application): AndroidViewModel(applic
 
                 }
             )
-
         }
-
     }
+
+    /**
+     * borrar un libro de favoritos
+     */
 
     fun deletefavoritos(id_libro: Int, id_usuario: Int ,context: Context, contextActivity: Context ){
         if (sessionManager.fetchAuthToken()==0){
