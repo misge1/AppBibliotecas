@@ -10,7 +10,9 @@ import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.mirena.appbibliotecas.R
+import com.mirena.appbibliotecas.ui.Search.SearchActivity
 import com.mirena.appbibliotecas.SessionManager
 import com.mirena.appbibliotecas.ui.Account.AccountActivity
 import com.mirena.appbibliotecas.adapters.AdapterGeneros
@@ -18,11 +20,10 @@ import com.mirena.appbibliotecas.adapters.AdapterLibros
 import com.mirena.appbibliotecas.databinding.ActivityScrollingBinding
 import com.mirena.appbibliotecas.objects.Generos
 import com.mirena.appbibliotecas.objects.LibroPre
-import com.mirena.appbibliotecas.retrofit.RetrofitInstance
+import com.mirena.appbibliotecas.ui.Filtros.FiltrosActivity
 import com.mirena.appbibliotecas.ui.Login.LoginActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlin.math.abs
@@ -37,6 +38,7 @@ private lateinit var binding: ActivityScrollingBinding
     lateinit var collapsedMenu: Menu
     lateinit var searchView: SearchView
     private lateinit var sessionManager: SessionManager
+    private lateinit var filtros: ExtendedFloatingActionButton
     private lateinit var scrollingActivityViewModel: ScrollingActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +50,8 @@ private lateinit var binding: ActivityScrollingBinding
         binding = ActivityScrollingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        searchView = binding.searchViewScrolling
+        searchView = binding.searchviewScrolling
+        filtros = binding.layoutIncludeMain.filtrosButton!!
 
         scrollingActivityViewModel = ViewModelProvider(this)[ScrollingActivityViewModel::class.java]
 
@@ -108,6 +111,16 @@ private lateinit var binding: ActivityScrollingBinding
                 appBarExpanded = true
                 invalidateOptionsMenu()
             }
+        }
+
+        searchView.setOnClickListener {
+            val intent = Intent(this, SearchActivity::class.java);
+            startActivity(intent)
+        }
+
+        filtros.setOnClickListener{
+            val intent = Intent(this, FiltrosActivity::class.java)
+            startActivity(intent)
         }
     }
 

@@ -34,7 +34,7 @@
                 android:layout_width="120dp"
                 android:layout_height="130dp"
 
-                tools:srcCompat="@drawable/sinimagen"/>
+                />
 
             </LinearLayout>
 

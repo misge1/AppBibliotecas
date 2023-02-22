@@ -25,7 +25,6 @@
 
             <ImageView
                 android:layout_width="100dp"
-                android:src="@drawable/sinimagen"
                 android:layout_height="match_parent">
 
             </ImageView>

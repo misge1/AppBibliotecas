@@ -23,17 +23,18 @@
                 app:menu="@menu/upper_menu"
                 app:popupTheme="@style/Theme.AppBibliotecas.PopupOverlay"
                 >
+
+
                 <androidx.appcompat.widget.SearchView
-                    android:id="@+id/search_view_scrolling"
-                    android:layout_width="260dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/text_margin"
-                    android:elevation="4dp"
                     android:layout_margin="8dp"
-                    android:minHeight="48dp"
-                    android:padding="8dp"
-                    android:textSize="16sp"
-                    />
+                    android:id="@+id/searchviewScrolling"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:searchIcon="@drawable/search_icon"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    android:background="@drawable/search_bar2" />
 
             </androidx.appcompat.widget.Toolbar>
 

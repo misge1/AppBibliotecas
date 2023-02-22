@@ -36,6 +36,9 @@ interface APIService {
     @GET("/getrandombooks")
     suspend fun getRandomLibros(): Response<List<LibroPre>>
 
+    @GET("/getAllLibros")
+    suspend fun getAllLibros(): Response<List<LibroPre>>
+
     @GET("/getdisponibilidad/{id}")
     suspend fun getDisponibilidad(@Path("id") id: Int): Response<List<Biblioteca>>
 

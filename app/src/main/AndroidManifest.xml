@@ -19,7 +19,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".SearchActivity"
+            android:name=".EleccionFiltrosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Filtros.FiltrosActivity"
+            android:exported="false"
+            android:label=""
+            android:theme="@style/Theme.AppBibliotecas.NoActionBar" />
+        <activity
+            android:name=".ui.Search.SearchActivity"
             android:exported="false" />
         <activity
             android:name=".ui.EditarPerfil.EditarPerfilActivity"
@@ -85,7 +93,7 @@
             android:label=""
             android:theme="@style/Theme.AppBibliotecas.NoActionBar" />
         <activity
-            android:name=".Account.AccountActivity"
+            android:name=".ui.Account.AccountActivity"
             android:exported="false"
             android:label=""
             android:theme="@style/Theme.AppBibliotecas.NoActionBar"

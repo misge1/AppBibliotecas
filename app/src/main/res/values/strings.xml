@@ -118,4 +118,5 @@
     <string name="title_activity_cambiar_pass">CambiarPassActivity</string>
     <string name="pass_actual">Contraseña actual</string>
     <string name="title_activity_editar_perfil">EditarPerfilActivity</string>
+    <string name="title_activity_filtros">FiltrosActivity</string>
 </resources>

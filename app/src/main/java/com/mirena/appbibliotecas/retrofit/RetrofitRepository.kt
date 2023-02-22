@@ -19,6 +19,7 @@ class RetrofitRepository(var context: Context) {
     private var listaPrestamosRecoger: MutableLiveData<List<PrestamoUsuario>> = MutableLiveData<List<PrestamoUsuario>>()
     private var listaPrestamosEnCurso: MutableLiveData<List<PrestamoUsuario>> = MutableLiveData<List<PrestamoUsuario>>()
     private var comprobacionfav: MutableLiveData<String> = MutableLiveData<String>()
+    private var listalibrosAll: MutableLiveData<List<LibroPre>> = MutableLiveData<List<LibroPre>>()
 
     /**
      * PRESTAMOS A DEVOLVER
@@ -96,6 +97,26 @@ class RetrofitRepository(var context: Context) {
 
     fun getLibrosLivedata(): LiveData<List<LibroPre>>{
         return listalibros
+    }
+
+
+    /**
+     * LIBRO ALL
+     */
+
+    suspend fun getAllLibros(){
+        val call = RetrofitInstance.api.getAllLibros()
+        val body = call.body()
+
+        if (call.isSuccessful){
+            body.let {
+                listalibrosAll.postValue(it)
+            }
+        }
+    }
+
+    fun getAllLibrosLiveData(): LiveData<List<LibroPre>>{
+        return listalibrosAll
     }
 
     /**
