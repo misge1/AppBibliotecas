@@ -19,7 +19,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".EleccionFiltrosActivity"
+            android:name=".ui.EleccionFiltros.EleccionFiltrosActivity"
             android:exported="false" />
         <activity
             android:name=".ui.Filtros.FiltrosActivity"

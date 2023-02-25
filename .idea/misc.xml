@@ -32,6 +32,7 @@
         <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/layout/activity_ajustes.xml" value="0.1" />
         <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/layout/activity_cambiar_pass.xml" value="0.14493373236425822" />
         <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/layout/activity_editar_perfil.xml" value="0.2" />
+        <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/layout/activity_eleccion_filtros.xml" value="0.19581017528858485" />
         <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/layout/activity_favoritos.xml" value="0.2" />
         <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/layout/activity_filtros.xml" value="0.18072289156626506" />
         <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/layout/activity_libro.xml" value="0.1" />
@@ -50,6 +51,7 @@
         <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/layout/activity_subgeneros.xml" value="0.1" />
         <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/layout/card_book.xml" value="0.2" />
         <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/layout/card_ejemplar.xml" value="0.16" />
+        <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/layout/card_filtro_eleccion.xml" value="0.16" />
         <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/layout/card_prestamo.xml" value="0.2" />
         <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/layout/cardview_genero.xml" value="0.10948905109489052" />
         <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/layout/content_ajustes.xml" value="0.18127404873877725" />

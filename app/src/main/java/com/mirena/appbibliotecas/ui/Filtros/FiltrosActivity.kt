@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.mirena.appbibliotecas.R
 import com.mirena.appbibliotecas.databinding.ActivityFiltrosBinding
 import com.mirena.appbibliotecas.ui.Search.SearchActivity
@@ -17,6 +18,7 @@ class FiltrosActivity : AppCompatActivity() {
     private lateinit var generoslinearlayout: LinearLayout
     private lateinit var subgeneroslinear: LinearLayout
     private lateinit var bibliotecalinearlayout: LinearLayout
+    private lateinit var materialDialog: MaterialAlertDialogBuilder
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

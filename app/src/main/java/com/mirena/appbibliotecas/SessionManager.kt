@@ -9,7 +9,9 @@ class SessionManager(context: Context) {
 
     companion object {
         const val USER_ID = "user_id"
-        const val STATE_BUTTON = "state_button"
+        const val BIBLIOTECA_ELECCION = "bibliotecaEleccion"
+        const val SUBGENERO_ELECCION = "subgeneroEleccion"
+        const val GENERO_ELECCION = "generoEleccion"
     }
 
     fun saveAuthToken(token: Int) {
@@ -18,9 +20,22 @@ class SessionManager(context: Context) {
         editor.apply()
     }
 
-    fun saveButtonState(state: Int){
+
+    fun saveBibliotecaEleccion(token: String){
         val editor = prefs.edit()
-        editor.putInt(STATE_BUTTON, state)
+        editor.putString(BIBLIOTECA_ELECCION, token)
+        editor.apply()
+    }
+
+    fun saveGeneroEleccion(token: String){
+        val editor = prefs.edit()
+        editor.putString(GENERO_ELECCION, token)
+        editor.apply()
+    }
+
+    fun saveSubgeneroEleccion(token: String){
+        val editor = prefs.edit()
+        editor.putString(SUBGENERO_ELECCION, token)
         editor.apply()
     }
 
@@ -28,13 +43,40 @@ class SessionManager(context: Context) {
         return prefs.getInt(USER_ID, 0)
     }
 
-    fun fetchButtonState(): Int {
-        return prefs.getInt(STATE_BUTTON,0)
+    fun fetchBiblioEleccion(): String {
+        return prefs.getString(BIBLIOTECA_ELECCION, "")!!
+    }
+
+    fun fetchGeneroEleccion(): String {
+        return prefs.getString(GENERO_ELECCION, "")!!
+    }
+
+    fun fetchSubgeneroEleccion(): String {
+        return prefs.getString(SUBGENERO_ELECCION, "")!!
     }
 
     fun deleteAuthToken() {
         val editor = prefs.edit()
-        editor.clear()
+        editor.remove("user_id")
+        editor.apply()
+    }
+
+    fun deleteBiblioToken(){
+        val editor = prefs.edit()
+        editor.remove("bibliotecaEleccion")
+        editor.apply()
+    }
+
+    fun deleteSubgeneroToken(){
+        val editor = prefs.edit()
+        editor.remove("subgeneroEleccion")
+        editor.apply()
+
+    }
+
+    fun deleteGeneroToken(){
+        val editor = prefs.edit()
+        editor.remove("generoEleccion")
         editor.apply()
     }
 

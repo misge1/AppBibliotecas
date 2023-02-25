@@ -24,7 +24,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="25dp"
+            android:textSize="15dp"
             android:text="Disponibilidad"
             />
         <TableLayout
@@ -46,6 +46,21 @@
             android:layout_height="20dp"/>
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:text="Cualquier género"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_margin="8dp"
             android:id="@+id/generosLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -55,12 +70,14 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/generos_textview"
+                    android:id="@+id/generos_eleccion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="25dp"
                     android:text="Géneros"
                     />
+
+
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -70,19 +87,37 @@
                     android:layout_centerVertical="true"
                     android:src="@drawable/flecha"/>
 
+
+
             </RelativeLayout>
+
+
 
 
 
         </LinearLayout>
 
+
         <Space
             android:layout_width="match_parent"
             android:layout_height="20dp"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:text="Subgénero"
+                />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/subgenerosLinearLayout"
+            android:layout_margin="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -92,10 +127,11 @@
                 android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/subgeneros_eleccion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="25dp"
-                android:text="Subgéneros"
+                android:text="Cualquier subgénero"
                 />
 
             <ImageView
@@ -107,16 +143,29 @@
                 android:src="@drawable/flecha"/>
             </RelativeLayout>
 
-
         </LinearLayout>
+
 
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="20dp"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:text="Biblioteca"
+                />
+        </LinearLayout>
 
         <LinearLayout
+            android:layout_margin="8dp"
             android:id="@+id/bibliotecaLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -127,6 +176,7 @@
                 android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/bibliotecas_eleccion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="25dp"
@@ -143,6 +193,7 @@
 
 
         </LinearLayout>
+
 
         <Space
             android:layout_width="match_parent"
