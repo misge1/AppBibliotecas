@@ -25,16 +25,14 @@
                 >
 
 
-                <androidx.appcompat.widget.SearchView
-                    android:layout_margin="8dp"
-                    android:id="@+id/searchviewScrolling"
+                <ImageButton
+
+                    android:id="@+id/filterSearchButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:searchIcon="@drawable/search_icon"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-
-                    android:background="@drawable/search_bar2" />
+                    android:background="#00FFFFFF"
+                    android:scaleType="fitStart"
+                    android:src="@drawable/search_filter" />
 
             </androidx.appcompat.widget.Toolbar>
 

@@ -55,46 +55,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15dp"
-                android:text="Cualquier género"
+                android:text="Género"
                 />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_margin="8dp"
-            android:id="@+id/generosLinearLayout"
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="8dp"/>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/menu"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <RelativeLayout
+            android:hint="Cualquier género">
+
+            <AutoCompleteTextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                />
 
-                <TextView
-                    android:id="@+id/generos_eleccion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Géneros"
-                    android:textSize="25dp" />
-
-
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/flecha"/>
-
-
-
-            </RelativeLayout>
-
-
-
-
-
-        </LinearLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
 
         <Space
@@ -114,35 +97,24 @@
                 />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/subgenerosLinearLayout"
-            android:layout_margin="8dp"
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="8dp"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/menuSubgenero"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:hint="Cualquier subgénero">
 
-            <RelativeLayout
+            <AutoCompleteTextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/subgeneros_eleccion"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="25dp"
-                android:text="Cualquier subgénero"
+                android:inputType="none"
                 />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/flecha"/>
-            </RelativeLayout>
-
-        </LinearLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
 
 
@@ -162,36 +134,24 @@
                 android:text="Biblioteca"
                 />
         </LinearLayout>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="8dp"/>
 
-        <LinearLayout
-            android:layout_margin="8dp"
-            android:id="@+id/bibliotecaLinearLayout"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/menuBiblioteca"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:hint="Cualquier biblioteca">
 
-            <RelativeLayout
+            <AutoCompleteTextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/bibliotecas_eleccion"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="25dp"
-                android:text="Biblioteca"
+                android:inputType="none"
                 />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/flecha"/>
-            </RelativeLayout>
-
-
-        </LinearLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
 
         <Space

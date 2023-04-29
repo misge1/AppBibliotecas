@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
@@ -36,10 +37,10 @@ private lateinit var binding: ActivityScrollingBinding
     private lateinit var context: Context
     private var appBarExpanded: Boolean = true
     lateinit var collapsedMenu: Menu
-    lateinit var searchView: SearchView
     private lateinit var sessionManager: SessionManager
     private lateinit var filtros: ExtendedFloatingActionButton
     private lateinit var scrollingActivityViewModel: ScrollingActivityViewModel
+    private lateinit var searchFilterButton: ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,9 +51,9 @@ private lateinit var binding: ActivityScrollingBinding
         binding = ActivityScrollingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        searchView = binding.searchviewScrolling
         filtros = binding.layoutIncludeMain.filtrosButton!!
 
+        searchFilterButton = binding.filterSearchButton
         scrollingActivityViewModel = ViewModelProvider(this)[ScrollingActivityViewModel::class.java]
 
         scrollingActivityViewModel.getGeneros()
@@ -113,12 +114,13 @@ private lateinit var binding: ActivityScrollingBinding
             }
         }
 
-        searchView.setOnClickListener {
-            val intent = Intent(this, SearchActivity::class.java);
+
+        filtros.setOnClickListener{
+            val intent = Intent(this, FiltrosActivity::class.java)
             startActivity(intent)
         }
 
-        filtros.setOnClickListener{
+        searchFilterButton.setOnClickListener{
             val intent = Intent(this, FiltrosActivity::class.java)
             startActivity(intent)
         }

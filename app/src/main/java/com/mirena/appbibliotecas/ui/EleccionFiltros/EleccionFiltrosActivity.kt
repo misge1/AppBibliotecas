@@ -14,12 +14,13 @@ import com.mirena.appbibliotecas.adapters.*
 import com.mirena.appbibliotecas.objects.Biblioteca
 import com.mirena.appbibliotecas.objects.Generos
 import com.mirena.appbibliotecas.objects.LibroPre
+import com.mirena.appbibliotecas.objects.Subgeneros
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class EleccionFiltrosActivity(clickListener: (Generos) -> Unit) : AppCompatActivity() {
+class EleccionFiltrosActivity() : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var elecctionFiltrosViewModel: EleccionFiltrosViewModel
     private lateinit var context: Context
@@ -65,6 +66,19 @@ class EleccionFiltrosActivity(clickListener: (Generos) -> Unit) : AppCompatActiv
                 }
             }
         }
+
+        /*if(tipo.equals("subgeneros")){
+
+            val bindingInterface = object: GenericInterface<Subgeneros>{
+                override fun bindData(item:Subgeneros, view: View){
+                    val textView: TextView = view.findViewById(R.id.textviewEleccion)
+                    textView.text = item.subgenero.toString()
+                }
+            }
+           }*/
+
+
+
         if (tipo.equals("bibliotecas")){
 
             val bindingInterface = object: GenericInterface<Biblioteca>{
