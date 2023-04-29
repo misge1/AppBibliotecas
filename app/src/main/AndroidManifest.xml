@@ -19,9 +19,6 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ui.EleccionFiltros.EleccionFiltrosActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.Filtros.FiltrosActivity"
             android:exported="false"
             android:label=""
@@ -55,17 +52,17 @@
             android:label=""
             android:theme="@style/Theme.AppBibliotecas.NoActionBar" />
         <activity
-            android:name=".ui.Prestamos.Adevolver.PrestamosAdevolverActivity"
+            android:name=".ui.prestamos.adevolver.PrestamosAdevolverActivity"
             android:exported="false"
             android:label=""
             android:theme="@style/Theme.AppBibliotecas.NoActionBar" />
         <activity
-            android:name=".ui.Prestamos.EnCurso.PrestamosEnCursoActivity"
+            android:name=".ui.prestamos.EnCurso.PrestamosEnCursoActivity"
             android:exported="false"
             android:label=""
             android:theme="@style/Theme.AppBibliotecas.NoActionBar" />
         <activity
-            android:name=".ui.Prestamos.ARecoger.PrestamosRecogerActivity"
+            android:name=".ui.prestamos.ARecoger.PrestamosRecogerActivity"
             android:exported="false"
             android:label=""
             android:theme="@style/Theme.AppBibliotecas.NoActionBar" />

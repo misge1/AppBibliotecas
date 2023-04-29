@@ -1,4 +1,4 @@
-package com.mirena.appbibliotecas.ui.Prestamos.EnCurso
+package com.mirena.appbibliotecas.ui.prestamos.ARecoger
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -11,7 +11,7 @@ import com.mirena.appbibliotecas.retrofit.RetrofitRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
-class EnCursoViewModel(application: Application): AndroidViewModel(application) {
+class ARecogerViewModel(application: Application): AndroidViewModel(application) {
     lateinit var sessionManager: SessionManager
     private lateinit var retrofitRepository: RetrofitRepository
     private lateinit var prestamosLiveData: LiveData<List<PrestamoUsuario>>
@@ -19,17 +19,17 @@ class EnCursoViewModel(application: Application): AndroidViewModel(application) 
     init {
         sessionManager = SessionManager(application.applicationContext)
         retrofitRepository = RetrofitRepository(application.applicationContext)
-        prestamosLiveData = retrofitRepository.getPCursoLivedata()
+        prestamosLiveData = retrofitRepository.getPRecogerLivedata()
     }
 
 
-    fun getCurso(){
+    fun getARecoger(){
         viewModelScope.launch {
-            retrofitRepository.getPrestamosCurso()
+            retrofitRepository.getPrestamosRecoger()
         }
     }
 
-    fun getPCursoLD(): Flow<List<PrestamoUsuario>> {
+    fun getPRecogerLD(): Flow<List<PrestamoUsuario>> {
         return prestamosLiveData.asFlow()
 
     }

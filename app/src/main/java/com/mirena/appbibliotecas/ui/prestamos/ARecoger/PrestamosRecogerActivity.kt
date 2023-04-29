@@ -1,4 +1,4 @@
-package com.mirena.appbibliotecas.ui.Prestamos.ARecoger
+package com.mirena.appbibliotecas.ui.prestamos.ARecoger
 
 import android.content.Context
 import android.os.Bundle
@@ -13,7 +13,6 @@ import com.mirena.appbibliotecas.SessionManager
 import com.mirena.appbibliotecas.adapters.AdapterPrestamos
 import com.mirena.appbibliotecas.databinding.ActivityPrestamosRecogerBinding
 import com.mirena.appbibliotecas.objects.PrestamoUsuario
-import com.mirena.appbibliotecas.retrofit.RetrofitInstance
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest

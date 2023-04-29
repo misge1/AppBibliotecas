@@ -1,18 +1,17 @@
-package com.mirena.appbibliotecas.ui.Prestamos.Adevolver
+package com.mirena.appbibliotecas.ui.prestamos.EnCurso
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
 import com.mirena.appbibliotecas.SessionManager
 import com.mirena.appbibliotecas.objects.PrestamoUsuario
 import com.mirena.appbibliotecas.retrofit.RetrofitRepository
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.Flow
-import androidx.lifecycle.asFlow
+import kotlinx.coroutines.launch
 
-class AdevolverViewModel(application: Application): AndroidViewModel(application) {
-
+class EnCursoViewModel(application: Application): AndroidViewModel(application) {
     lateinit var sessionManager: SessionManager
     private lateinit var retrofitRepository: RetrofitRepository
     private lateinit var prestamosLiveData: LiveData<List<PrestamoUsuario>>
@@ -20,19 +19,18 @@ class AdevolverViewModel(application: Application): AndroidViewModel(application
     init {
         sessionManager = SessionManager(application.applicationContext)
         retrofitRepository = RetrofitRepository(application.applicationContext)
-        prestamosLiveData = retrofitRepository.getPDevolverLivedata()
+        prestamosLiveData = retrofitRepository.getPCursoLivedata()
     }
 
 
-    fun getPDevolver(){
+    fun getCurso(){
         viewModelScope.launch {
-            retrofitRepository.getPrestamosDevolver()
+            retrofitRepository.getPrestamosCurso()
         }
     }
 
-    fun getPDevolverLD(): Flow<List<PrestamoUsuario>>{
+    fun getPCursoLD(): Flow<List<PrestamoUsuario>> {
         return prestamosLiveData.asFlow()
 
     }
-
 }

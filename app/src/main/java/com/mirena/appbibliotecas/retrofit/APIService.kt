@@ -45,6 +45,9 @@ interface APIService {
     @GET("/getFavoritos/{id}")
     suspend fun getFavoritos(@Path("id") id: Int): Response<List<LibroPre>>
 
+    @GET("/getBibliotecas")
+    suspend fun getBibliotecas(): Response<List<Biblioteca>>
+
     @POST("/addfavorito")
     fun addFavorito(@Body favoritos: Favoritos): Call<ResponseBody>
 

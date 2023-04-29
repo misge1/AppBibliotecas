@@ -132,7 +132,7 @@ class LibroActivity2 : AppCompatActivity() {
                     }
 
                     listaBiblios.forEach {
-                        listalibros.add(it.biblioteca)
+                        listalibros.add(it.nombre)
                     }
 
                     var checkedItem = -1
@@ -143,7 +143,7 @@ class LibroActivity2 : AppCompatActivity() {
                         .setSingleChoiceItems(arrayLibros, checkedItem) { dialog, which ->
                             var choice = arrayLibros[which]
                             var id_biblio =
-                                listaBiblios.find { it.biblioteca == choice }!!.id_biblioteca
+                                listaBiblios.find { it.nombre == choice }!!.id
                             intent.putExtra("id_biblioteca", id_biblio)
                         }
                         .setNeutralButton("cerrar") { dialog, which ->

@@ -1,4 +1,4 @@
-package com.mirena.appbibliotecas.ui.Prestamos.EnCurso
+package com.mirena.appbibliotecas.ui.prestamos.EnCurso
 
 import android.content.Context
 import android.os.Bundle
@@ -12,7 +12,6 @@ import com.mirena.appbibliotecas.SessionManager
 import com.mirena.appbibliotecas.adapters.AdapterPrestamos
 import com.mirena.appbibliotecas.databinding.ActivityPrestamosEnCursoBinding
 import com.mirena.appbibliotecas.objects.PrestamoUsuario
-import com.mirena.appbibliotecas.retrofit.RetrofitInstance
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -56,14 +55,16 @@ class PrestamosEnCursoActivity : AppCompatActivity() {
                 runOnUiThread {
 
                     if (it!!.isNotEmpty()){
-                        binding.encursoLayout.root.isVisible = false
-                        binding.imagenVacioEncurso.isVisible = true
+
                         listaPrestamos = it
                         val mrecyclerview = findViewById<RecyclerView>(R.id.recyclerview_prestamos)
 
                         mrecyclerview.layoutManager = LinearLayoutManager(context)
                         mAdapter = AdapterPrestamos(context, listaPrestamos)
                         mrecyclerview.adapter = mAdapter
+
+                        binding.encursoLayout.root.isVisible = true
+                        binding.imagenVacioEncurso.isVisible = false
                     }
 
                 }

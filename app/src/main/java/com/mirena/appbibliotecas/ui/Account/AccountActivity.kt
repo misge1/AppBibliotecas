@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
-import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
@@ -18,9 +17,9 @@ import com.mirena.appbibliotecas.SessionManager
 import com.mirena.appbibliotecas.databinding.ActivityAccountBinding
 import com.mirena.appbibliotecas.objects.Usuario
 import com.mirena.appbibliotecas.ui.Ajustes.AjustesActivity
-import com.mirena.appbibliotecas.ui.Prestamos.Adevolver.PrestamosAdevolverActivity
-import com.mirena.appbibliotecas.ui.Prestamos.EnCurso.PrestamosEnCursoActivity
-import com.mirena.appbibliotecas.ui.Prestamos.ARecoger.PrestamosRecogerActivity
+import com.mirena.appbibliotecas.ui.prestamos.adevolver.PrestamosAdevolverActivity
+import com.mirena.appbibliotecas.ui.prestamos.EnCurso.PrestamosEnCursoActivity
+import com.mirena.appbibliotecas.ui.prestamos.ARecoger.PrestamosRecogerActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

@@ -150,4 +150,5 @@ public class AdapterLibros  extends RecyclerView.Adapter<AdapterLibros.ViewHolde
         mOnItemClickListener = itemClickListener;
     }
 
+
 }

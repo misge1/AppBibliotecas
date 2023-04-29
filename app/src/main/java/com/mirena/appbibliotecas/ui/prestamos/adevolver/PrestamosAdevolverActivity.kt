@@ -1,4 +1,4 @@
-package com.mirena.appbibliotecas.ui.Prestamos.Adevolver
+package com.mirena.appbibliotecas.ui.prestamos.adevolver
 
 import android.content.Context
 import android.os.Bundle
@@ -12,7 +12,6 @@ import com.mirena.appbibliotecas.SessionManager
 import com.mirena.appbibliotecas.adapters.AdapterPrestamos
 import com.mirena.appbibliotecas.databinding.ActivityPrestamosAdevolverBinding
 import com.mirena.appbibliotecas.objects.PrestamoUsuario
-import com.mirena.appbibliotecas.retrofit.RetrofitInstance
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest

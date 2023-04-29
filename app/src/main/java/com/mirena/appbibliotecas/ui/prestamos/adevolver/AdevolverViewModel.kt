@@ -1,17 +1,18 @@
-package com.mirena.appbibliotecas.ui.Prestamos.ARecoger
+package com.mirena.appbibliotecas.ui.prestamos.adevolver
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
 import com.mirena.appbibliotecas.SessionManager
 import com.mirena.appbibliotecas.objects.PrestamoUsuario
 import com.mirena.appbibliotecas.retrofit.RetrofitRepository
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.Flow
+import androidx.lifecycle.asFlow
 
-class ARecogerViewModel(application: Application): AndroidViewModel(application) {
+class AdevolverViewModel(application: Application): AndroidViewModel(application) {
+
     lateinit var sessionManager: SessionManager
     private lateinit var retrofitRepository: RetrofitRepository
     private lateinit var prestamosLiveData: LiveData<List<PrestamoUsuario>>
@@ -19,18 +20,19 @@ class ARecogerViewModel(application: Application): AndroidViewModel(application)
     init {
         sessionManager = SessionManager(application.applicationContext)
         retrofitRepository = RetrofitRepository(application.applicationContext)
-        prestamosLiveData = retrofitRepository.getPRecogerLivedata()
+        prestamosLiveData = retrofitRepository.getPDevolverLivedata()
     }
 
 
-    fun getARecoger(){
+    fun getPDevolver(){
         viewModelScope.launch {
-            retrofitRepository.getPrestamosRecoger()
+            retrofitRepository.getPrestamosDevolver()
         }
     }
 
-    fun getPRecogerLD(): Flow<List<PrestamoUsuario>> {
+    fun getPDevolverLD(): Flow<List<PrestamoUsuario>>{
         return prestamosLiveData.asFlow()
 
     }
+
 }
