@@ -43,7 +43,7 @@ public class AdapterLibrosObject extends RecyclerView.Adapter<AdapterLibrosObjec
                 } else {
                     ArrayList<LibroObject> filteredList = new ArrayList<>();
                     for (LibroObject libroPre: lista){
-                        if (LibroObject.getTitulo().toLowerCase().contains(charString.toLowerCase())){
+                        if (libroPre.getTitulo().toLowerCase().contains(charString.toLowerCase())){
                             filteredList.add(libroPre);
                         }
 
