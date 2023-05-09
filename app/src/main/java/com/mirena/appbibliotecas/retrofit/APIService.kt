@@ -21,6 +21,10 @@ interface APIService {
                        @Query("codigo_postal") codigo_postal: String,
                        @Query("localidad") localidad: String): Call<ResponseBody>
 
+    @GET("/filtroBiblioSubg")
+    fun filtroBibloSubg(@Query("subgenero") subgenero: String, @Query("biblioteca") biblioteca: String):
+            Response<List<LibroObject>>
+
     @GET("/getUser/{id}")
     suspend fun getUser(@Path("id") id: Int): Response<Usuario>
 
@@ -29,6 +33,10 @@ interface APIService {
 
     @GET("/getsubgeneros")
     suspend fun getSubgeneros(@Body genero:Int ): Response<List<Subgeneros>>
+
+    @GET("/getsubgenerospornombre/{genero}")
+    //@HTTP(method = "GET", path = "/getsubgenerospornombre", hasBody = true)
+    suspend fun getSubgenerosPorNombre(@Path("genero") genero:String ): Response<List<Subgeneros>>
 
     @GET("/getlibrossubgeneros/{id}")
     suspend fun getLibrosSubgenero(@Path("id") id: Int):  Response<List<LibroPre>>

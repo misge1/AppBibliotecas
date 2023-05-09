@@ -21,7 +21,7 @@ class EleccionFiltrosViewModel(application: Application): AndroidViewModel(appli
     init {
         retrofitRepository = RetrofitRepository(application.applicationContext)
         generoslivedata = retrofitRepository.getGenerosLivedata()
-        subgeneroslivedata = retrofitRepository.getSubGenerosLivedata()
+        subgeneroslivedata = retrofitRepository.getSubGenerosNombreLivedata()
         bibliotecaslivedata = retrofitRepository.getBibliotecasLivedata()
 
     }
@@ -44,9 +44,9 @@ class EleccionFiltrosViewModel(application: Application): AndroidViewModel(appli
      * subgeneros
      */
 
-    fun getSubGeneros(genero: Int){
+    fun getSubGeneros(genero: String){
         viewModelScope.launch {
-            retrofitRepository.getSubGeneros(genero)
+            retrofitRepository.getSubGenerosPorNombre(genero)
         }
     }
 

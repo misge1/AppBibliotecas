@@ -21,7 +21,29 @@ class RetrofitRepository(var context: Context) {
     private var comprobacionfav: MutableLiveData<String> = MutableLiveData<String>()
     private var listalibrosAll: MutableLiveData<List<LibroPre>> = MutableLiveData<List<LibroPre>>()
     private var listaSubgeneros: MutableLiveData<List<Subgeneros>> = MutableLiveData<List<Subgeneros>>()
+    private var listaSubgenerosNombre: MutableLiveData<List<Subgeneros>> = MutableLiveData<List<Subgeneros>>()
     private var listaBibliotecas: MutableLiveData<List<Biblioteca>> = MutableLiveData<List<Biblioteca>>()
+    private var listaFiltradaSubBiblio: MutableLiveData<List<LibroObject>> = MutableLiveData<List<LibroObject>>()
+
+
+    /**
+     * LISTA DE LIBROS FILTRADA
+     */
+
+    suspend fun getListaFiltrada(subgenero: String, biblioteca: String){
+        val call = RetrofitInstance.api.filtroBibloSubg(subgenero, biblioteca)
+        val body = call.body()
+
+        if (call.isSuccessful){
+            body.let {
+                listaFiltradaSubBiblio.postValue(it)
+            }
+        }
+    }
+
+    fun getListaFiltradaLiveData(): LiveData<List<LibroObject>>{
+        return listaFiltradaSubBiblio
+    }
 
     /**
      * PRESTAMOS A DEVOLVER
@@ -161,8 +183,25 @@ class RetrofitRepository(var context: Context) {
         return listaSubgeneros
     }
 
+
+    suspend fun getSubGenerosPorNombre(genero: String){
+        val call = RetrofitInstance.api.getSubgenerosPorNombre(genero)
+        val body = call.body()
+
+        if (call.isSuccessful){
+            body.let {
+                listaSubgenerosNombre.postValue(it)
+            }
+        }
+    }
+
+
+    fun getSubGenerosNombreLivedata(): LiveData<List<Subgeneros>>{
+        return listaSubgenerosNombre
+    }
+
     /**
-     * SUBGENEROS
+     * Biblioteca
      */
 
     suspend fun getBibliotecas(){

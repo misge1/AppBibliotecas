@@ -159,6 +159,7 @@
             android:layout_height="50dp"/>
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/buttonAplicarFiltros"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"

@@ -3,32 +3,33 @@ package com.mirena.appbibliotecas.ui.Filtros
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.view.isEmpty
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputLayout
 import com.mirena.appbibliotecas.R
-import com.mirena.appbibliotecas.adapters.AdapterGeneric
 import com.mirena.appbibliotecas.databinding.ActivityFiltrosBinding
+import com.mirena.appbibliotecas.objects.Biblioteca
 import com.mirena.appbibliotecas.objects.Generos
 import com.mirena.appbibliotecas.objects.LibroPre
 import com.mirena.appbibliotecas.objects.Subgeneros
-import com.mirena.appbibliotecas.ui.Search.SearchActivity
 import com.mirena.appbibliotecas.ui.EleccionFiltros.EleccionFiltrosActivity
 import com.mirena.appbibliotecas.ui.EleccionFiltros.EleccionFiltrosViewModel
+import com.mirena.appbibliotecas.ui.ListaLibrosFiltrada.ListaFiltradaActivity
+import com.mirena.appbibliotecas.ui.Search.SearchActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import org.w3c.dom.Text
+
 
 class FiltrosActivity : AppCompatActivity() {
 
@@ -43,6 +44,8 @@ class FiltrosActivity : AppCompatActivity() {
     private lateinit var context: Context
     private lateinit var bibliotecalinearlayout: LinearLayout
     private lateinit var materialDialog: MaterialAlertDialogBuilder
+    private lateinit var adapterGeneros: ArrayAdapter<String>
+    private lateinit var botonAplicarFiltros: ExtendedFloatingActionButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +60,7 @@ class FiltrosActivity : AppCompatActivity() {
         menuBibliotecas = findViewById(R.id.menuBiblioteca)
         elecctionFiltrosViewModel = ViewModelProvider(this)[EleccionFiltrosViewModel::class.java]
         context = this
+        botonAplicarFiltros = findViewById(R.id.buttonAplicarFiltros)
         //generoslinearlayout = findViewById(R.id.generosLinearLayout)
         //subgeneroslinear = findViewById(R.id.subgenerosLinearLayout)
         //bibliotecalinearlayout = findViewById(R.id.bibliotecaLinearLayout)
@@ -74,35 +78,99 @@ class FiltrosActivity : AppCompatActivity() {
 
             var listaGeneros = listOf<Generos>()
             var listaLibros = listOf<LibroPre>()
+            var listaNombresGenero = mutableListOf<String>()
 
             elecctionFiltrosViewModel.getgenerosflow().collectLatest {
                 listaGeneros = it
+                for(generos: Generos in listaGeneros){
+                    listaNombresGenero.add(generos.genero)
+
+                }
                 runOnUiThread {
-                    val adapter = ArrayAdapter(context , R.layout.list_item, listaGeneros)
-                    (menuGeneros.editText as? AutoCompleteTextView)?.setAdapter(adapter)
+                    adapterGeneros = ArrayAdapter(context , R.layout.list_item, listaNombresGenero)
+                    (menuGeneros.editText as? AutoCompleteTextView)?.setAdapter(adapterGeneros)
                 }
             }
         }
 
-        //val items = listOf("Option 1", "Option 2", "Option 3", "Option 4")
+
+           if (!menuGeneros.isEmpty()) {
+               (menuGeneros.getEditText() as AutoCompleteTextView).onItemClickListener =
+                   OnItemClickListener { adapterView, view, position, id ->
+                       val selectedValue: String = adapterGeneros.getItem(position)!!
+                       elecctionFiltrosViewModel.getSubGeneros(selectedValue)
+                   }
 
 
-        /*generoslinearlayout.setOnClickListener {
-            intentfiltros.putExtra("tipo", "generos")
-            startActivity(intentfiltros)
+               CoroutineScope(Dispatchers.IO).launch {
 
+                   var listaSubGeneros = listOf<Subgeneros>()
+                   var listaLibros = listOf<LibroPre>()
+
+
+                   elecctionFiltrosViewModel.getSubGenerosflow().collectLatest {
+                       var listaNombresSubGenero = mutableListOf<String>()
+                       listaSubGeneros = it
+                       for (subgeneros: Subgeneros in listaSubGeneros) {
+                           listaNombresSubGenero.add(subgeneros.subgenero)
+
+                       }
+                       runOnUiThread {
+                           val adapter =
+                               ArrayAdapter(context, R.layout.list_item, listaNombresSubGenero)
+                           (menuSubgeneros.editText as? AutoCompleteTextView)?.setAdapter(adapter)
+                       }
+                   }
+               }
+
+           }
+
+
+        elecctionFiltrosViewModel.getBibliotecas()
+
+        CoroutineScope(Dispatchers.IO).launch {
+
+            var listaBiblioteca = listOf<Biblioteca>()
+            var listaNombresBiblioteca = mutableListOf<String>()
+
+            elecctionFiltrosViewModel.getBibliotecasFlow().collectLatest {
+                listaBiblioteca = it
+                for(bibliotecas: Biblioteca in listaBiblioteca){
+                    listaNombresBiblioteca.add(bibliotecas.nombre)
+
+                }
+                runOnUiThread {
+                    val adapter = ArrayAdapter(context , R.layout.list_item, listaNombresBiblioteca)
+                    (menuBibliotecas.editText as? AutoCompleteTextView)?.setAdapter(adapter)
+                }
+            }
         }
 
-        subgeneroslinear.setOnClickListener {
-            intentfiltros.putExtra("tipo", "subgeneros")
-            startActivity(intentfiltros)
+        botonAplicarFiltros.setOnClickListener{
+            buscarPorFiltros()
         }
 
-        bibliotecalinearlayout.setOnClickListener {
-            intentfiltros.putExtra("tipo", "bibliotecas")
-            startActivity(intentfiltros)
-        }*/
 
+
+
+
+
+    }
+
+    /**
+     * función para cuando le das al botón de aplicar filtros
+     */
+
+    fun buscarPorFiltros() {
+
+            val eleccionSubgenero = menuSubgeneros.editText.toString()
+            val eleccionBiblioteca = menuBibliotecas.editText.toString()
+
+            val intent = Intent(context,ListaFiltradaActivity::class.java)
+            intent.putExtra("subgenero", eleccionSubgenero)
+            intent.putExtra("biblioteca", eleccionBiblioteca)
+
+            startActivity(intent)
 
     }
 }
