@@ -47,7 +47,7 @@ class ListaFiltradaActivity : AppCompatActivity() {
                listaLibros = it
 
                 runOnUiThread {
-                    val recyclerViewLibros = findViewById<RecyclerView>(R.id.recyclerviewEleccionFiltros)
+                    val recyclerViewLibros = binding.contentListaFiltrada.recyclerviewListaFiltrada
                     recyclerViewLibros.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                     adapterLibros = AdapterLibrosObject(context, listaLibros)
                     recyclerViewLibros.adapter = adapterLibros

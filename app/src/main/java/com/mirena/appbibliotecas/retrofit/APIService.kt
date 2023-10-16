@@ -22,7 +22,7 @@ interface APIService {
                        @Query("localidad") localidad: String): Call<ResponseBody>
 
     @GET("/filtroBiblioSubg")
-    fun filtroBibloSubg(@Query("subgenero") subgenero: String, @Query("biblioteca") biblioteca: String):
+    suspend fun filtroBibloSubg(@Query("subgenero") subgenero: String, @Query("biblioteca") biblioteca: String):
             Response<List<LibroObject>>
 
     @GET("/getUser/{id}")

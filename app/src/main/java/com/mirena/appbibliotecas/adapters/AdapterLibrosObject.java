@@ -128,8 +128,8 @@ public class AdapterLibrosObject extends RecyclerView.Adapter<AdapterLibrosObjec
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textview_titulo = (TextView)itemView.findViewById(R.id.textview_titulo);
-            textView_autor = itemView.findViewById(R.id.textview_autor);
+            textview_titulo = itemView.findViewById(R.id.textview_titulo2);
+            textView_autor = itemView.findViewById(R.id.textview_autor2);
             textView_editorial = itemView.findViewById(R.id.textview_editorial);
             textView_ejemplares = itemView.findViewById(R.id.textview_ejemplares);
 

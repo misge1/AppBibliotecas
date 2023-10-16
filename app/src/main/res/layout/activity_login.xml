@@ -22,7 +22,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:src="@drawable/logo_atenea">
+            android:src="@drawable/atenea_penguin">
         </ImageView>
 
         <com.google.android.material.textfield.TextInputLayout

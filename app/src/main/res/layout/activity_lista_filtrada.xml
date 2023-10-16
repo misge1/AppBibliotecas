@@ -19,6 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:layout_collapseMode="parallax"
+
             app:popupTheme="@style/Theme.AppBibliotecas.PopupOverlay">
 
             <androidx.appcompat.widget.SearchView
@@ -37,7 +38,9 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_scrolling_lista_filtrada" />
+    <include
+        android:id="@+id/contentListaFiltrada"
+        layout="@layout/content_scrolling_lista_filtrada" />
 
 
 

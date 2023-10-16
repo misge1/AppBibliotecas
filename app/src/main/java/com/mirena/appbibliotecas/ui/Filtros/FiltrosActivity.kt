@@ -163,8 +163,8 @@ class FiltrosActivity : AppCompatActivity() {
 
     fun buscarPorFiltros() {
 
-            val eleccionSubgenero = menuSubgeneros.editText.toString()
-            val eleccionBiblioteca = menuBibliotecas.editText.toString()
+            val eleccionSubgenero = menuSubgeneros.editText!!.text.toString()
+            val eleccionBiblioteca = menuBibliotecas.editText!!.text.toString()
 
             val intent = Intent(context,ListaFiltradaActivity::class.java)
             intent.putExtra("subgenero", eleccionSubgenero)

@@ -31,13 +31,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <CheckBox
-                android:text="Disponibles para prestar"
+                android:id="@+id/buttonSoloDisponibles"
+                android:text="Solo disponibles actualmente"
                />
-
-            <CheckBox
-                android:text="Todos">
-
-            </CheckBox>
 
         </TableLayout>
 
@@ -152,6 +148,43 @@
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:text="Idioma"
+                />
+        </LinearLayout>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="8dp"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/menuIdioma"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Cualquier idioma">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
 
 
         <Space
