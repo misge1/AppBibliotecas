@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/drawable-v23/splash.xml" value="0.1" />
         <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/drawable-v24/search_filter.xml" value="0.12" />
         <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/drawable/back_icon.xml" value="0.2055" />
         <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/drawable/boton_favoritos_selector.xml" value="0.1" />
@@ -16,6 +17,7 @@
         <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/drawable/filter2.xml" value="0.1455" />
         <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/drawable/flecha.xml" value="0.1" />
         <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/drawable/home_icon.xml" value="0.1" />
+        <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/drawable/icon_user.xml" value="0.2595" />
         <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/drawable/library_icon.xml" value="0.1355" />
         <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/drawable/pendiente_devolucion_icon.xml" value="0.1" />
@@ -44,7 +46,8 @@
         <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/layout/activity_main.xml" value="0.176" />
         <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/layout/activity_pedido.xml" value="0.16" />
-        <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/layout/activity_prestamo_recoger.xml" value="0.1" />
+        <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/layout/activity_prestamo_en_curso.xml" value="0.20863616930312098" />
+        <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/layout/activity_prestamo_recoger.xml" value="0.264" />
         <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/layout/activity_prestamos.xml" value="0.1" />
         <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/layout/activity_prestamos_adevolver.xml" value="0.20863616930312098" />
         <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/layout/activity_prestamos_en_curso.xml" value="0.20863616930312098" />
@@ -80,13 +83,18 @@
         <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/layout/prestamo_content_scrolling.xml" value="0.14457831325301204" />
         <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/layout/user_layout.xml" value="0.1" />
         <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/menu/menu_account.xml" value="0.1936725096194955" />
-        <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/menu/menu_favoritos.xml" value="0.1" />
+        <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/menu/menu_ajustes.xml" value="0.1" />
+        <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/menu/menu_editar_perfil.xml" value="0.1" />
+        <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/menu/menu_favoritos.xml" value="0.144" />
         <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/menu/menu_libro.xml" value="0.1" />
         <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/menu/menu_libro_activity2.xml" value="0.1" />
         <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/menu/menu_lista_filtrada.xml" value="0.18640444634459172" />
+        <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/menu/menu_prestamos.xml" value="0.1" />
+        <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/menu/menu_prestamos_en_curso.xml" value="0.16" />
         <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/menu/menu_scrolling.xml" value="0.16589278176445757" />
         <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/menu/menu_subgeneros.xml" value="0.1" />
         <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/menu/upper_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/MIRENA/AndroidStudioProjects/AppBibliotecas/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
       </map>
     </option>
   </component>

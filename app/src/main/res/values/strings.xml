@@ -120,4 +120,11 @@
     <string name="title_activity_editar_perfil">EditarPerfilActivity</string>
     <string name="title_activity_filtros">FiltrosActivity</string>
     <string name="title_activity_lista_filtrada">ListaFiltradaActivity</string>
+    <string name="biblioteca_donde_recoger">Biblioteca donde recoger</string>
+    <string name="fin_del_pretamo">Fin del préstamo</string>
+    <string name="renovar">renovar</string>
+    <string name="cancelar">cancelar</string>
+    <string name="fecha_llimite_recoger">Fecha límite para recoger</string>
+    <string name="cancelarPrestamo">Cancelar Préstamo</string>
+    <string name="biblioteca_donde_devolver">biblioteca donde devolver</string>
 </resources>

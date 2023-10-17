@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item >
+    <item>
         <shape>
             <gradient
+
                 android:gradientRadius="300dp"
                 android:startColor="#FFFFFF"
                 android:endColor="#FFFFFF"
@@ -10,8 +11,8 @@
         </shape>
     </item>
 
-    <item>
-        <bitmap android:src="@drawable/logo_atenea" android:gravity="center">
+    <item  android:gravity="center">
+        <bitmap android:src="@drawable/atenea_penguin">
 
         </bitmap>
     </item>

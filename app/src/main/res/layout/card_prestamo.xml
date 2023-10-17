@@ -77,37 +77,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="10dp"/>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:text="Fecha límite de devolución"
-                    android:textSize="16sp"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:id="@+id/textview_fecha_devolucion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:text="Fecha prestamo"/>
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp"/>
-
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Localización"
-                    />
-
-                <TextView
-                    android:id="@+id/textview_biblioteca_prestamo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="nombre biblioteca"
-                    />
-
                 <Button
                     android:id="@+id/button_cancelar"
                     android:layout_width="match_parent"
