@@ -38,7 +38,7 @@ private lateinit var binding: ActivityScrollingBinding
     private var appBarExpanded: Boolean = true
     lateinit var collapsedMenu: Menu
     private lateinit var sessionManager: SessionManager
-    private lateinit var filtros: ExtendedFloatingActionButton
+    //private lateinit var filtros: ExtendedFloatingActionButton
     private lateinit var scrollingActivityViewModel: ScrollingActivityViewModel
     private lateinit var searchFilterButton: ImageButton
 
@@ -51,7 +51,7 @@ private lateinit var binding: ActivityScrollingBinding
         binding = ActivityScrollingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        filtros = binding.layoutIncludeMain.filtrosButton!!
+        //filtros = binding.layoutIncludeMain.filtrosButton!!
 
         searchFilterButton = binding.filterSearchButton
         scrollingActivityViewModel = ViewModelProvider(this)[ScrollingActivityViewModel::class.java]
@@ -115,10 +115,10 @@ private lateinit var binding: ActivityScrollingBinding
         }
 
 
-        filtros.setOnClickListener{
+        /*filtros.setOnClickListener{
             val intent = Intent(this, FiltrosActivity::class.java)
             startActivity(intent)
-        }
+        }*/
 
         searchFilterButton.setOnClickListener{
             val intent = Intent(this, FiltrosActivity::class.java)

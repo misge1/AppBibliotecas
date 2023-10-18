@@ -15,6 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="@color/background_card_clear"
         android:layout_margin="8dp"
 
         >
@@ -23,8 +24,12 @@
             android:id="@+id/textivew_genero_solo"
             android:layout_width="120dp"
             android:layout_height="140dp"
+            android:layout_margin="8dp"
             android:text="Género específico"
             android:gravity="center"
+            android:textColor="@color/title_color"
+            android:fontFamily="@font/fredoka"
+
             android:textSize="20dp"
 
 

@@ -8,10 +8,15 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+
     <!-- Colores de mi tema -->
 
     <color name="texto_color">#531100</color>
     <color name="text_color_dark">#290901</color>
-    <color name="background_clear">#fff2df</color>
-    <color name="background_dark">#FFEBCF</color>
+    <color name="background_clear">#f8e1bf</color>
+    <color name="background_dark">#ffdca7</color>
+    <color name="title_color">#4b322f</color>
+    <color name="background_button_color">#4b322f</color>
+    <color name="background_card_clear">#ffecd1</color>
+    <color name="background_searchbar">#f4f4f4</color>
 </resources>

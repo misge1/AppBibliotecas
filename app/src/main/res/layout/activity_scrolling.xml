@@ -11,8 +11,9 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:fitsSystemWindows="true"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:background="@color/background_clear"
         android:theme="@style/Theme.AppBibliotecas.AppBarOverlay">
 
             <androidx.appcompat.widget.Toolbar
@@ -39,12 +40,7 @@
 
 
     </com.google.android.material.appbar.AppBarLayout>
-
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity=""
-        />
+    
 
 
     <include

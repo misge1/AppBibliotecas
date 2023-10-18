@@ -127,4 +127,7 @@
     <string name="fecha_llimite_recoger">Fecha límite para recoger</string>
     <string name="cancelarPrestamo">Cancelar Préstamo</string>
     <string name="biblioteca_donde_devolver">biblioteca donde devolver</string>
+    <string name="bibliotecas_atenea">Bibliotecas Atenea</string>
+    <string name="search_hint">Search...</string>
+    <string name="app_label">AppBibliotecas</string>
 </resources>
