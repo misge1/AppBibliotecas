@@ -27,6 +27,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/fredoka"
+        android:textColor="@color/title_color"
         android:text="Nombre"
         />
 
@@ -48,6 +50,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/fredoka"
+        android:textColor="@color/title_color"
         android:text="Teléfono"
         />
 
@@ -68,6 +72,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/fredoka"
+        android:textColor="@color/title_color"
         android:text="Domicilio"
         />
 
@@ -88,6 +94,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/fredoka"
+        android:textColor="@color/title_color"
         android:text="Localidad"
         />
 
@@ -108,6 +116,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/fredoka"
+        android:textColor="@color/title_color"
         android:text="Código Postal"
         />
 
@@ -129,6 +139,8 @@
         android:id="@+id/aceptar_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/fredoka"
+        android:backgroundTint="@color/background_button_color"
         android:text="Aceptar"/>
 
 </LinearLayout>

@@ -28,6 +28,8 @@
 
             <TextView
                 android:layout_margin="10dp"
+                android:fontFamily="@font/fredoka"
+                android:textColor="@color/title_color"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
@@ -47,6 +49,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
+                android:fontFamily="@font/fredoka"
+                android:textColor="@color/title_color"
                 android:text="Editar perfil "
                 >
 
@@ -63,6 +67,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
+                android:fontFamily="@font/fredoka"
+                android:textColor="@color/title_color"
                 android:text="Eliminar cuenta "
                 >
 
@@ -79,6 +85,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
+                android:fontFamily="@font/fredoka"
+                android:textColor="@color/title_color"
                 android:text="Cerrar sesión"
                 >
 

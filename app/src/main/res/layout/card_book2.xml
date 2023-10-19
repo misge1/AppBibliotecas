@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:transitionGroup="true"
     android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
@@ -48,6 +49,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="8dp"
+                    android:fontFamily="@font/fredoka"
                     android:text="titulo"
                     android:textSize="22sp"
                     android:textColor="@color/title_color"
@@ -93,6 +95,7 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/background_button_color"
                     android:text="Pedir"
+                    android:fontFamily="@font/fredoka"
                     android:layout_margin="20dp"
                     />
 

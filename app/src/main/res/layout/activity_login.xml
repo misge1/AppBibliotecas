@@ -63,6 +63,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:backgroundTint="@color/background_button_color"
+            android:fontFamily="@font/fredoka"
             android:text="@string/login"
             android:textSize="20sp" />
 
@@ -86,6 +88,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="2dp"
             android:text="forgot your password?"
+            android:textColor="@color/title_color"
             android:textSize="12sp" />
 
         <Button
@@ -96,6 +99,7 @@
             android:layout_marginLeft="25dp"
             android:paddingLeft="25dp"
             android:text="Sign up now!"
+            android:textColor="@color/title_color"
             android:textSize="12sp" />
     </LinearLayout>
 

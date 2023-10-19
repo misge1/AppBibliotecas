@@ -14,6 +14,7 @@ import com.mirena.appbibliotecas.databinding.ActivitySubgenerosBinding
 import com.mirena.appbibliotecas.objects.LibroPre
 import com.mirena.appbibliotecas.retrofit.RetrofitInstance
 import com.mirena.appbibliotecas.ui.Login.LoginActivity
+import com.mirena.appbibliotecas.ui.MainActivity.ScrollingActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -61,7 +62,7 @@ class SubgenerosActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.upper_menu, menu)
+        menuInflater.inflate(R.menu.menu_favoritos, menu)
         return true
     }
 
@@ -75,6 +76,11 @@ class SubgenerosActivity : AppCompatActivity() {
                     val intent = Intent(this, AccountActivity::class.java)
                     startActivity(intent)
                 }
+                true
+            }
+            R.id.home_menu -> {
+                val intent = Intent(this, ScrollingActivity::class.java)
+                startActivity(intent)
                 true
             }
             else -> super.onOptionsItemSelected(item)

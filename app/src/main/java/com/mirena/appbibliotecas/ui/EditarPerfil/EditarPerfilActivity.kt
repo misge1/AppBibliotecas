@@ -1,6 +1,9 @@
 package com.mirena.appbibliotecas.ui.EditarPerfil
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -10,9 +13,13 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.mirena.appbibliotecas.R
+import com.mirena.appbibliotecas.SessionManager
 import com.mirena.appbibliotecas.databinding.ActivityEditarPerfilBinding
 import com.mirena.appbibliotecas.objects.Usuario
+import com.mirena.appbibliotecas.ui.Account.AccountActivity
 import com.mirena.appbibliotecas.ui.Account.AccountViewModel
+import com.mirena.appbibliotecas.ui.Login.LoginActivity
+import com.mirena.appbibliotecas.ui.MainActivity.ScrollingActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -37,6 +44,7 @@ class EditarPerfilActivity : AppCompatActivity() {
 
     private lateinit var aceptar_boton: Button
 
+    private lateinit var sessionManager: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,6 +70,8 @@ class EditarPerfilActivity : AppCompatActivity() {
         cp_editext = binding.editarperfilLayout.editextCp
 
         aceptar_boton = binding.editarperfilLayout.aceptarButton
+
+        sessionManager = SessionManager(this)
 
 
         CoroutineScope(Dispatchers.IO).launch {
@@ -94,4 +104,32 @@ class EditarPerfilActivity : AppCompatActivity() {
 
 
     }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_favoritos, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.usuario -> {
+                if (sessionManager.fetchAuthToken() == 0){
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
+                }else{
+                    val intent = Intent(this, AccountActivity::class.java)
+                    startActivity(intent)
+                }
+                true
+            }
+            R.id.home_menu -> {
+                val intent = Intent(this, ScrollingActivity::class.java)
+                startActivity(intent)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+
+    }
+
 }
