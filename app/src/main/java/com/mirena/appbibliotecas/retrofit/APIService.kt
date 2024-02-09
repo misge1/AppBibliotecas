@@ -1,5 +1,6 @@
 package com.mirena.appbibliotecas.retrofit
 
+import android.telecom.CallScreeningService.CallResponse
 import com.mirena.appbibliotecas.objects.*
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -32,15 +33,21 @@ interface APIService {
     suspend fun getGeneros(): Response<List<Generos>>
 
     @GET("/getsubgeneros")
-    suspend fun getSubgeneros(@Body genero:Int ): Response<List<Subgeneros>>
+    suspend fun getSubgeneros(@Query("genero") genero:Int ): Response<List<Subgeneros>>
+
+    @GET("/getAllSubgeneros")
+    suspend fun getAllSubgeneros(): Response<List<Subgeneros>>
 
     @GET("/getsubgenerospornombre/{genero}")
     //@HTTP(method = "GET", path = "/getsubgenerospornombre", hasBody = true)
     suspend fun getSubgenerosPorNombre(@Path("genero") genero:String ): Response<List<Subgeneros>>
 
-    @GET("/getlibrossubgeneros/{id}")
-    suspend fun getLibrosSubgenero(@Path("id") id: Int):  Response<List<LibroPre>>
+    @GET("/getlibrosgenero/{id}")
+    suspend fun getLibrosGenero(@Path("id") id: Int):  Response<List<LibroPre>>
 
+    @GET("/getlibrossubgenero/{id}")
+    suspend fun getLibrosSubgenero(@Path("id") id: Int):  Response<List<LibroPre>>
+    @Streaming
     @GET("/getrandombooks")
     suspend fun getRandomLibros(): Response<List<LibroPre>>
 
@@ -80,4 +87,17 @@ interface APIService {
     @GET("/comprobarfavoritos")
     suspend fun comprobarfavoritos(@Query("id_libro") id_libro: Int, @Query("id_usuario") id_usuario: Int): Response<String>
 
+    @GET("/getSubgenerosLibro/{id}")
+    suspend fun getSubgenerosLibro(@Path("id") id: Int ): Response<List<Subgeneros>>
+
+    @GET("/getIdiomas")
+    suspend fun getIdiomas(): Response<List<Idioma>>
+
+    @GET("/filtrar")
+    suspend fun filtrar(@Query("arrayIdiomas") arrayIdiomas: ArrayList<Int>, @Query("arrayBibliotecas") arrayBibliotecas: ArrayList<Int>, @Query("arraySubgeneros") arraySubgeneros: ArrayList<Int>, @Query("disponibles") disponibles: Int ): Response<List<LibroPre>>
+
+    @GET("/buscar")
+    suspend fun buscar(@Query("busca") busca: ArrayList<String>): Response<List<LibroPre>>
+    @DELETE("/borrarPrestamo/{id}")
+    fun borrarPrestamo(@Path("id") id: Int): Call<ResponseBody>
 }

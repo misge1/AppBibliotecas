@@ -34,6 +34,16 @@
         </item>
     </style>
 
+    <style name="ActionBar" parent="Theme.AppCompat">
+        <item name="android:background">@color/background_clear</item>
+        <item name="android:titleTextStyle">@style/ActionBar.TitleTextStyle</item>
+    </style>
+
+    <style name="ActionBar.TitleTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/text_color_dark</item>
+        <item name="android:fontFamily">@font/fredoka</item>
+    </style>
+
 
     <style name="InputTextLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox.Dense">
 
@@ -47,10 +57,29 @@
     <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
         <!-- changing my icon, its color and stuff.. -->
         <item name="searchIcon">@drawable/search_icon</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:editTextColor">@android:color/black</item>
     </style>
 
+    <style name="ThemeOverlay.App.MaterialAlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog" >
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.App.Button</item>
+        <item name="buttonBarNeutralButtonStyle">@style/Widget.App.Button</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Widget.App.Button</item>
+        <item name="android:textColor">@color/text_color_dark</item>
+        <item name="android:fontFamily">@font/fredoka</item>
+    </style>
 
-    <style name="Theme.AppBibliotecas.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Widget.App.Button" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Button.TextButton</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Button.TextButton" parent="">
+        <item name="colorPrimary">@color/background_button_color</item>
+        <item name="colorSecondary">@color/background_button_color</item>
+        <item name="android:fontFamily">@font/fredoka</item>
+    </style>
+
+    <style name="Theme.AppBibliotecas.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar" />
 
     <style name="Theme.AppBibliotecas.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

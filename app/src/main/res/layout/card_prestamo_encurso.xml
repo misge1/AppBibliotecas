@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_margin="8dp"
+        android:layout_height="wrap_content"
+        app:cardPreventCornerOverlap="true"
+        android:elevation="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="@color/background_card_clear"
+        app:layout_constraintVertical_bias="0.01999998">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imagePrestamoCurso"
+                android:layout_width="100dp"
+                android:layout_height="match_parent">
+
+            </ImageView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="10dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/textview_titulo_prestamo_curso"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="22sp"
+                    android:fontFamily="@font/fredoka"
+                    android:textColor="@color/title_color"
+                    android:text="Titulo del libro"/>
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:text="Fecha préstamo recogido"
+                    android:textSize="16sp"
+                    android:textColor="@color/title_color"
+                    android:fontFamily="@font/fredoka_light"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/textview_fecha_prestamo_comienzo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/fredoka_regular"
+                    android:textColor="@color/title_color"
+                    android:text="Fecha prestamo"/>
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:text="Fecha límite de devolución"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/fredoka_light"
+                    android:textColor="@color/title_color"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/textview_fecha_devolucion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/fredoka_regular"
+                    android:textColor="@color/title_color"
+                    android:text="Fecha prestamo"/>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"/>
+
+                <Button
+                    android:id="@+id/button_renovar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/fredoka"
+                    android:backgroundTint="@color/background_button_color"
+                    android:text="RENOVAR">
+
+                </Button>
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

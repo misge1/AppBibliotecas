@@ -13,122 +13,203 @@
     tools:context=".ui.MainActivity.ScrollingActivity">
 
     <LinearLayout
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center"
         >
 
-        <ImageView
-            android:layout_width="250dp"
-            android:layout_height="270dp"
-            android:scaleType="fitXY"
-            android:orientation="vertical"
-            android:layout_gravity="center"
-            />
-
         <TextView
+            android:layout_margin="8dp"
             android:id="@+id/textview_titulo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Titulo"
             android:textAlignment="center"
+            android:fontFamily="@font/fredoka"
+            android:textColor="@color/title_color"
             android:textSize="35sp" />
 
         <TextView
             android:id="@+id/textview_autor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:text="Autor"
+            android:fontFamily="@font/fredoka_light"
+            android:textColor="@color/title_color"
             android:textAlignment="center"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
 
-        <LinearLayout
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp"/>
+
+
+        <ImageView
+            android:id="@+id/imagePlacer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        >
+        <ImageButton
+            android:id="@+id/buttonFavoritos"
+            android:layout_width="wrap_content"
+            android:src="@drawable/favorito_icono"
+            android:backgroundTint="@color/white"
+            android:layout_height="wrap_content">
+
+        </ImageButton>
+        <Button
+            android:id="@+id/buttonEjemplares"
+            android:layout_width="wrap_content"
+            android:backgroundTint="@color/background_button_color"
+            android:text="Reservar"
+            android:fontFamily="@font/fredoka"
+            android:layout_height="wrap_content">
+
+        </Button>
+    </LinearLayout>
+
+        <TextView
+            android:id="@+id/textviewEstadoEjemplar"
+            android:layout_width="match_parent"
+            android:textColor="#289815"
+            android:fontFamily="@font/fredoka"
+            android:textSize="16dp"
+            android:gravity="center"
+            android:layout_height="wrap_content"/>
+
+
+        <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            >
-
+            android:layout_marginTop="8dp"
+            android:scrollbars="none"
+            android:id="@+id/scrollViewFactores"
+            android:fillViewport="true">
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:orientation="horizontal"
+                >
 
-                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/fredoka"
+                        android:textColor="@color/text_color_dark"
+                        android:text="ISBN"
+                        />
+                    <TextView
+                        android:id="@+id/textview_isbn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_color_dark"
+                        android:layout_marginTop="5sp"
+                        android:text="378282832"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:text="ISBN"
-                    />
-                <TextView
-                    android:id="@+id/textview_isbn"
-                    android:layout_width="match_parent"
+                    android:layout_marginStart="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:textColor="@color/text_color_dark"
+                        android:fontFamily="@font/fredoka"
+                        android:text="Idioma"
+                        />
+                    <TextView
+                        android:id="@+id/textview_idioma"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5sp"
+                        android:textColor="@color/text_color_dark"
+                        android:text="español"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:text="378282832"
-                    />
+                    android:layout_marginStart="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:textColor="@color/text_color_dark"
+                        android:fontFamily="@font/fredoka"
+                        android:text="Editorial"
+                        />
+                    <TextView
+                        android:id="@+id/textview_editorial"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5sp"
+                        android:textColor="@color/background_button_color"
+                        android:text="español"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:textColor="@color/text_color_dark"
+                        android:fontFamily="@font/fredoka"
+                        android:text="Nota"
+                        />
+                    <TextView
+                        android:id="@+id/textviewValoración"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5sp"
+                        android:textColor="@color/background_button_color"
+                        android:text="4/5"
+                        />
+                </LinearLayout>
             </LinearLayout>
+        </HorizontalScrollView>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:text="Idioma"
-                    />
-                <TextView
-                    android:id="@+id/textview_idioma"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:text="español"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:text="Editorial"
-                    />
-                <TextView
-                    android:id="@+id/textview_editorial"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:text="español"
-                    />
-
-
-
-            </LinearLayout>
-
-
-        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:text="Descripción"
+            android:textSize="18sp"
             android:fontFamily="@font/fredoka"
+            android:textColor="@color/text_color_dark"
             android:layout_marginBottom="10dp"
             >
 
@@ -137,11 +218,52 @@
         <TextView
             android:id="@+id/textview_descripcion"
             android:layout_margin="8dp"
+            android:textColor="@color/title_color"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Following the announcement of Google+ API deprecation scheduled for March 2019, a number of changes will be made to Blogger’s Google+ integration on 4 February 2019. *Google+ widgets:* Support for the “+1 Button”, “Google+ Followers” and “Google+ Badge” widgets in Layout will no longer be available. All instances of these widgets will be removed from all blogs. *+1 buttons:* The +1/G+ buttons and Google+ share links below blog posts and in the navigation bar will be removed. Please note that if you have a custom template that includes Google+ features, you may need to update ...">
 
         </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:textSize="18sp"
+            android:text="Géneros"
+            android:fontFamily="@font/fredoka"
+            android:textColor="@color/text_color_dark"
+            android:layout_marginBottom="10dp"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/generosLibroRView"
+            android:nestedScrollingEnabled="false"
+            android:scrollbars="horizontal"
+            android:layout_width="match_parent"
+            android:layout_margin="8dp"
+            android:layout_height="wrap_content">
+
+        </androidx.recyclerview.widget.RecyclerView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:textSize="18sp"
+            android:text="Bibliotecas donde encontrarlo"
+            android:fontFamily="@font/fredoka"
+            android:textColor="@color/text_color_dark"
+            android:layout_marginBottom="10dp"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/bibliotecasLibroRView"
+            android:layout_margin="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
 
 
     </LinearLayout>

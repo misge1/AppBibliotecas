@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/activity_filtros"
+
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:fillViewport="true"
     android:paddingBottom="100dp"
     android:clipToPadding="false"
-    tools:context=".ui.Filtros.FiltrosActivity">
+   >
 
     <LinearLayout
         android:layout_margin="16dp"
@@ -26,12 +26,15 @@
             android:layout_height="wrap_content"
             android:textSize="15dp"
             android:text="Disponibilidad"
+            android:fontFamily="@font/fredoka"
+            android:textColor="@color/title_color"
             />
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <CheckBox
                 android:id="@+id/buttonSoloDisponibles"
+                android:textColor="@color/title_color"
                 android:text="Solo disponibles actualmente"
                />
 
@@ -51,6 +54,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15dp"
+                android:textColor="@color/title_color"
+                android:fontFamily="@font/fredoka"
                 android:text="Género"
                 />
         </LinearLayout>
@@ -71,6 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none"
+
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -88,7 +94,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15dp"
+                android:textSize="15sp"
+                android:textColor="@color/title_color"
+                android:fontFamily="@font/fredoka"
                 android:text="Subgénero"
                 />
         </LinearLayout>
@@ -126,8 +134,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 android:text="Biblioteca"
+
                 />
         </LinearLayout>
         <Space

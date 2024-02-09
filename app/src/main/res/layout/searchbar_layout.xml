@@ -7,9 +7,13 @@
     <!-- NestedScrollingChild goes here (NestedScrollView, RecyclerView, etc.). -->
 
         <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchbarMain"
             android:layout_width="match_parent"
             android:background="@drawable/rounded_corners"
             android:layout_margin="10dp"
+            app:iconifiedByDefault="false"
+            app:queryHint="Busca un libro, autor..."
+            android:focusable="false"
             android:layout_height="wrap_content">
 
         </androidx.appcompat.widget.SearchView>

@@ -44,7 +44,7 @@
 
 
     <include
-        android:id="@+id/layout_include_main"
+        android:id="@+id/layoutIncludeMain"
         layout="@layout/content_scrolling" />
 
 

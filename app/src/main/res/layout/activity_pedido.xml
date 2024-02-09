@@ -9,24 +9,31 @@
     tools:context=".ui.Pedido.PedidoActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        app:layout_constraintTop_toTopOf="parent"
         android:id="@+id/app_bar"
         android:fitsSystemWindows="true"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:background="@color/background_clear"
         android:theme="@style/Theme.AppBibliotecas.AppBarOverlay">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_width="match_parent"
-            app:layout_collapseMode="parallax"
-            app:menu="@menu/upper_menu"
-            app:popupTheme="@style/Theme.AppBibliotecas.PopupOverlay"
-            >
-        </androidx.appcompat.widget.Toolbar>
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_collapseMode="parallax"
+        app:popupTheme="@style/Theme.AppBibliotecas.PopupOverlay">
+
+        <ImageView
+            android:id="@+id/backButtonPedido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:padding="8dp"
+            android:src="@drawable/back_icon" />
 
 
-
+    </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
     <include
@@ -48,7 +55,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_margin="8dp"
-            android:backgroundTint="@color/purple_500"
+            android:fontFamily="@font/fredoka"
+            android:backgroundTint="@color/background_button_color"
             android:text="Finalizar Pedido"
             >
         </Button>

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
@@ -13,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mirena.appbibliotecas.R
 import com.mirena.appbibliotecas.SessionManager
-import com.mirena.appbibliotecas.adapters.AdapterPrestamos
+import com.mirena.appbibliotecas.adapters.AdapterPrestamosRecoger
 import com.mirena.appbibliotecas.databinding.ActivityPrestamosRecogerBinding
 import com.mirena.appbibliotecas.objects.PrestamoUsuario
 import com.mirena.appbibliotecas.ui.Account.AccountActivity
@@ -29,8 +30,9 @@ class PrestamosRecogerActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPrestamosRecogerBinding
     private lateinit var sessionManager: SessionManager
     private lateinit var context: Context
-    private lateinit var mAdapter: AdapterPrestamos
+    private lateinit var mAdapter: AdapterPrestamosRecoger
     private lateinit var cancelarButton: Button
+    private lateinit var backButton: ImageView
     private lateinit var precogerviewmodel: ARecogerViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +48,7 @@ class PrestamosRecogerActivity : AppCompatActivity() {
 
         setSupportActionBar(findViewById(R.id.toolbar))
 
+        backButton = binding.backButtonPrestamosRecoger
         precogerviewmodel = ViewModelProvider(this)[ARecogerViewModel::class.java]
 
         precogerviewmodel.getARecoger()
@@ -57,17 +60,21 @@ class PrestamosRecogerActivity : AppCompatActivity() {
                 runOnUiThread {
                     listaPrestamos = it
                     val mrecyclerview = findViewById<RecyclerView>(R.id.recyclerview_prestamos)
-
                     mrecyclerview.layoutManager = LinearLayoutManager(context)
-                    mAdapter = AdapterPrestamos(context, listaPrestamos)
+                    mAdapter =
+                        AdapterPrestamosRecoger(
+                            context,
+                            listaPrestamos
+                        )
                     mrecyclerview.adapter = mAdapter
                     binding.arecogerLayout.root.isVisible = true
                     binding.imagenVacioRecoger.isVisible = false
                 }
-
-
             }
+        }
 
+        backButton.setOnClickListener {
+            this.finish()
         }
 
 

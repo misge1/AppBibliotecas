@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mirena.appbibliotecas.R;
-import com.mirena.appbibliotecas.SubgenerosActivity;
+import com.mirena.appbibliotecas.ui.Géneros.GenerosActivity;
 import com.mirena.appbibliotecas.objects.Generos;
 
 import java.util.List;
@@ -47,8 +47,9 @@ public class AdapterGeneros extends RecyclerView.Adapter<AdapterGeneros.ViewHold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, SubgenerosActivity.class);
+                Intent intent = new Intent(context, GenerosActivity.class);
                 intent.putExtra("id_genero", generos.getId_genero());
+                intent.putExtra("nombre", generos.getGenero());
                 context.startActivity(intent);
             }
         });

@@ -3,174 +3,131 @@ package com.mirena.appbibliotecas.ui.Filtros
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.AdapterView.OnItemClickListener
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.LinearLayout
+import android.widget.Button
+import android.widget.CheckBox
+import android.widget.ImageButton
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
-import androidx.core.view.isEmpty
+import androidx.cardview.widget.CardView
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.textfield.TextInputLayout
 import com.mirena.appbibliotecas.R
 import com.mirena.appbibliotecas.databinding.ActivityFiltrosBinding
-import com.mirena.appbibliotecas.objects.Biblioteca
-import com.mirena.appbibliotecas.objects.Generos
-import com.mirena.appbibliotecas.objects.LibroPre
-import com.mirena.appbibliotecas.objects.Subgeneros
+import com.mirena.appbibliotecas.ui.Account.AccountActivity
 import com.mirena.appbibliotecas.ui.EleccionFiltros.EleccionFiltrosActivity
 import com.mirena.appbibliotecas.ui.EleccionFiltros.EleccionFiltrosViewModel
+import com.mirena.appbibliotecas.ui.Filtros.Generos.FiltroGenerosActivity
 import com.mirena.appbibliotecas.ui.ListaLibrosFiltrada.ListaFiltradaActivity
-import com.mirena.appbibliotecas.ui.Search.SearchActivity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
+import com.mirena.appbibliotecas.ui.Login.LoginActivity
+import com.mirena.appbibliotecas.ui.MainActivity.ScrollingActivity
 
 
 class FiltrosActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityFiltrosBinding
-    private lateinit var searchviewfiltros: SearchView
-    private lateinit var menuGeneros: TextInputLayout
-    private lateinit var menuSubgeneros: TextInputLayout
-    private lateinit var menuBibliotecas: TextInputLayout
-    private lateinit var generoslinearlayout: LinearLayout
-    private lateinit var subgeneroslinear: LinearLayout
+    private lateinit var menuGeneros: CardView
+    private lateinit var menuBibliotecas: CardView
+    private lateinit var menuIdiomas: CardView
+    private lateinit var opcionDisponibles: CheckBox
     private lateinit var elecctionFiltrosViewModel: EleccionFiltrosViewModel
     private lateinit var context: Context
-    private lateinit var bibliotecalinearlayout: LinearLayout
-    private lateinit var materialDialog: MaterialAlertDialogBuilder
     private lateinit var adapterGeneros: ArrayAdapter<String>
-    private lateinit var botonAplicarFiltros: ExtendedFloatingActionButton
-
+    private lateinit var botonBuscar: Button
+    private lateinit var filtrosViewmodel: FiltrosViewModel
+    private lateinit var checkDisponibles: CheckBox
+    private lateinit var backButton: ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityFiltrosBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        filtrosViewmodel = ViewModelProvider(this)[FiltrosViewModel::class.java]
+
         setSupportActionBar(findViewById(R.id.toolbar))
-        searchviewfiltros = findViewById(R.id.searchviewFiltros)
-        menuGeneros = findViewById(R.id.menu)
-        menuSubgeneros = findViewById(R.id.menuSubgenero)
-        menuBibliotecas = findViewById(R.id.menuBiblioteca)
-        elecctionFiltrosViewModel = ViewModelProvider(this)[EleccionFiltrosViewModel::class.java]
-        context = this
-        botonAplicarFiltros = findViewById(R.id.buttonAplicarFiltros)
-        //generoslinearlayout = findViewById(R.id.generosLinearLayout)
-        //subgeneroslinear = findViewById(R.id.subgenerosLinearLayout)
-        //bibliotecalinearlayout = findViewById(R.id.bibliotecaLinearLayout)
+        val intentthis = Intent(this, EleccionFiltrosActivity::class.java)
+        val intentGeneros = Intent(this, FiltroGenerosActivity::class.java)
+        val intentMain = Intent(this, ScrollingActivity::class.java)
 
-        val intentfiltros = Intent(this, EleccionFiltrosActivity::class.java)
+        menuGeneros = binding.contentfiltros.cardviewGeneros
+        menuBibliotecas = binding.contentfiltros.cardviewBibliotecas
+        menuIdiomas = binding.contentfiltros.cardviewIdiomas
+        botonBuscar = binding.contentfiltros.botonBuscar
+        checkDisponibles = binding.contentfiltros.buttonSoloDisponibles
+        backButton = binding.backButtonFilters
 
-        searchviewfiltros.setOnClickListener {
-            val intent = Intent(this, SearchActivity::class.java)
-            startActivity(intent)
+        checkDisponibles.isChecked = filtrosViewmodel.getFiltroDisponibles()==1
+
+
+        menuGeneros.setOnClickListener {
+            startActivity(intentGeneros)
+            this.finish()
         }
 
-        elecctionFiltrosViewModel.getGeneros()
+        menuBibliotecas.setOnClickListener {
+            intentthis.putExtra("tipo", "bibliotecas")
+            startActivity(intentthis)
+            this.finish()
+        }
 
-        CoroutineScope(Dispatchers.IO).launch {
+        menuIdiomas.setOnClickListener {
+            intentthis.putExtra("tipo", "idiomas")
+            startActivity(intentthis)
+            this.finish()
+        }
 
-            var listaGeneros = listOf<Generos>()
-            var listaLibros = listOf<LibroPre>()
-            var listaNombresGenero = mutableListOf<String>()
+        botonBuscar.setOnClickListener {
+            val intentListaFiltrada = Intent(this, ListaFiltradaActivity::class.java)
+            startActivity(intentListaFiltrada)
+            this.finish()
 
-            elecctionFiltrosViewModel.getgenerosflow().collectLatest {
-                listaGeneros = it
-                for(generos: Generos in listaGeneros){
-                    listaNombresGenero.add(generos.genero)
+        }
 
-                }
-                runOnUiThread {
-                    adapterGeneros = ArrayAdapter(context , R.layout.list_item, listaNombresGenero)
-                    (menuGeneros.editText as? AutoCompleteTextView)?.setAdapter(adapterGeneros)
-                }
+        checkDisponibles.setOnClickListener {
+            if (checkDisponibles.isChecked){
+                filtrosViewmodel.saveFiltroDisponibles(1)
+            }else{
+                filtrosViewmodel.saveFiltroDisponibles(0)
             }
+
         }
 
-
-           if (!menuGeneros.isEmpty()) {
-               (menuGeneros.getEditText() as AutoCompleteTextView).onItemClickListener =
-                   OnItemClickListener { adapterView, view, position, id ->
-                       val selectedValue: String = adapterGeneros.getItem(position)!!
-                       elecctionFiltrosViewModel.getSubGeneros(selectedValue)
-                   }
-
-
-               CoroutineScope(Dispatchers.IO).launch {
-
-                   var listaSubGeneros = listOf<Subgeneros>()
-                   var listaLibros = listOf<LibroPre>()
-
-
-                   elecctionFiltrosViewModel.getSubGenerosflow().collectLatest {
-                       var listaNombresSubGenero = mutableListOf<String>()
-                       listaSubGeneros = it
-                       for (subgeneros: Subgeneros in listaSubGeneros) {
-                           listaNombresSubGenero.add(subgeneros.subgenero)
-
-                       }
-                       runOnUiThread {
-                           val adapter =
-                               ArrayAdapter(context, R.layout.list_item, listaNombresSubGenero)
-                           (menuSubgeneros.editText as? AutoCompleteTextView)?.setAdapter(adapter)
-                       }
-                   }
-               }
-
-           }
-
-
-        elecctionFiltrosViewModel.getBibliotecas()
-
-        CoroutineScope(Dispatchers.IO).launch {
-
-            var listaBiblioteca = listOf<Biblioteca>()
-            var listaNombresBiblioteca = mutableListOf<String>()
-
-            elecctionFiltrosViewModel.getBibliotecasFlow().collectLatest {
-                listaBiblioteca = it
-                for(bibliotecas: Biblioteca in listaBiblioteca){
-                    listaNombresBiblioteca.add(bibliotecas.nombre)
-
-                }
-                runOnUiThread {
-                    val adapter = ArrayAdapter(context , R.layout.list_item, listaNombresBiblioteca)
-                    (menuBibliotecas.editText as? AutoCompleteTextView)?.setAdapter(adapter)
-                }
-            }
+        backButton.setOnClickListener {
+            startActivity(intentMain)
+            this.finish()
         }
+    }
 
-        botonAplicarFiltros.setOnClickListener{
-            buscarPorFiltros()
-        }
-
-
-
-
-
+    override fun onBackPressed() {
+        val intent = Intent(this,ScrollingActivity::class.java)
+        startActivity(intent)
+        this.finish()
 
     }
 
-    /**
-     * función para cuando le das al botón de aplicar filtros
-     */
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_filtros, menu)
+        return true
+    }
 
-    fun buscarPorFiltros() {
-
-            val eleccionSubgenero = menuSubgeneros.editText!!.text.toString()
-            val eleccionBiblioteca = menuBibliotecas.editText!!.text.toString()
-
-            val intent = Intent(context,ListaFiltradaActivity::class.java)
-            intent.putExtra("subgenero", eleccionSubgenero)
-            intent.putExtra("biblioteca", eleccionBiblioteca)
-
-            startActivity(intent)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.usuario -> {
+                if (filtrosViewmodel.getAuthToken() == 0){
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
+                }else{
+                    val intent = Intent(this, AccountActivity::class.java)
+                    startActivity(intent)
+                }
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
 
     }
+
+
 }

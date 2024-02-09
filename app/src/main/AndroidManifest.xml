@@ -19,6 +19,14 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.Subgeneros.SubgenerosActivity"
+            android:exported="false"
+            android:label="@string/title_activity_subgeneros"
+            android:theme="@style/Theme.AppBibliotecas.NoActionBar" />
+        <activity
+            android:name=".ui.Filtros.Generos.FiltroGenerosActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.prestamos.EnCurso.prestamoIndividual.PrestamoEnCursoActivity"
             android:exported="false" />
         <activity
@@ -42,7 +50,9 @@
             android:theme="@style/Theme.AppBibliotecas.NoActionBar" />
         <activity
             android:name=".ui.Search.SearchActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppBibliotecas.NoActionBar"
+            android:label=""/>
         <activity
             android:name=".ui.EditarPerfil.EditarPerfilActivity"
             android:exported="false"
@@ -59,7 +69,6 @@
             android:theme="@style/SplashStyle">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -92,7 +101,7 @@
             android:name=".ui.Pedido.PedidoActivity"
             android:exported="false" />
         <activity
-            android:name=".SubgenerosActivity"
+            android:name=".ui.Géneros.GenerosActivity"
             android:exported="false"
             android:label=""
             android:theme="@style/Theme.AppBibliotecas.NoActionBar" />
@@ -104,8 +113,9 @@
         <activity
             android:name=".ui.MainActivity.ScrollingActivity"
             android:exported="false"
-            android:label=""
-            android:theme="@style/Theme.AppBibliotecas.NoActionBar" />
+            android:label="m"
+            android:theme="@style/Theme.AppBibliotecas.NoActionBar"
+            />
         <activity
             android:name=".ui.Account.AccountActivity"
             android:exported="false"

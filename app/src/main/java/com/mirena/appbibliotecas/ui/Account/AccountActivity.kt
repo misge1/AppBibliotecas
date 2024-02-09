@@ -17,9 +17,10 @@ import com.mirena.appbibliotecas.SessionManager
 import com.mirena.appbibliotecas.databinding.ActivityAccountBinding
 import com.mirena.appbibliotecas.objects.Usuario
 import com.mirena.appbibliotecas.ui.Ajustes.AjustesActivity
-import com.mirena.appbibliotecas.ui.prestamos.adevolver.PrestamosAdevolverActivity
 import com.mirena.appbibliotecas.ui.prestamos.EnCurso.PrestamosEnCursoActivity
 import com.mirena.appbibliotecas.ui.prestamos.ARecoger.PrestamosRecogerActivity
+import com.squareup.picasso.Picasso
+import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -38,8 +39,8 @@ class AccountActivity : AppCompatActivity() {
     private lateinit var boton_favorito: ImageButton
     private lateinit var boton_recogida: ImageButton
     private lateinit var boton_encurso: ImageButton
-    private lateinit var boton_devolver: ImageButton
     private lateinit var boton_editar: Button
+    private lateinit var foto_perfil: CircleImageView
     private lateinit var binding: ActivityAccountBinding
     private lateinit var accountViewModel: AccountViewModel
 
@@ -54,7 +55,6 @@ class AccountActivity : AppCompatActivity() {
         accountViewModel = ViewModelProvider(this)[AccountViewModel::class.java]
 
         accountViewModel.getUserInfo()
-
         titulo_textview = findViewById(R.id.titulo_nombre)
         nombre_textview = findViewById(R.id.nombre_text)
         alta_textview = findViewById(R.id.alta_text)
@@ -67,8 +67,8 @@ class AccountActivity : AppCompatActivity() {
         boton_favorito = findViewById(R.id.boton_favoritos)
         boton_recogida = findViewById(R.id.boton_recogida)
         boton_encurso = findViewById(R.id.boton_encurso)
-        boton_devolver = findViewById(R.id.boton_devolver)
         boton_editar = findViewById(R.id.boton_editar)
+        foto_perfil = findViewById(R.id.circle_image)
         sessionManager = SessionManager(this)
 
         CoroutineScope(Dispatchers.IO).launch {
@@ -85,11 +85,11 @@ class AccountActivity : AppCompatActivity() {
                     domicilio_textview.text = usuario.domicilio
                     localidad_textview.text = usuario.localidad
                     cp_textview.text = usuario.codigo_postal
+                    Picasso.get()
+                        .load(usuario.foto)
+                        .into(foto_perfil)
                 }
-
-
             }
-
         }
 
         cerrar_sesion_button.setOnClickListener {
@@ -113,11 +113,6 @@ class AccountActivity : AppCompatActivity() {
 
         boton_encurso.setOnClickListener {
             val intent = Intent(this, PrestamosEnCursoActivity::class.java)
-            startActivity(intent)
-        }
-
-        boton_devolver.setOnClickListener {
-            val intent = Intent(this, PrestamosAdevolverActivity::class.java)
             startActivity(intent)
         }
 

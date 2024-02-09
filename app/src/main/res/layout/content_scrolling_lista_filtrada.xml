@@ -6,10 +6,10 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_lista_filtrada"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:fillViewport="true"
     android:clipToPadding="false"
-    android:paddingBottom="100dp"
+    android:scrollbars="horizontal"
     tools:context=".ui.ListaLibrosFiltrada.ListaFiltradaActivity">
 
 
@@ -17,8 +17,8 @@
         android:id="@+id/recyclerviewListaFiltrada"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:nestedScrollingEnabled="true"
-        android:scrollbars="vertical"
+
+
         />
 
 </androidx.core.widget.NestedScrollView>

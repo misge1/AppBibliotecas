@@ -14,20 +14,26 @@ import kotlinx.coroutines.launch
 class SearchActivityViewModel(application: Application): AndroidViewModel(application) {
     private lateinit var retrofitRepository: RetrofitRepository
     private lateinit var libroslivedata: LiveData<List<LibroPre>>
-
+    private lateinit var librosBusqueda: LiveData<List<LibroPre>>
     init {
         retrofitRepository = RetrofitRepository(application.applicationContext)
         libroslivedata = retrofitRepository.getAllLibrosLiveData()
-
+        librosBusqueda = retrofitRepository.getListaBusquedaLiveData()
     }
-
     fun getLibros(){
         viewModelScope.launch {
             retrofitRepository.getAllLibros()
         }
     }
-
     fun getLibrosFlow(): Flow<List<LibroPre>> {
         return libroslivedata.asFlow()
+    }
+    fun getLibrosBusqueda(arrayBusqueda: ArrayList<String>){
+        viewModelScope.launch {
+            retrofitRepository.getListaBusqueda(arrayBusqueda)
+        }
+    }
+    fun getLibrosBusquedaFlow(): Flow<List<LibroPre>>{
+        return librosBusqueda.asFlow()
     }
 }

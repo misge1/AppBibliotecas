@@ -91,6 +91,6 @@ interface GenericRecyclerBindingInterface<VM : ViewDataBinding, T : Any> {
     fun bindData(binder: VM, model: T, clickListener: GenericClickListener<T>?, position: Int)
 }
 
-class GenericClickListener<T : Any>(private val clickListener: (T) -> Unit) {
+/**class GenericClickListener<T : Any>(private val clickListener: (T) -> Unit) {
   fun onClick(data: T) = clickListener(data)
-}
+}*/

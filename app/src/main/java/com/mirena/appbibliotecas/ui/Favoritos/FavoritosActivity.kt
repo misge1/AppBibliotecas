@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,6 +30,7 @@ class FavoritosActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFavoritosBinding
     private lateinit var sessionManager: SessionManager
     private lateinit var favoritosViewModel: FavoritosViewModel
+    private lateinit var backbutton: ImageView
     private lateinit var mAdapter: AdapterLibros
     private lateinit var context: Context
 
@@ -37,13 +39,10 @@ class FavoritosActivity : AppCompatActivity() {
 
         binding = ActivityFavoritosBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         context = this
-
         sessionManager = SessionManager(this)
-
         setSupportActionBar(findViewById(R.id.toolbar))
-
+        backbutton = binding.backButtonFavoritos
         favoritosViewModel = ViewModelProvider(this)[FavoritosViewModel::class.java]
         favoritosViewModel.getFavoritos()
 
@@ -53,15 +52,17 @@ class FavoritosActivity : AppCompatActivity() {
                 listafaovritos= it
 
                 runOnUiThread {
-                    val mrecyclerview = findViewById<RecyclerView>(R.id.recyclerview_libros_subgenero)
+                    val mrecyclerview = findViewById<RecyclerView>(R.id.recyclerviewFavoritos)
 
                     mrecyclerview.layoutManager = LinearLayoutManager(context)
                     mAdapter = AdapterLibros(context, listafaovritos)
                     mrecyclerview.adapter = mAdapter
                 }
-
-
             }
+        }
+
+        backbutton.setOnClickListener {
+            this.finish()
         }
 
     }

@@ -6,6 +6,35 @@
     android:layout_height="match_parent"
     tools:context=".ui.prestamos.ARecoger.prestamoIndividual.PrestamoRecogerActivity">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarPrestamoRecoger"
+        android:fitsSystemWindows="true"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:background="@color/background_clear"
+        android:theme="@style/Theme.AppBibliotecas.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_account"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_collapseMode="parallax"
+            app:menu="@menu/menu_favoritos"
+            app:popupTheme="@style/Theme.AppBibliotecas.PopupOverlay">
+
+            <ImageView
+                android:id="@+id/back_button_recoger"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:padding="8dp"
+                android:src="@drawable/back_icon" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardLibroRecoger"
         android:layout_width="match_parent"
@@ -15,7 +44,8 @@
         app:cardPreventCornerOverlap="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appBarPrestamoRecoger"
+        android:backgroundTint="@color/background_card_clear"
         app:layout_constraintVertical_bias="0.01999998">
 
         <LinearLayout
@@ -32,11 +62,7 @@
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-
-
-                    />
-
+                    android:layout_marginBottom="5dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -46,52 +72,50 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textview_titulo2"
+                    android:id="@+id/textTitutloRecoger"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/fredoka"
                     android:paddingTop="8dp"
+                    android:textColor="@color/title_color"
                     android:text="titulo"
                     android:textSize="22sp"
-                    android:textStyle="bold"
-                    />
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textview_autor2"
+                    android:id="@+id/textAutorRecoger"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="8dp"
+                    android:textColor="@color/title_color"
                     android:text="autor"
                     android:textSize="16sp" />
                 <TextView
-                    android:id="@+id/textview_editorial"
+                    android:id="@+id/textEditorialRecoger"
                     android:layout_width="match_parent"
                     android:paddingTop="8dp"
+                    android:textColor="@color/title_color"
                     android:layout_height="wrap_content"
                     android:text="editorial"
-                    android:textSize="14sp"
-                    />
+                    android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/textview_ejemplares"
+                    android:id="@+id/textIsbnRecoger"
                     android:layout_width="match_parent"
                     android:paddingTop="8dp"
+                    android:textColor="@color/title_color"
                     android:layout_height="wrap_content"
-                    android:text="género"
-                    android:textSize="14sp"
-                    />
+                    android:text="Isbn"
+                    android:textSize="14sp" />
+
 
             </LinearLayout>
-
-
-
-
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
     <Space
         android:id="@+id/espacio"
         app:layout_constraintTop_toBottomOf="@id/cardLibroRecoger"
-
         android:layout_width="match_parent"
         android:layout_height="40dp" />
 
@@ -101,8 +125,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        app:layout_constraintTop_toBottomOf="@id/espacio"
-        >
+        android:backgroundTint="#feede8"
+        app:layout_constraintTop_toBottomOf="@id/espacio">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -114,19 +138,21 @@
                 android:text="@string/biblioteca_donde_recoger"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:layout_margin="8dp"
-                >
-
+                android:fontFamily="@font/fredoka"
+                android:textColor="@color/title_color"
+                android:layout_margin="8dp">
             </TextView>
 
             <TextView
                 android:id="@+id/nombreBiblioteca"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/title_color"
                 android:text="Nombre biblio"
                 android:textSize="16sp"
-                android:layout_margin="10dp"
-                >
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp">
             </TextView>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -135,9 +161,9 @@
         android:id="@+id/cardDaysLeft"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        app:layout_constraintTop_toBottomOf="@id/cardBibliotecaRecoger"
-        >
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/background_card_clear"
+        app:layout_constraintTop_toBottomOf="@id/cardBibliotecaRecoger">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -149,9 +175,9 @@
                 android:text="@string/fecha_llimite_recoger"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:layout_margin="8dp"
-                >
-
+                android:fontFamily="@font/fredoka"
+                android:textColor="@color/title_color"
+                android:layout_margin="8dp">
             </TextView>
 
             <TextView
@@ -160,8 +186,10 @@
                 android:layout_height="wrap_content"
                 android:text="fecha"
                 android:textSize="16sp"
-                android:layout_margin="10dp"
-                >
+                android:textColor="@color/title_color"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp">
             </TextView>
 
             <TextView
@@ -170,6 +198,7 @@
                 android:layout_height="wrap_content"
                 android:text="Te quedan x días"
                 android:textSize="16sp"
+                android:textColor="@color/title_color"
                 android:layout_margin="10dp"
                 >
             </TextView>
@@ -183,7 +212,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/cancelar"
-        android:layout_margin="8dp"
+        android:backgroundTint="@color/background_button_color"
+        android:layout_margin="10dp"
+        android:fontFamily="@font/fredoka"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cardDaysLeft" />
 

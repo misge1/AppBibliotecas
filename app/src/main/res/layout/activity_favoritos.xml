@@ -23,27 +23,36 @@
                 app:menu="@menu/menu_favoritos"
                 app:popupTheme="@style/Theme.AppBibliotecas.PopupOverlay">
 
-                <androidx.appcompat.widget.SearchView
-                    android:id="@+id/search_view_favoritos"
-                    android:layout_width="260dp"
+                <ImageView
+                    android:id="@+id/backButtonFavoritos"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/text_margin"
-                    android:elevation="4dp"
-                    android:layout_margin="8dp"
-                    android:background="@drawable/rounded_corners"
-                    android:minHeight="48dp"
+                    android:layout_margin="4dp"
                     android:padding="8dp"
-                    android:textSize="16sp"
-                    />
-
+                    android:src="@drawable/back_icon" />
             </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include
-        android:id="@+id/layout_include_favoritos"
-        layout="@layout/content_scrolling_subgeneros"
-        />
+    <androidx.core.widget.NestedScrollView
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:layout_marginTop="30dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerviewFavoritos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:nestedScrollingEnabled="true"
+            android:scrollbars="vertical"
+            android:layout_marginBottom="8dp" />
+
+    </androidx.core.widget.NestedScrollView>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -2,9 +2,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.mirena.appbibliotecas.ui.Filtros.FiltrosActivity">
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+
+    <item android:title="@string/usuario"
+        android:id="@+id/usuario"
+        android:icon="@drawable/icon_user"
+        app:showAsAction="always">
+    </item>
 </menu>

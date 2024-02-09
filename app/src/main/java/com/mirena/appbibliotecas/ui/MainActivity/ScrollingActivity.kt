@@ -3,11 +3,13 @@ package com.mirena.appbibliotecas.ui.MainActivity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,6 +29,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import java.util.StringTokenizer
 import kotlin.math.abs
 
 class ScrollingActivity : AppCompatActivity() {
@@ -41,6 +44,7 @@ private lateinit var binding: ActivityScrollingBinding
     //private lateinit var filtros: ExtendedFloatingActionButton
     private lateinit var scrollingActivityViewModel: ScrollingActivityViewModel
     private lateinit var searchFilterButton: ImageButton
+    private lateinit var searchbar: SearchView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,9 +55,8 @@ private lateinit var binding: ActivityScrollingBinding
         binding = ActivityScrollingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //filtros = binding.layoutIncludeMain.filtrosButton!!
-
         searchFilterButton = binding.filterSearchButton
+        searchbar = binding.layoutIncludeMain.layoutSearchbarMain!!.searchbarMain
         scrollingActivityViewModel = ViewModelProvider(this)[ScrollingActivityViewModel::class.java]
 
         scrollingActivityViewModel.getGeneros()
@@ -64,7 +67,6 @@ private lateinit var binding: ActivityScrollingBinding
         CoroutineScope(Dispatchers.IO).launch {
 
             var listaNoticias = listOf<Generos>()
-            var listaLibros = listOf<LibroPre>()
 
             scrollingActivityViewModel.getgenerosflow().collectLatest {
                 listaNoticias = it
@@ -76,11 +78,8 @@ private lateinit var binding: ActivityScrollingBinding
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     mAdapter = AdapterGeneros(context, listaNoticias);
                     mrecyclerview.adapter = mAdapter
-
                 }
             }
-
-
         }
 
         CoroutineScope(Dispatchers.IO).launch{
@@ -94,11 +93,11 @@ private lateinit var binding: ActivityScrollingBinding
                     recyclerviewlibros.layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                     librosAdapter = AdapterLibros(context, listaLibros)
+
                     recyclerviewlibros.adapter = librosAdapter
+                    
                 }
-
             }
-
         }
 
         binding.appBar.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
@@ -106,7 +105,6 @@ private lateinit var binding: ActivityScrollingBinding
                 //collapsed
                 appBarExpanded = false
                 invalidateOptionsMenu()
-
             }else{
                 //expanded
                 appBarExpanded = true
@@ -114,16 +112,28 @@ private lateinit var binding: ActivityScrollingBinding
             }
         }
 
-
-        /*filtros.setOnClickListener{
-            val intent = Intent(this, FiltrosActivity::class.java)
-            startActivity(intent)
-        }*/
-
         searchFilterButton.setOnClickListener{
             val intent = Intent(this, FiltrosActivity::class.java)
             startActivity(intent)
+            this.finish()
         }
+
+        searchbar.setOnQueryTextListener(object : OnQueryTextListener{
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false;
+            }
+
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                val intent = Intent(context, SearchActivity::class.java)
+                //val savedList = isolateKeyWords(query!!)
+                intent.putExtra("query", query)
+                searchbar.setQuery("", false);
+                searchbar.clearFocus();
+                searchbar.isIconified = true;
+                startActivity(intent)
+                return true;
+            }
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -146,8 +156,23 @@ private lateinit var binding: ActivityScrollingBinding
             }
             else -> super.onOptionsItemSelected(item)
         }
-
     }
 
+    fun isolateKeyWords(query: String): ArrayList<String>{
+        val st = StringTokenizer(query, " ")
+        val savedList = arrayListOf<String>()
+        val returnList = arrayListOf<String>()
+        while(st.hasMoreTokens()){
+            savedList.add(st.nextToken())
+        }
+
+        for(str in savedList){
+            if (str != "a" && str != "en" && str != "de" && str != "el" && str != "un" && str != "una" && str != "los" && str != "las" && str != "del" && str != "que" && str != "lo" && str != "por" && str != "with" && str != "the" && str != "les" && str != "la") {
+                returnList.add(str);
+            }
+        }
+
+        return returnList;
+    }
 
 }

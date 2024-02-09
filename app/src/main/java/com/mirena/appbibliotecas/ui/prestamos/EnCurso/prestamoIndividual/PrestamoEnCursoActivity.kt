@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.mirena.appbibliotecas.R
@@ -14,6 +15,7 @@ import com.mirena.appbibliotecas.ui.Account.AccountActivity
 import com.mirena.appbibliotecas.ui.ListaLibrosFiltrada.ListaFiltradaActivity
 import com.mirena.appbibliotecas.ui.Login.LoginActivity
 import com.mirena.appbibliotecas.ui.MainActivity.ScrollingActivity
+import com.squareup.picasso.Picasso
 
 class PrestamoEnCursoActivity : AppCompatActivity() {
 
@@ -24,8 +26,11 @@ class PrestamoEnCursoActivity : AppCompatActivity() {
     private lateinit var fechaDevolucionTextView: TextView
     private lateinit var fechaInicioTextView: TextView
     private lateinit var bibliotecaTextView: TextView
+    private lateinit var isbnTextView: TextView
+    private lateinit var editorialTextView: TextView
     private lateinit var sessionManager: SessionManager
-
+    private lateinit var imageView: ImageView
+    private lateinit var backbutton: ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_prestamo_en_curso)
@@ -36,17 +41,34 @@ class PrestamoEnCursoActivity : AppCompatActivity() {
         fechaDevolucionTextView = findViewById(R.id.fechaPrestamoFin)
         fechaInicioTextView = findViewById(R.id.fechaPrestamoIni)
         bibliotecaTextView = findViewById(R.id.nombreBiblioteca)
+        editorialTextView = findViewById(R.id.textview_editorial)
+        isbnTextView = findViewById(R.id.textview_isbn)
         sessionManager = SessionManager(this)
+        imageView = findViewById(R.id.imageview_libro)
+        backbutton = findViewById(R.id.back_button_encurso)
 
+        var id = intent.getIntExtra("id", -1)
         var titulo = intent.getStringExtra("titulo")
         var autor = intent.getStringExtra("autor")
-        var fechaDevolucion = intent.getStringExtra("fechaDevolucion")
+        var editorial = intent.getStringExtra("editorial")
+        var isbn = intent.getStringExtra("isbn")
+        var fechaFin = intent.getStringExtra("fechaFin")
         var fechaInicio = intent.getStringExtra("fechaInicio")
+        var biblioteca = intent.getStringExtra("biblioteca")
+        var imagen = intent.getStringExtra("imagen")
+
 
         tituloTextView.text = titulo
-        bibliotecaTextView.text = autor
-        fechaDevolucionTextView.text = fechaDevolucion
+        autorTextView.text = autor
+        bibliotecaTextView.text = biblioteca
+        fechaDevolucionTextView.text = fechaFin
         fechaInicioTextView.text = fechaInicio
+        editorialTextView.text = editorial
+        isbnTextView.text = isbn
+
+        Picasso.get()
+            .load(imagen)
+            .into(imageView)
 
         materialDialog = MaterialAlertDialogBuilder(this)
             .setTitle(resources.getString(R.string.renovar))

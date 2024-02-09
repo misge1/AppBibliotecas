@@ -20,6 +20,7 @@ import retrofit2.Call
 import retrofit2.Response
 import kotlinx.coroutines.flow.Flow
 import androidx.lifecycle.asFlow
+import com.mirena.appbibliotecas.objects.Subgeneros
 
 class LibroActivity2ViewModel(application: Application): AndroidViewModel(application) {
 
@@ -27,12 +28,14 @@ class LibroActivity2ViewModel(application: Application): AndroidViewModel(applic
     private lateinit var retrofitRepository: RetrofitRepository
     private lateinit var disponibilidadlivedata: LiveData<List<Biblioteca>>
     private lateinit var comprobarfavs: LiveData<String>
+    private lateinit var subgenerosLibro: LiveData<List<Subgeneros>>
 
     init {
         sessionManager = SessionManager(application.applicationContext)
         retrofitRepository = RetrofitRepository(application.applicationContext)
         disponibilidadlivedata = retrofitRepository.getDisponibilidadLiveData()
         comprobarfavs = retrofitRepository.getComprobacionfavsLd()
+        subgenerosLibro = retrofitRepository.getSubgenerosLibroLd()
     }
 
 
@@ -62,6 +65,20 @@ class LibroActivity2ViewModel(application: Application): AndroidViewModel(applic
 
     fun getDisponibilidadLivedata(): Flow<List<Biblioteca>>{
         return disponibilidadlivedata.asFlow()
+    }
+
+    /**
+     * Subgéneros del libro
+     */
+
+    fun getSubgenerosLibro(id: Int){
+        viewModelScope.launch {
+            retrofitRepository.getSubgenerosLibro(id)
+        }
+    }
+
+    fun getSubgenerosLibroLd(): Flow<List<Subgeneros>>{
+        return subgenerosLibro.asFlow()
     }
 
     /**

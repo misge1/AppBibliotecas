@@ -4,7 +4,7 @@
     android:height="24dp"
     android:viewportWidth="960"
     android:viewportHeight="960"
-    android:tint="?attr/colorControlNormal">
+    android:tint="@color/background_button_color">
     <path
         android:fillColor="@android:color/white"
         android:pathData="M376,720L320,664L504,480L320,296L376,240L616,480L376,720Z"/>

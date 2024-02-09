@@ -16,7 +16,7 @@ object RetrofitInstance {
             .build()
     }
 
-    val specs = listOf(ConnectionSpec.CLEARTEXT, ConnectionSpec.MODERN_TLS)
+    val specs = listOf(ConnectionSpec.CLEARTEXT, ConnectionSpec.MODERN_TLS, ConnectionSpec.COMPATIBLE_TLS)
 
     private fun getClient(): OkHttpClient {
         return OkHttpClient.Builder()

@@ -17,7 +17,6 @@
 
         <TextView
             android:layout_marginTop="20dp"
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -27,7 +26,7 @@
             android:text="@string/bibliotecas_atenea" />
 
         <include
-            android:id="@+id/layout_searchbar_main"
+            android:id="@+id/layoutSearchbarMain"
             layout="@layout/searchbar_layout" />
 
 
@@ -73,7 +72,7 @@
             android:name="com.mirena.appbibliotecas.FragmentLibros"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:nestedScrollingEnabled="true"
+            android:nestedScrollingEnabled="false"
             android:scrollbars="vertical"
             />
 

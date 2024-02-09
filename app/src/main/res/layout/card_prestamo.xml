@@ -25,6 +25,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
+                android:id="@+id/imagePrestamoRecoger"
                 android:layout_width="100dp"
                 android:layout_height="match_parent">
 
@@ -33,7 +34,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="vertical"
-                android:layout_margin="8dp"
+                android:layout_margin="10dp"
                 android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/textview_titulo_prestamo"
@@ -49,16 +50,18 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:text="Fecha realización del préstamo"
+                    android:text="Fecha préstamo realizado"
                     android:textSize="16sp"
                     android:textColor="@color/title_color"
+                    android:fontFamily="@font/fredoka_light"
                     android:layout_height="wrap_content"/>
 
                 <TextView
                     android:id="@+id/textview_fecha_prestamo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/fredoka_regular"
                     android:textColor="@color/title_color"
                     android:text="Fecha prestamo"/>
                 <Space
@@ -69,6 +72,7 @@
                     android:layout_width="match_parent"
                     android:text="Fecha límite de recogida"
                     android:textSize="16sp"
+                    android:fontFamily="@font/fredoka_light"
                     android:textColor="@color/title_color"
                     android:layout_height="wrap_content"/>
 
@@ -76,7 +80,8 @@
                     android:id="@+id/textview_fecha_recogida"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/fredoka_regular"
                     android:textColor="@color/title_color"
                     android:text="Fecha prestamo"/>
 
