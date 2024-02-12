@@ -87,6 +87,10 @@ class PrestamoEnCursoActivity : AppCompatActivity() {
         renovarButton.setOnClickListener {
             materialDialog.show()
         }
+
+        backbutton.setOnClickListener {
+            this.finish()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

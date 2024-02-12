@@ -23,15 +23,17 @@
             app:menu="@menu/menu_favoritos"
             app:popupTheme="@style/Theme.AppBibliotecas.PopupOverlay"
             >
-        </androidx.appcompat.widget.Toolbar>
-    </com.google.android.material.appbar.AppBarLayout>
 
-    <ImageView
-        android:id="@+id/imagen_vacio_encurso"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/imagenvacio"
-        />
+            <ImageView
+                android:id="@+id/back_button_encursos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:padding="8dp"
+                android:src="@drawable/back_icon" />
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
 
 
     <include

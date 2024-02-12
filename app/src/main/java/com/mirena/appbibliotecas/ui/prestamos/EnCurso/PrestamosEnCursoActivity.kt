@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -33,6 +34,7 @@ class PrestamosEnCursoActivity : AppCompatActivity() {
     private lateinit var context: Context
     private lateinit var mAdapter: AdapterPrestamosCurso
     private lateinit var enCursoViewModel: EnCursoViewModel
+    private lateinit var backbutton: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,12 +43,10 @@ class PrestamosEnCursoActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar))
         sessionManager = SessionManager(this)
         binding = ActivityPrestamosEnCursoBinding.inflate(layoutInflater)
-        binding.encursoLayout.root.isVisible = false
-        binding.imagenVacioEncurso.isVisible = true
         enCursoViewModel = ViewModelProvider(this)[EnCursoViewModel::class.java]
-
         enCursoViewModel.getCurso()
         context = this
+        backbutton = findViewById(R.id.back_button_encursos)
 
         setSupportActionBar(findViewById(R.id.toolbar))
 
@@ -68,13 +68,13 @@ class PrestamosEnCursoActivity : AppCompatActivity() {
                                 listaPrestamos
                             )
                         mrecyclerview.adapter = mAdapter
-
-                        binding.encursoLayout.root.isVisible = true
-                        binding.imagenVacioEncurso.isVisible = false
                     }
-
                 }
             }
+        }
+
+        backbutton.setOnClickListener {
+            this.finish()
         }
     }
 

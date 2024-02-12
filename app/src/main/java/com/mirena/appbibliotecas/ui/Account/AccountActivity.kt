@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import com.mirena.appbibliotecas.ui.Favoritos.FavoritosActivity
@@ -43,6 +44,7 @@ class AccountActivity : AppCompatActivity() {
     private lateinit var foto_perfil: CircleImageView
     private lateinit var binding: ActivityAccountBinding
     private lateinit var accountViewModel: AccountViewModel
+    private lateinit var backbutton: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,6 +72,11 @@ class AccountActivity : AppCompatActivity() {
         boton_editar = findViewById(R.id.boton_editar)
         foto_perfil = findViewById(R.id.circle_image)
         sessionManager = SessionManager(this)
+        backbutton = findViewById(R.id.back_button_account)
+
+        backbutton.setOnClickListener {
+            this.finish()
+        }
 
         CoroutineScope(Dispatchers.IO).launch {
             var usuario = Usuario()
