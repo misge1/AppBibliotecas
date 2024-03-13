@@ -11,18 +11,29 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.Flow
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
+import com.mirena.appbibliotecas.objects.Favoritos
 
 class ScrollingActivityViewModel(application: Application): AndroidViewModel(application) {
 
     private lateinit var retrofitRepository: RetrofitRepository
     private lateinit var generoslivedata: LiveData<List<Generos>>
     private lateinit var libroslivedata: LiveData<List<LibroPre>>
+    private lateinit var favoritosTablaLiveData: LiveData<List<Favoritos>>
 
     init {
         retrofitRepository = RetrofitRepository(application.applicationContext)
         generoslivedata = retrofitRepository.getGenerosLivedata()
         libroslivedata = retrofitRepository.getLibrosLivedata()
+        favoritosTablaLiveData = retrofitRepository.getListaFavoritosTablaLD()
+    }
+    fun getFavoritosTabla(idUsuario: Int){
+        viewModelScope.launch {
+            retrofitRepository.getListaFavoritosTabla(idUsuario)
+        }
+    }
 
+    fun getFavoritosTablaFlow(): Flow<List<Favoritos>>{
+        return favoritosTablaLiveData.asFlow()
     }
 
     /**

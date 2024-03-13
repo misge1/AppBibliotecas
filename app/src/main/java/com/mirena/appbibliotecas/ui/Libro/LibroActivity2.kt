@@ -15,12 +15,17 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.textfield.TextInputEditText
 import com.mirena.appbibliotecas.*
 import com.mirena.appbibliotecas.adapters.AdapterBibliosLibro
+import com.mirena.appbibliotecas.adapters.AdapterComentarios
 import com.mirena.appbibliotecas.adapters.AdapterSubgenerosLibro
 import com.mirena.appbibliotecas.databinding.ActivityLibro2Binding
 import com.mirena.appbibliotecas.objects.Biblioteca
+import com.mirena.appbibliotecas.objects.Comentario
+import com.mirena.appbibliotecas.objects.ComentarioSave
 import com.mirena.appbibliotecas.objects.Favoritos
 import com.mirena.appbibliotecas.objects.Subgeneros
 import com.mirena.appbibliotecas.ui.Account.AccountActivity
@@ -39,6 +44,10 @@ import java.io.File
 import java.security.SecureRandom
 import java.security.cert.CertificateException
 import java.security.cert.X509Certificate
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.Calendar
 import java.util.concurrent.TimeUnit
 import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.SSLContext
@@ -66,7 +75,10 @@ class LibroActivity2 : AppCompatActivity() {
     private lateinit var textviewEstadoEjemplar: TextView
     private lateinit var subgenerosLibroAdapter: AdapterSubgenerosLibro
     private lateinit var bibliotecasLibroAdapter: AdapterBibliosLibro
+    private lateinit var comentariosLibroAdapter: AdapterComentarios
     private lateinit var backbutton: ImageView
+    private lateinit var textFieldComentario: TextInputEditText
+    private lateinit var buttonAddComentario: MaterialButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -105,6 +117,8 @@ class LibroActivity2 : AppCompatActivity() {
         textviewEstadoEjemplar = binding.layoutInclude.textviewEstadoEjemplar
         imageView = binding.layoutInclude.imagePlacer
         backbutton = binding.backButtonLibro
+        textFieldComentario = binding.layoutInclude.fragmentComentario.textInputEditComentario
+        buttonAddComentario = binding.layoutInclude.fragmentComentario.buttonAddComment
 
         textview_titulo.text = titulo
         textview_autor.text = autor
@@ -152,6 +166,7 @@ class LibroActivity2 : AppCompatActivity() {
 
         libroActivity2ViewModel.getDisponibilidad(id)
         libroActivity2ViewModel.getSubgenerosLibro(id)
+        libroActivity2ViewModel.getComentarios(id)
 
         CoroutineScope(Dispatchers.IO).launch {
             var listalibros: ArrayList<String> = ArrayList<String>()
@@ -217,6 +232,21 @@ class LibroActivity2 : AppCompatActivity() {
             }
         }
 
+        CoroutineScope(Dispatchers.IO).launch {
+            libroActivity2ViewModel.getComentariosFlow().collectLatest {
+                runOnUiThread {
+                    var listaComentarios = listOf<Comentario>()
+                    listaComentarios = it
+                    val recyclerViewComentarios = binding.layoutInclude.comentariosLibroRView
+                    recyclerViewComentarios.layoutManager =
+                        LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                    comentariosLibroAdapter = AdapterComentarios(context, listaComentarios)
+                    recyclerViewComentarios.adapter = comentariosLibroAdapter
+
+                }
+            }
+        }
+
         backbutton.setOnClickListener {
             this.finish()
         }
@@ -231,6 +261,27 @@ class LibroActivity2 : AppCompatActivity() {
                 startActivity(intent)
             }else{
                 materialDialog.show()
+            }
+        }
+
+        /**
+         * Añadir un comentario
+         */
+
+        buttonAddComentario.setOnClickListener {
+            if (sessionManager.fetchAuthToken()==0){
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+            }else{
+                val comentario = ComentarioSave(null,
+                    textFieldComentario.text.toString(),
+                    sessionManager.fetchAuthToken(),
+                    id,
+                    getFechaHoy()
+                    )
+
+                libroActivity2ViewModel.addComentario(comentario)
+                startActivity(this.intent)
             }
         }
 
@@ -292,6 +343,14 @@ class LibroActivity2 : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
 
+    }
+
+    fun getFechaHoy(): String{
+        val time = Calendar.getInstance().time
+        val formatter = SimpleDateFormat("dd/MM/yyyy")
+        val current = formatter.format(time)
+
+        return current;
     }
 
 }

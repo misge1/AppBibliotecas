@@ -24,8 +24,11 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.button.MaterialButton;
+import com.mirena.appbibliotecas.SessionManager;
+import com.mirena.appbibliotecas.objects.Favoritos;
 import com.mirena.appbibliotecas.objects.ImageBD;
 import com.mirena.appbibliotecas.retrofit.RetrofitInstance;
+import com.mirena.appbibliotecas.retrofit.RetrofitRepository;
 import com.mirena.appbibliotecas.ui.Libro.LibroActivity2;
 import com.mirena.appbibliotecas.R;
 import com.mirena.appbibliotecas.objects.LibroPre;
@@ -35,6 +38,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.Executor;
 
 public class AdapterLibros  extends RecyclerView.Adapter<AdapterLibros.ViewHolder> implements Filterable {
     Context context;
@@ -42,11 +46,22 @@ public class AdapterLibros  extends RecyclerView.Adapter<AdapterLibros.ViewHolde
     private List<LibroPre> lista;
     private List<LibroPre> lista_filtered = new ArrayList<>();
 
-    public AdapterLibros(Context c, List<LibroPre> lista_libroPres){
+    private List<Favoritos> favoritos;
+    private SessionManager sessionManager;
+    private RetrofitRepository retrofitRepository;
+    private OnClickListener onClickListener;
+
+
+
+    public AdapterLibros(Context c, List<LibroPre> lista_libroPres, List<Favoritos> favoritos) {
         context = c;
         lista = lista_libroPres;
+        this.favoritos = favoritos;
         this.lista_filtered = lista_libroPres;
-    }
+        sessionManager = new SessionManager(c);
+        retrofitRepository = new RetrofitRepository(c);
+
+}
 
     public Filter getFilter(){
         return new Filter() {
@@ -101,17 +116,12 @@ public class AdapterLibros  extends RecyclerView.Adapter<AdapterLibros.ViewHolde
         TextView textViewEjemplares = holder.getTextview_ejemplares();
         ImageView imageViewFoto = holder.getImageView_foto();
         MaterialButton botonPedir = holder.getBotonPedir();
+        ImageButton botonFavoritos = holder.getBotonFavoritos();
 
+        //set info correspondiente
         textviewTitulo.setText(lista_filtered.get(position).getTitulo());
         textViewAutor.setText(lista_filtered.get(position).getAuthor());
         textViewIsbn.setText(lista_filtered.get(position).getIdioma());
-
-        if(lista_filtered.get(position).getNum_ejemplar().equals("0")){
-            textViewEjemplares.setText("No hay ejemplares disponibles");
-            botonPedir.setChecked(false);
-        }else {
-            textViewEjemplares.setText(lista_filtered.get(position).getNum_ejemplar() + " ejemplares disponibles");
-        }
 
         if (lista_filtered.get(position).getImage() != null && !lista_filtered.get(position).getImage().isEmpty()){
 
@@ -122,7 +132,27 @@ public class AdapterLibros  extends RecyclerView.Adapter<AdapterLibros.ViewHolde
                     .into(imageViewFoto);
         }
 
+        if(lista_filtered.get(position).getNum_ejemplar().equals("0")){
+            textViewEjemplares.setText("No hay ejemplares disponibles");
+            botonPedir.setChecked(false);
+        }else {
+            textViewEjemplares.setText(lista_filtered.get(position).getNum_ejemplar() + " ejemplares disponibles");
+        }
+
         LibroPre libro = lista_filtered.get(position);
+
+        //comprobación para setear el botón de favoritos
+        for(Favoritos favorito : favoritos){
+            if (favorito.getId_libro() == libro.getId()){
+                botonFavoritos.isSelected();
+                botonFavoritos.setImageResource(R.drawable.favorito_icono_filled);
+            }
+        }
+
+
+
+
+        //click listener cuando clickas sobre una de las card
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,7 +172,20 @@ public class AdapterLibros  extends RecyclerView.Adapter<AdapterLibros.ViewHolde
             }
         });
 
+        botonFavoritos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(botonFavoritos.isSelected()){
+                    botonFavoritos.setImageResource(R.drawable.favorito_icono_filled);
+                }
+                if(!botonFavoritos.isSelected()){
+                    botonFavoritos.setImageResource(R.drawable.favorito_icono);
+                }
 
+            }
+
+
+        });
 
 
 
@@ -153,6 +196,10 @@ public class AdapterLibros  extends RecyclerView.Adapter<AdapterLibros.ViewHolde
         return lista_filtered.size();
     }
 
+    // onClickListener Interface
+    interface OnClickListener {
+        void onClick(int position);
+    }
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView textview_titulo;
@@ -164,6 +211,8 @@ public class AdapterLibros  extends RecyclerView.Adapter<AdapterLibros.ViewHolde
 
         private final MaterialButton botonPedir;
 
+        private final ImageButton botonFavoritos;
+
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -174,6 +223,7 @@ public class AdapterLibros  extends RecyclerView.Adapter<AdapterLibros.ViewHolde
             imageView_foto = itemView.findViewById(R.id.imageview_libro);
             textview_ejemplares = itemView.findViewById(R.id.textview_estadoLibro);
             botonPedir = itemView.findViewById(R.id.boton_pedir);
+            botonFavoritos = itemView.findViewById(R.id.boton_favoritos);
 
         }
 
@@ -193,11 +243,13 @@ public class AdapterLibros  extends RecyclerView.Adapter<AdapterLibros.ViewHolde
         public TextView getTextview_ejemplares(){return textview_ejemplares;}
         public MaterialButton getBotonPedir(){return botonPedir;}
 
+        public ImageButton getBotonFavoritos(){return botonFavoritos;}
+
     }
 
     public void setOnItemClickListener(View.OnClickListener itemClickListener){
         mOnItemClickListener = itemClickListener;
     }
-
+    
 
 }

@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
+import com.mirena.appbibliotecas.objects.Favoritos
 import com.mirena.appbibliotecas.objects.Generos
 import com.mirena.appbibliotecas.objects.LibroPre
 import com.mirena.appbibliotecas.retrofit.RetrofitRepository
@@ -15,10 +16,22 @@ class SearchActivityViewModel(application: Application): AndroidViewModel(applic
     private lateinit var retrofitRepository: RetrofitRepository
     private lateinit var libroslivedata: LiveData<List<LibroPre>>
     private lateinit var librosBusqueda: LiveData<List<LibroPre>>
+    private lateinit var favoritosTablaLiveData: LiveData<List<Favoritos>>
     init {
         retrofitRepository = RetrofitRepository(application.applicationContext)
         libroslivedata = retrofitRepository.getAllLibrosLiveData()
         librosBusqueda = retrofitRepository.getListaBusquedaLiveData()
+        favoritosTablaLiveData = retrofitRepository.getListaFavoritosTablaLD()
+    }
+
+    fun getFavoritosTabla(idUsuario: Int){
+        viewModelScope.launch {
+            retrofitRepository.getListaFavoritosTabla(idUsuario)
+        }
+    }
+
+    fun getFavoritosTablaFlow(): Flow<List<Favoritos>>{
+        return favoritosTablaLiveData.asFlow()
     }
     fun getLibros(){
         viewModelScope.launch {

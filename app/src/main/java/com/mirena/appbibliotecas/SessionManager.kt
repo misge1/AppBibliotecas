@@ -16,6 +16,7 @@ class SessionManager(context: Context) {
         const val ARRAYLIST_BIBLIOTECAS = "arrayListBiblioteca"
         const val ARRAYLIST_IDIOMAS = "arrayListIdiomas"
         const val DISPONIBLIDAD = "disponibilidad"
+        const val TOKEN_DISPO = "tokenDispositivo"
     }
 
     fun saveAuthToken(token: Int) {
@@ -24,6 +25,21 @@ class SessionManager(context: Context) {
         editor.apply()
     }
 
+    fun saveDispoToken(token: String){
+        val editor = prefs.edit()
+        editor.putString(TOKEN_DISPO, token)
+        editor.apply()
+    }
+
+    fun fetchDispoToken(): String {
+        return prefs.getString(TOKEN_DISPO, "")!!
+    }
+
+    fun deleteDispoToken() {
+        val editor = prefs.edit()
+        editor.remove(TOKEN_DISPO)
+        editor.apply()
+    }
     fun deleteFiltros(){
         val editor = prefs.edit()
         editor.remove(ARRAYLIST_BIBLIOTECAS)
@@ -95,14 +111,6 @@ class SessionManager(context: Context) {
         }
         editor.putString(ARRAYLIST_SUBGENEROS, str.toString())
         editor.apply()
-
-
-
-
-
-
-
-
     }
 
     fun fetchFiltroSubgeneros(): String{
@@ -117,7 +125,6 @@ class SessionManager(context: Context) {
         }
         editor.putString(ARRAYLIST_BIBLIOTECAS, str.toString())
         editor.apply()
-
     }
 
     fun fetchFiltroBibliotecas(): String{

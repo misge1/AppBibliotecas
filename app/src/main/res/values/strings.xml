@@ -131,4 +131,7 @@
     <string name="search_hint">Search...</string>
     <string name="app_label">AppBibliotecas</string>
     <string name="action_delete_filters">BORRAR TODO</string>
+    <string name="msg_token_fmt">message token fmt\n</string>
+    <string name="title_activity_anyadir_biblioteca">AnyadirBiblioteca</string>
+    <string name="title_activity_biblioteca_personal">BibliotecaPersonal</string>
 </resources>

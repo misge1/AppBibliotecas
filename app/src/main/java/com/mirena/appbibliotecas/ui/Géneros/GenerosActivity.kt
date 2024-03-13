@@ -17,6 +17,7 @@ import com.mirena.appbibliotecas.ui.Account.AccountActivity
 import com.mirena.appbibliotecas.adapters.AdapterLibros
 import com.mirena.appbibliotecas.adapters.AdapterSubgeneros
 import com.mirena.appbibliotecas.databinding.ActivityGenerosBinding
+import com.mirena.appbibliotecas.objects.Favoritos
 import com.mirena.appbibliotecas.objects.LibroPre
 import com.mirena.appbibliotecas.objects.Subgeneros
 import com.mirena.appbibliotecas.retrofit.RetrofitInstance
@@ -37,6 +38,7 @@ class GenerosActivity : AppCompatActivity() {
     private lateinit var subgenerosAdapter: AdapterSubgeneros
     private lateinit var toolbar: Toolbar
     private lateinit var backButton: ImageView
+    private lateinit var listaFavoritos: List<Favoritos>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -52,8 +54,18 @@ class GenerosActivity : AppCompatActivity() {
         backButton = binding.backButtonGeneros
         sessionManager = SessionManager(this)
         generosActivityViewModel = ViewModelProvider(this)[GenerosActivityViewModel::class.java]
-
         generosActivityViewModel.getSubgeneros(id_genero)
+        listaFavoritos = listOf<Favoritos>()
+
+        if (sessionManager.fetchAuthToken()!=0){
+            generosActivityViewModel.getFavoritosTabla(sessionManager.fetchAuthToken())
+
+            CoroutineScope(Dispatchers.IO).launch {
+                generosActivityViewModel.getFavoritosTablaFlow().collectLatest {
+                    listaFavoritos = it
+                }
+            }
+        }
 
         CoroutineScope(Dispatchers.IO).launch {
             var listaSubgeneros = listOf<Subgeneros>()
@@ -70,12 +82,13 @@ class GenerosActivity : AppCompatActivity() {
                 }
             }
         }
+
+
         CoroutineScope(Dispatchers.IO).launch {
             val callibro = RetrofitInstance.api.getLibrosGenero(id_genero)
             var listaLibros = listOf<LibroPre>()
 
             runOnUiThread{
-
                 if (callibro.isSuccessful){
                     callibro.body().let {
                         if (it != null){
@@ -83,7 +96,7 @@ class GenerosActivity : AppCompatActivity() {
                             val recyclerviewlibros =
                                 findViewById<RecyclerView>(R.id.recyclerview_libros_subgenero)
                             recyclerviewlibros.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                            librosAdapter = AdapterLibros(context, listaLibros)
+                            librosAdapter = AdapterLibros(context, listaLibros, listaFavoritos)
                             recyclerviewlibros.adapter = librosAdapter
                         }
                     }

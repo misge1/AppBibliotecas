@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.mirena.appbibliotecas.R
 import com.mirena.appbibliotecas.SessionManager
@@ -15,7 +16,12 @@ import com.mirena.appbibliotecas.ui.Account.AccountActivity
 import com.mirena.appbibliotecas.ui.ListaLibrosFiltrada.ListaFiltradaActivity
 import com.mirena.appbibliotecas.ui.Login.LoginActivity
 import com.mirena.appbibliotecas.ui.MainActivity.ScrollingActivity
+import com.mirena.appbibliotecas.ui.prestamos.EnCurso.EnCursoViewModel
 import com.squareup.picasso.Picasso
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 class PrestamoEnCursoActivity : AppCompatActivity() {
 
@@ -31,6 +37,7 @@ class PrestamoEnCursoActivity : AppCompatActivity() {
     private lateinit var sessionManager: SessionManager
     private lateinit var imageView: ImageView
     private lateinit var backbutton: ImageView
+    private lateinit var encursoViewModel: EnCursoViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_prestamo_en_curso)
@@ -46,6 +53,7 @@ class PrestamoEnCursoActivity : AppCompatActivity() {
         sessionManager = SessionManager(this)
         imageView = findViewById(R.id.imageview_libro)
         backbutton = findViewById(R.id.back_button_encurso)
+        encursoViewModel = ViewModelProvider(this)[EnCursoViewModel::class.java]
 
         var id = intent.getIntExtra("id", -1)
         var titulo = intent.getStringExtra("titulo")
@@ -56,7 +64,6 @@ class PrestamoEnCursoActivity : AppCompatActivity() {
         var fechaInicio = intent.getStringExtra("fechaInicio")
         var biblioteca = intent.getStringExtra("biblioteca")
         var imagen = intent.getStringExtra("imagen")
-
 
         tituloTextView.text = titulo
         autorTextView.text = autor
@@ -80,7 +87,10 @@ class PrestamoEnCursoActivity : AppCompatActivity() {
                 dialog.cancel()
             }
             .setPositiveButton("Aceptar") { dialog, which ->
+                var fechaRenovacion = calcularFechaRenovacion(fechaFin!!)
+                encursoViewModel.renovarPrestamp(id,fechaRenovacion, applicationContext, this)
                 finish()
+                intent.putExtra("fechaFin", fechaRenovacion)
                 startActivity(intent)
             }
 
@@ -117,6 +127,27 @@ class PrestamoEnCursoActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+
+    }
+
+    fun calcularFechaRenovacion(fechaDevolucion: String): String{
+        var devolucionFecha = ""
+        val calendarinst = Calendar.getInstance()
+        val formatter = SimpleDateFormat("dd-MM-yyyy", Locale.ITALY)
+        val date = formatter.parse(fechaDevolucion)
+
+        if (date != null) {
+            calendarinst.time = date
+            calendarinst.add(Calendar.DATE, 15)
+            do {
+                calendarinst.add(Calendar.DATE, 1)
+            } while (calendarinst.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || calendarinst.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY); //excluding end date
+
+            val devolucionTime: Date = calendarinst.time
+            devolucionFecha = formatter.format(devolucionTime)
+        }
+
+        return devolucionFecha
 
     }
 

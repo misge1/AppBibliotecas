@@ -1,36 +1,45 @@
 package com.mirena.appbibliotecas.ui.MainActivity
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemClickListener
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import com.mirena.appbibliotecas.R
-import com.mirena.appbibliotecas.ui.Search.SearchActivity
 import com.mirena.appbibliotecas.SessionManager
-import com.mirena.appbibliotecas.ui.Account.AccountActivity
 import com.mirena.appbibliotecas.adapters.AdapterGeneros
 import com.mirena.appbibliotecas.adapters.AdapterLibros
 import com.mirena.appbibliotecas.databinding.ActivityScrollingBinding
+import com.mirena.appbibliotecas.objects.Favoritos
 import com.mirena.appbibliotecas.objects.Generos
 import com.mirena.appbibliotecas.objects.LibroPre
+import com.mirena.appbibliotecas.ui.Account.AccountActivity
 import com.mirena.appbibliotecas.ui.Filtros.FiltrosActivity
 import com.mirena.appbibliotecas.ui.Login.LoginActivity
+import com.mirena.appbibliotecas.ui.Search.SearchActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import java.security.AccessController.getContext
 import java.util.StringTokenizer
 import kotlin.math.abs
+
 
 class ScrollingActivity : AppCompatActivity() {
 
@@ -45,7 +54,10 @@ private lateinit var binding: ActivityScrollingBinding
     private lateinit var scrollingActivityViewModel: ScrollingActivityViewModel
     private lateinit var searchFilterButton: ImageButton
     private lateinit var searchbar: SearchView
+    private lateinit var listaFavoritos: List<Favoritos>
 
+
+    @SuppressLint("StringFormatInvalid")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -61,6 +73,12 @@ private lateinit var binding: ActivityScrollingBinding
 
         scrollingActivityViewModel.getGeneros()
         scrollingActivityViewModel.getLibrosRandom()
+        if (sessionManager.fetchAuthToken()!= 0){
+            scrollingActivityViewModel.getFavoritosTabla(sessionManager.fetchAuthToken())
+        }
+
+
+        listaFavoritos = listOf<Favoritos>()
 
         setSupportActionBar(findViewById(R.id.toolbar))
 
@@ -71,7 +89,6 @@ private lateinit var binding: ActivityScrollingBinding
             scrollingActivityViewModel.getgenerosflow().collectLatest {
                 listaNoticias = it
                 runOnUiThread {
-
                     val mrecyclerview =
                         findViewById<RecyclerView>(R.id.recyclerview_gender)
                     mrecyclerview.layoutManager =
@@ -82,8 +99,20 @@ private lateinit var binding: ActivityScrollingBinding
             }
         }
 
+        if(sessionManager.fetchAuthToken()!=0){
+            CoroutineScope(Dispatchers.IO).launch {
+                var listafavs = listOf<Favoritos>()
+                scrollingActivityViewModel.getFavoritosTablaFlow().collectLatest {
+                    listafavs = it
+                    listaFavoritos = it
+                }
+            }
+        }
+
+
         CoroutineScope(Dispatchers.IO).launch{
             var listaLibros = listOf<LibroPre>()
+
             scrollingActivityViewModel.getLibrosFlow().collectLatest {
                 listaLibros = it
 
@@ -92,7 +121,7 @@ private lateinit var binding: ActivityScrollingBinding
                         findViewById<RecyclerView>(R.id.recyclerview_novedades)
                     recyclerviewlibros.layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                    librosAdapter = AdapterLibros(context, listaLibros)
+                    librosAdapter = AdapterLibros(context, listaLibros, listaFavoritos)
 
                     recyclerviewlibros.adapter = librosAdapter
                     
@@ -117,6 +146,21 @@ private lateinit var binding: ActivityScrollingBinding
             startActivity(intent)
             this.finish()
         }
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w("TAG token", "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+
+            // Get new FCM registration token
+            val token = task.result
+
+            // Log and toast
+            val msg = getString(R.string.msg_token_fmt, token)
+            Log.d("TAG token", msg)
+            Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
+        })
 
         searchbar.setOnQueryTextListener(object : OnQueryTextListener{
             override fun onQueryTextChange(newText: String?): Boolean {
@@ -174,5 +218,7 @@ private lateinit var binding: ActivityScrollingBinding
 
         return returnList;
     }
+
+
 
 }

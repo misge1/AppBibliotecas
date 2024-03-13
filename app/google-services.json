@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "272890490557",
+    "project_id": "appbibliotecas-f86d0",
+    "storage_bucket": "appbibliotecas-f86d0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:272890490557:android:6a32a04ba2ac3f3de651d4",
+        "android_client_info": {
+          "package_name": "com.mirena.appbibliotecas"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-0qLuiJkFaWuBrbLyonFbHQ-aM8AaQMo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

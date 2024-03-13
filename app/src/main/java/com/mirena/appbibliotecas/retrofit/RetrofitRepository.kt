@@ -36,6 +36,29 @@ class RetrofitRepository(var context: Context) {
     private var listaLibrosFiltrados: MutableLiveData<List<LibroPre>> = MutableLiveData<List<LibroPre>>()
     private var listaLibrosSubgeneros: MutableLiveData<List<LibroPre>> = MutableLiveData<List<LibroPre>>()
     private var listaLibrosBusqueda: MutableLiveData<List<LibroPre>> = MutableLiveData<List<LibroPre>>()
+    private var listaFavoritosTabla: MutableLiveData<List<Favoritos>> = MutableLiveData<List<Favoritos>>()
+    private var comentariosLibro: MutableLiveData<List<Comentario>> = MutableLiveData<List<Comentario>>()
+    private var listaBibliotecasPersonales: MutableLiveData<List<BibliotecaPersonal>> = MutableLiveData<List<BibliotecaPersonal>>()
+
+
+    /**
+     * Lista de favoritos del usuario
+     */
+
+    suspend fun getListaFavoritosTabla(idUsuario: Int){
+        val call = RetrofitInstance.api.getFavoritosTabla(idUsuario);
+        val body = call.body()
+
+        if(call.isSuccessful){
+            body.let {
+                listaFavoritosTabla.postValue(it)
+            }
+        }
+    }
+
+    fun getListaFavoritosTablaLD(): LiveData<List<Favoritos>> {
+        return listaFavoritosTabla
+    }
 
     /**
      * LISTA DE LIBROS FILTRADA
@@ -73,6 +96,24 @@ class RetrofitRepository(var context: Context) {
 
     fun getListaBusquedaLiveData(): LiveData<List<LibroPre>>{
         return listaLibrosBusqueda;
+    }
+
+    /**
+     * LISTA DE BIBLIOTECAS PERSONALES
+     */
+    suspend fun getBibliotecasPersonales(id_usuario: Int){
+        val call = RetrofitInstance.api.getBibliotecasPersonales(id_usuario)
+        val body = call.body()
+
+        if (call.isSuccessful){
+            body.let {
+                listaBibliotecasPersonales.postValue(it)
+            }
+        }
+    }
+
+    fun getBibliosPersonalesLiveData(): LiveData<List<BibliotecaPersonal>>{
+        return listaBibliotecasPersonales
     }
 
     /**
@@ -428,6 +469,26 @@ class RetrofitRepository(var context: Context) {
 
     fun getSubgenerosLibroLd(): LiveData<List<Subgeneros>>{
         return subgenerosLibro;
+    }
+
+    /**
+     * Comentarios de un libro
+     */
+    suspend fun getComentarios(id_libro: Int){
+        val call = RetrofitInstance.api.getComentarios(id_libro)
+        val body = call.body()
+
+        if (call.isSuccessful){
+            body.let {
+                if (it!!.isNotEmpty()){
+                    comentariosLibro.postValue(it)
+                }
+            }
+        }
+    }
+
+    fun getComentariosLd(): LiveData<List<Comentario>>{
+        return comentariosLibro
     }
 
     /**

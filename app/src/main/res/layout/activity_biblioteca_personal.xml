@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.bibliotecaPersonal.BibliotecaPersonalActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_height="200dp"
+        android:layout_width="match_parent"
+        android:background="@color/background_clear"
+        android:theme="@style/Theme.AppBibliotecas.AppBarOverlay">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="@color/background_clear"
+            android:background="@color/background_clear"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:toolbarId="@+id/toolbar">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                android:background="@color/background_clear"
+                app:menu="@menu/menu_favoritos"
+                app:popupTheme="@style/Theme.AppBibliotecas.PopupOverlay" />
+            <ImageView
+                android:id="@+id/back_button_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:padding="8dp"
+                android:src="@drawable/back_icon" />
+
+            <TextView
+                android:id="@+id/nombreBibliotecaPersonal"
+                android:text="Mi Biblioteca"
+                android:textSize="30dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="100dp"
+                android:layout_marginBottom="32dp"
+                android:layout_gravity="center|bottom"
+                android:textColor="@color/background_button_color"
+                android:fontFamily="@font/fredoka"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        <include
+            android:id="@+id/layoutIncludeBiblioteca"
+            layout="@layout/content_biblioteca_personal" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

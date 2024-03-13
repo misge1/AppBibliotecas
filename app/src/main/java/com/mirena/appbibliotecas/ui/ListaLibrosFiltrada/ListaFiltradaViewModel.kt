@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
 import com.mirena.appbibliotecas.SessionManager
+import com.mirena.appbibliotecas.objects.Favoritos
 import com.mirena.appbibliotecas.objects.LibroPre
 import com.mirena.appbibliotecas.retrofit.RetrofitRepository
 import kotlinx.coroutines.flow.Flow
@@ -17,11 +18,22 @@ class ListaFiltradaViewModel(application: Application): AndroidViewModel(applica
     private lateinit var retrofitRepository: RetrofitRepository
     private lateinit var librosFiltradoslivedata: LiveData<List<LibroPre>>
     lateinit var sessionManager: SessionManager
+    private lateinit var favoritosTablaLiveData: LiveData<List<Favoritos>>
     init {
         sessionManager = SessionManager(application.applicationContext)
         retrofitRepository = RetrofitRepository(application.applicationContext)
         librosFiltradoslivedata = retrofitRepository.getListaFiltradaLiveData()
+        favoritosTablaLiveData = retrofitRepository.getListaFavoritosTablaLD()
+    }
 
+    fun getFavoritosTabla(idUsuario: Int){
+        viewModelScope.launch {
+            retrofitRepository.getListaFavoritosTabla(idUsuario)
+        }
+    }
+
+    fun getFavoritosTablaFlow(): Flow<List<Favoritos>>{
+        return favoritosTablaLiveData.asFlow()
     }
 
     fun getFiltroSubgenerosSession(): ArrayList<Int>{

@@ -34,18 +34,16 @@ class PrestamosRecogerActivity : AppCompatActivity() {
     private lateinit var cancelarButton: Button
     private lateinit var backButton: ImageView
     private lateinit var precogerviewmodel: ARecogerViewModel
+    private lateinit var imagenVacio: ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         sessionManager = SessionManager(this)
         binding = ActivityPrestamosRecogerBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         context = this
-
         binding.arecogerLayout.root.isVisible = false
         binding.imagenVacioRecoger.isVisible = true
-
         setSupportActionBar(findViewById(R.id.toolbar))
 
         backButton = binding.backButtonPrestamosRecoger
@@ -58,17 +56,20 @@ class PrestamosRecogerActivity : AppCompatActivity() {
             precogerviewmodel.getPRecogerLD().collectLatest {
 
                 runOnUiThread {
-                    listaPrestamos = it
-                    val mrecyclerview = findViewById<RecyclerView>(R.id.recyclerview_prestamos)
-                    mrecyclerview.layoutManager = LinearLayoutManager(context)
-                    mAdapter =
-                        AdapterPrestamosRecoger(
-                            context,
-                            listaPrestamos
-                        )
-                    mrecyclerview.adapter = mAdapter
-                    binding.arecogerLayout.root.isVisible = true
-                    binding.imagenVacioRecoger.isVisible = false
+                    if (it.isNotEmpty()){
+                        listaPrestamos = it
+                        val mrecyclerview = findViewById<RecyclerView>(R.id.recyclerview_prestamos)
+                        mrecyclerview.layoutManager = LinearLayoutManager(context)
+                        mAdapter =
+                            AdapterPrestamosRecoger(
+                                context,
+                                listaPrestamos
+                            )
+                        mrecyclerview.adapter = mAdapter
+                        binding.arecogerLayout.root.isVisible = true
+                        binding.imagenVacioRecoger.isVisible = false
+                    }
+
                 }
             }
         }

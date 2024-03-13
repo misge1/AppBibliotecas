@@ -40,8 +40,14 @@
     <include
         android:id="@+id/layoutInclude"
         layout="@layout/content_libro"
-
         />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/buttonActionLibro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        app:srcCompat="@drawable/chat_icon"/>
 
 
 

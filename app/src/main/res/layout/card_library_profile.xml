@@ -3,35 +3,45 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content">
+    <com.google.android.material.card.MaterialCardView
 
-    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginEnd="20dp"
+        app:cardPreventCornerOverlap="true"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:cardCornerRadius="10dp"
+        android:elevation="20dp"
+        android:layout_margin="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.01999998"
+        android:backgroundTint="@color/background_clear"
+        app:layout_constraintVertical_bias="0.01999998">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="8dp"
+
         >
         <ImageButton
-            android:id="@+id/boton_favoritos"
+            android:id="@+id/boton_biblioteca"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@drawable/library_icon"
             android:background="@color/background_clear"/>
 
         <TextView
-            android:id="@+id/chatNameProfile"
+            android:id="@+id/nombre_biblioteca"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/favoritos"
-            android:textSize="12sp"
+            android:textSize="15sp"
             android:textColor="@color/texto_color"
             android:fontFamily="@font/sarabun_light"
             />
     </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

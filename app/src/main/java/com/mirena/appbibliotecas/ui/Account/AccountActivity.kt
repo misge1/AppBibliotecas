@@ -1,5 +1,6 @@
 package com.mirena.appbibliotecas.ui.Account
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,21 +11,29 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.button.MaterialButton
 import com.mirena.appbibliotecas.ui.Favoritos.FavoritosActivity
 import com.mirena.appbibliotecas.ui.Login.LoginActivity
 import com.mirena.appbibliotecas.R
 import com.mirena.appbibliotecas.ui.MainActivity.ScrollingActivity
 import com.mirena.appbibliotecas.SessionManager
+import com.mirena.appbibliotecas.adapters.AdapterBibliotecaPersonal
 import com.mirena.appbibliotecas.databinding.ActivityAccountBinding
+import com.mirena.appbibliotecas.objects.BibliotecaPersonal
 import com.mirena.appbibliotecas.objects.Usuario
 import com.mirena.appbibliotecas.ui.Ajustes.AjustesActivity
+import com.mirena.appbibliotecas.ui.EditarPerfil.EditarPerfilActivity
+import com.mirena.appbibliotecas.ui.nuevaBiblioteca.AnyadirBiblioteca
 import com.mirena.appbibliotecas.ui.prestamos.EnCurso.PrestamosEnCursoActivity
 import com.mirena.appbibliotecas.ui.prestamos.ARecoger.PrestamosRecogerActivity
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class AccountActivity : AppCompatActivity() {
     private lateinit var titulo_textview: TextView
@@ -45,6 +54,9 @@ class AccountActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAccountBinding
     private lateinit var accountViewModel: AccountViewModel
     private lateinit var backbutton: ImageView
+    private lateinit var anayadirBiblioteca: MaterialButton
+    private lateinit var context: Context
+    private lateinit var adapterBibliotecaPersonal: AdapterBibliotecaPersonal
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +67,7 @@ class AccountActivity : AppCompatActivity() {
 
         setSupportActionBar(findViewById(R.id.toolbar_account))
         accountViewModel = ViewModelProvider(this)[AccountViewModel::class.java]
+        context = this
 
         accountViewModel.getUserInfo()
         titulo_textview = findViewById(R.id.titulo_nombre)
@@ -73,6 +86,10 @@ class AccountActivity : AppCompatActivity() {
         foto_perfil = findViewById(R.id.circle_image)
         sessionManager = SessionManager(this)
         backbutton = findViewById(R.id.back_button_account)
+        anayadirBiblioteca = binding.anyadirBiblioteca
+        accountViewModel.getBibliosPersonales(sessionManager.fetchAuthToken())
+
+
 
         backbutton.setOnClickListener {
             this.finish()
@@ -99,6 +116,22 @@ class AccountActivity : AppCompatActivity() {
             }
         }
 
+        CoroutineScope(Dispatchers.IO).launch {
+
+
+            accountViewModel.getBibliosPersonalesFlow().collectLatest{
+                var bibliotecasPersonales = listOf<BibliotecaPersonal>()
+                bibliotecasPersonales = it
+
+                runOnUiThread {
+                    val recyclerView = binding.recyclerviewMisBibliotecas
+                    recyclerView.layoutManager =  LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                    adapterBibliotecaPersonal = AdapterBibliotecaPersonal(context, bibliotecasPersonales)
+                    recyclerView.adapter = adapterBibliotecaPersonal
+                }
+            }
+        }
+
         cerrar_sesion_button.setOnClickListener {
             sessionManager.deleteAuthToken()
             val intent = Intent(this, LoginActivity::class.java)
@@ -111,8 +144,6 @@ class AccountActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-
-
         boton_recogida.setOnClickListener {
             val intent = Intent(this, PrestamosRecogerActivity::class.java)
             startActivity(intent)
@@ -124,7 +155,13 @@ class AccountActivity : AppCompatActivity() {
         }
 
         boton_editar.setOnClickListener {
-          titulo_textview.isEnabled = true
+            val intent = Intent(this, EditarPerfilActivity::class.java)
+            startActivity(intent)
+        }
+
+        anayadirBiblioteca.setOnClickListener {
+            val intent = Intent(this, AnyadirBiblioteca::class.java)
+            startActivity(intent)
         }
 
     }

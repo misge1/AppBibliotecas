@@ -16,6 +16,7 @@ import com.mirena.appbibliotecas.SessionManager
 import com.mirena.appbibliotecas.ui.Account.AccountActivity
 import com.mirena.appbibliotecas.adapters.AdapterLibros
 import com.mirena.appbibliotecas.databinding.ActivityFavoritosBinding
+import com.mirena.appbibliotecas.objects.Favoritos
 
 import com.mirena.appbibliotecas.objects.LibroPre
 import com.mirena.appbibliotecas.retrofit.RetrofitInstance
@@ -33,6 +34,7 @@ class FavoritosActivity : AppCompatActivity() {
     private lateinit var backbutton: ImageView
     private lateinit var mAdapter: AdapterLibros
     private lateinit var context: Context
+    private lateinit var listafavoritosTabla: List<Favoritos>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,18 +46,31 @@ class FavoritosActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar))
         backbutton = binding.backButtonFavoritos
         favoritosViewModel = ViewModelProvider(this)[FavoritosViewModel::class.java]
+        listafavoritosTabla = listOf<Favoritos>()
         favoritosViewModel.getFavoritos()
+        if(sessionManager.fetchAuthToken()!=0){
+            favoritosViewModel.getFavoritosTabla(sessionManager.fetchAuthToken())
+        }
+
+        if(sessionManager.fetchAuthToken()!=0){
+            CoroutineScope(Dispatchers.IO).launch {
+                favoritosViewModel.getFavoritosTablaFlow().collectLatest {
+                    listafavoritosTabla = it;
+                }
+            }
+        }
+
 
         CoroutineScope(Dispatchers.IO).launch {
             var listafaovritos = listOf<LibroPre>()
+
             favoritosViewModel.getFavoritosFlow().collectLatest {
                 listafaovritos= it
 
                 runOnUiThread {
                     val mrecyclerview = findViewById<RecyclerView>(R.id.recyclerviewFavoritos)
-
                     mrecyclerview.layoutManager = LinearLayoutManager(context)
-                    mAdapter = AdapterLibros(context, listafaovritos)
+                    mAdapter = AdapterLibros(context, listafaovritos, listafavoritosTabla )
                     mrecyclerview.adapter = mAdapter
                 }
             }

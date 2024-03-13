@@ -17,11 +17,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import com.mirena.appbibliotecas.R
+import com.mirena.appbibliotecas.SessionManager
 import com.mirena.appbibliotecas.adapters.AdapterGeneric
 import com.mirena.appbibliotecas.adapters.AdapterLibros
 import com.mirena.appbibliotecas.adapters.AdapterLibrosObject
 import com.mirena.appbibliotecas.databinding.ActivityListaFiltradaBinding
 import com.mirena.appbibliotecas.objects.Biblioteca
+import com.mirena.appbibliotecas.objects.Favoritos
 import com.mirena.appbibliotecas.objects.Idioma
 import com.mirena.appbibliotecas.objects.LibroObject
 import com.mirena.appbibliotecas.objects.LibroPre
@@ -53,6 +55,8 @@ class ListaFiltradaActivity : AppCompatActivity() {
     private lateinit var chipBiblioteca: Chip
     private lateinit var chipIdioma: Chip
     private lateinit var chipDisponible: Chip
+    private lateinit var listaFavoritos: List<Favoritos>
+    private lateinit var sessionManager: SessionManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -67,11 +71,18 @@ class ListaFiltradaActivity : AppCompatActivity() {
         listaFiltradaViewModel = ViewModelProvider(this)[ListaFiltradaViewModel::class.java]
         context = this
         backbutton = binding.backButtonListFiltrada
+        listaFavoritos = listOf<Favoritos>()
+        sessionManager = SessionManager(this)
 
         val arraySubgeneros = listaFiltradaViewModel.getFiltroSubgenerosSession()
         val arrayIdiomas = listaFiltradaViewModel.getFiltroIdiomasSession()
         val arrayBibliotecas = listaFiltradaViewModel.getFiltroBibliotecasSession()
         var disponibles = listaFiltradaViewModel.getFiltroDisponibles()
+
+        if(sessionManager.fetchAuthToken()!=0){
+            listaFiltradaViewModel.getFavoritosTabla(sessionManager.fetchAuthToken())
+        }
+
 
         //setting the chips to be or not to be checked
         chipSubgeneros.isChecked = arraySubgeneros.isNotEmpty()
@@ -91,6 +102,14 @@ class ListaFiltradaActivity : AppCompatActivity() {
         //getting the filteres books
         listaFiltradaViewModel.getLibrosFiltrados(arrayIdiomas,arrayBibliotecas, arraySubgeneros, disponibles)
 
+        if (sessionManager.fetchAuthToken()!=0){
+            CoroutineScope(Dispatchers.IO).launch {
+                listaFiltradaViewModel.getFavoritosTablaFlow().collectLatest {
+                    listaFavoritos = it
+                }
+            }
+        }
+
         CoroutineScope(Dispatchers.IO).launch {
             var listaFiltrada = listOf<LibroPre>()
             listaFiltradaViewModel.getLibrosFiltradosLivedata().collectLatest {
@@ -99,7 +118,7 @@ class ListaFiltradaActivity : AppCompatActivity() {
                 runOnUiThread {
                     val mrecyclerview =
                         findViewById<RecyclerView>(R.id.recyclerviewListaFiltrada)
-                    val adapter =  AdapterLibros(context, listaFiltrada)
+                    val adapter =  AdapterLibros(context, listaFiltrada, listaFavoritos)
                     mrecyclerview.layoutManager = LinearLayoutManager(context)
                     mrecyclerview.adapter = adapter
                 }

@@ -10,17 +10,21 @@ import com.mirena.appbibliotecas.retrofit.RetrofitRepository
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.Flow
 import androidx.lifecycle.asFlow
+import com.mirena.appbibliotecas.objects.BibliotecaPersonal
+import com.mirena.appbibliotecas.objects.IdUsuario
 
 class AccountViewModel(application: Application): AndroidViewModel(application) {
 
     lateinit var sessionManager: SessionManager
     private lateinit var retrofitRepository: RetrofitRepository
     private lateinit var usuariolivedata: LiveData<Usuario>
+    private lateinit var bibliotecasPersonalesLd: LiveData<List<BibliotecaPersonal>>
 
     init {
         sessionManager = SessionManager(application.applicationContext)
         retrofitRepository = RetrofitRepository(application.applicationContext)
         usuariolivedata = retrofitRepository.getUsuarioLivedata()
+        bibliotecasPersonalesLd = retrofitRepository.getBibliosPersonalesLiveData()
 
     }
 
@@ -33,6 +37,16 @@ class AccountViewModel(application: Application): AndroidViewModel(application) 
     fun getUserInfoWork(): Flow<Usuario> {
         return usuariolivedata.asFlow()
 
+    }
+
+    fun getBibliosPersonales(idUsuario: Int){
+        viewModelScope.launch {
+            retrofitRepository.getBibliotecasPersonales(idUsuario)
+        }
+    }
+
+    fun getBibliosPersonalesFlow(): Flow<List<BibliotecaPersonal>>{
+        return bibliotecasPersonalesLd.asFlow()
     }
 
 

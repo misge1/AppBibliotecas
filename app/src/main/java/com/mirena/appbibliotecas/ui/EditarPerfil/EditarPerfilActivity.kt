@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
-import com.google.android.material.appbar.CollapsingToolbarLayout
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.textfield.TextInputEditText
@@ -17,13 +15,13 @@ import com.mirena.appbibliotecas.SessionManager
 import com.mirena.appbibliotecas.databinding.ActivityEditarPerfilBinding
 import com.mirena.appbibliotecas.objects.Usuario
 import com.mirena.appbibliotecas.ui.Account.AccountActivity
-import com.mirena.appbibliotecas.ui.Account.AccountViewModel
 import com.mirena.appbibliotecas.ui.Login.LoginActivity
 import com.mirena.appbibliotecas.ui.MainActivity.ScrollingActivity
+import com.squareup.picasso.Picasso
+import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.w3c.dom.Text
 
 class EditarPerfilActivity : AppCompatActivity() {
 
@@ -33,18 +31,16 @@ class EditarPerfilActivity : AppCompatActivity() {
     private lateinit var domicilio_layout: TextInputLayout
     private lateinit var localidad_layout: TextInputLayout
     private lateinit var cp_layout: TextInputLayout
-
     private lateinit var nombre_edittext: TextInputEditText
     private lateinit var telefono_editext: TextInputEditText
     private lateinit var domicilio_editext: TextInputEditText
     private lateinit var localidad_editext: TextInputEditText
     private lateinit var cp_editext: TextInputEditText
-
     private lateinit var editarPerfilViewModel: EditarPerfilViewModel
-
     private lateinit var aceptar_boton: Button
-
     private lateinit var sessionManager: SessionManager
+    private lateinit var backButton: ImageView
+    private lateinit var imagen: CircleImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,19 +53,19 @@ class EditarPerfilActivity : AppCompatActivity() {
 
         editarPerfilViewModel.getUserInfo()
 
+        imagen = binding.editarperfilLayout.circleImage
         nombre_layout = binding.editarperfilLayout.editlayoutNombre
         telefono_layout = binding.editarperfilLayout.editlayoutTelefono
         domicilio_layout = binding.editarperfilLayout.editlayoutDomicilio
         localidad_layout = binding.editarperfilLayout.editlayoutLocalidad
         cp_layout = binding.editarperfilLayout.editlayoutCp
-
         nombre_edittext = binding.editarperfilLayout.edittexNombre
         telefono_editext = binding.editarperfilLayout.editextTelefono
         domicilio_editext = binding.editarperfilLayout.editextDomicilio
         localidad_editext = binding.editarperfilLayout.editextLocalidad
         cp_editext = binding.editarperfilLayout.editextCp
-
         aceptar_boton = binding.editarperfilLayout.aceptarButton
+        backButton = binding.backButtonEditar
 
         sessionManager = SessionManager(this)
 
@@ -81,6 +77,11 @@ class EditarPerfilActivity : AppCompatActivity() {
                 usuario = it
 
                 runOnUiThread {
+                    Picasso.get()
+                        .load(usuario.foto)
+                        .fit()
+                        .error(R.mipmap.atenea_penguin)
+                        .into(imagen)
                     nombre_edittext.setText(usuario.nombre)
                     telefono_editext.setText(usuario.telefono)
                     domicilio_editext.setText(usuario.domicilio)
@@ -90,8 +91,6 @@ class EditarPerfilActivity : AppCompatActivity() {
             }
         }
 
-
-
         aceptar_boton.setOnClickListener {
             var nombre = nombre_edittext.text.toString()
             var tel = telefono_editext.text.toString()
@@ -99,6 +98,10 @@ class EditarPerfilActivity : AppCompatActivity() {
             var loc = localidad_editext.text.toString()
             var cp = cp_editext.text.toString()
             editarPerfilViewModel.updateUserInfo(nombre, tel, domi, loc, cp,this, applicationContext)
+        }
+
+        backButton.setOnClickListener {
+            this.finish()
         }
 
 

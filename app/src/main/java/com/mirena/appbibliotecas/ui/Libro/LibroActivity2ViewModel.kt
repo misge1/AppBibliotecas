@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -20,15 +21,19 @@ import retrofit2.Call
 import retrofit2.Response
 import kotlinx.coroutines.flow.Flow
 import androidx.lifecycle.asFlow
+import com.mirena.appbibliotecas.objects.Comentario
+import com.mirena.appbibliotecas.objects.ComentarioSave
+import com.mirena.appbibliotecas.objects.DispositivosUsuarios
 import com.mirena.appbibliotecas.objects.Subgeneros
 
 class LibroActivity2ViewModel(application: Application): AndroidViewModel(application) {
 
-    lateinit var sessionManager: SessionManager
-    private lateinit var retrofitRepository: RetrofitRepository
-    private lateinit var disponibilidadlivedata: LiveData<List<Biblioteca>>
-    private lateinit var comprobarfavs: LiveData<String>
-    private lateinit var subgenerosLibro: LiveData<List<Subgeneros>>
+    var sessionManager: SessionManager
+    private  var retrofitRepository: RetrofitRepository
+    private  var disponibilidadlivedata: LiveData<List<Biblioteca>>
+    private  var comprobarfavs: LiveData<String>
+    private  var subgenerosLibro: LiveData<List<Subgeneros>>
+    private  var comentariosLibro: LiveData<List<Comentario>>
 
     init {
         sessionManager = SessionManager(application.applicationContext)
@@ -36,9 +41,23 @@ class LibroActivity2ViewModel(application: Application): AndroidViewModel(applic
         disponibilidadlivedata = retrofitRepository.getDisponibilidadLiveData()
         comprobarfavs = retrofitRepository.getComprobacionfavsLd()
         subgenerosLibro = retrofitRepository.getSubgenerosLibroLd()
+        comentariosLibro = retrofitRepository.getComentariosLd()
     }
 
 
+    /**
+     * get Comentarios
+     */
+
+    fun getComentarios(id_libro: Int){
+        viewModelScope.launch {
+            retrofitRepository.getComentarios(id_libro)
+        }
+    }
+
+    fun getComentariosFlow(): Flow<List<Comentario>>{
+        return comentariosLibro.asFlow()
+    }
     /**
      * comprobacion de que un libro está en favoritos del usuario
      */
@@ -51,6 +70,32 @@ class LibroActivity2ViewModel(application: Application): AndroidViewModel(applic
 
     fun getComprobacion(): Flow<String> {
         return comprobarfavs.asFlow()
+    }
+
+    fun addComentario(comentario: ComentarioSave) {
+        val call = RetrofitInstance.api.addComentario(comentario)
+
+        call.enqueue(
+            object: retrofit2.Callback<ResponseBody>{
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ) {
+                    if(response.isSuccessful){
+                        response.body().let {
+                            Log.d("TAG ADD COMMENT", "SUCCESFUL")
+                        }
+                    }else{
+                        Log.d("TAG ADD COMMENT", "NOT SUCCESFUL")
+                    }
+
+                }
+
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    Log.d("TAG ADD COMMENT", t.message!!)
+                }
+            }
+        )
     }
 
     /**

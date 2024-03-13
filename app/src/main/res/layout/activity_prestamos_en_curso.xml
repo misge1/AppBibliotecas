@@ -35,6 +35,14 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <ImageView
+        android:id="@+id/imagen_vacio_curso"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:src="@drawable/vista_vacia"
+        />
+
 
     <include
         android:id="@+id/encurso_layout"

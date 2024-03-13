@@ -2,9 +2,11 @@ package com.mirena.appbibliotecas.ui.prestamos.EnCurso
 
 import android.content.Context
 import android.content.Intent
+import android.opengl.Visibility
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -35,6 +37,7 @@ class PrestamosEnCursoActivity : AppCompatActivity() {
     private lateinit var mAdapter: AdapterPrestamosCurso
     private lateinit var enCursoViewModel: EnCursoViewModel
     private lateinit var backbutton: ImageView
+    private lateinit var vistaVacia: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,8 +50,10 @@ class PrestamosEnCursoActivity : AppCompatActivity() {
         enCursoViewModel.getCurso()
         context = this
         backbutton = findViewById(R.id.back_button_encursos)
-
+        vistaVacia = findViewById(R.id.imagen_vacio_curso)
         setSupportActionBar(findViewById(R.id.toolbar))
+
+
 
         CoroutineScope(Dispatchers.IO).launch {
 
@@ -56,11 +61,10 @@ class PrestamosEnCursoActivity : AppCompatActivity() {
             enCursoViewModel.getPCursoLD().collectLatest {
                 runOnUiThread {
 
-                    if (it!!.isNotEmpty()){
-
+                    if (it.isNotEmpty()){
+                        vistaVacia.visibility = View.GONE
                         listaPrestamos = it
                         val mrecyclerview = findViewById<RecyclerView>(R.id.recyclerview_prestamos)
-
                         mrecyclerview.layoutManager = LinearLayoutManager(context)
                         mAdapter =
                             AdapterPrestamosCurso(
@@ -68,6 +72,8 @@ class PrestamosEnCursoActivity : AppCompatActivity() {
                                 listaPrestamos
                             )
                         mrecyclerview.adapter = mAdapter
+                    }else{
+                        vistaVacia.visibility = View.VISIBLE
                     }
                 }
             }

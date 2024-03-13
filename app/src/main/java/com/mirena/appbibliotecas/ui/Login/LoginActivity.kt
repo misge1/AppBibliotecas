@@ -36,8 +36,6 @@ class LoginActivity : AppCompatActivity() {
 
         enterButton = findViewById(R.id.enterButton)
 
-
-
         enterButton.setOnClickListener {
             var email = emailedit.text.toString()
             var pass = passedit.text.toString()

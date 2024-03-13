@@ -100,7 +100,14 @@
                         android:fontFamily="@font/fredoka"
                         android:layout_marginTop="20dp"
                         />
-
+                    <ImageButton
+                        android:id="@+id/boton_favoritos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@color/background_card_clear"
+                        android:src="@drawable/favorito_icono"
+                        android:layout_marginTop="18dp"
+                        />
                 </LinearLayout>
 
 

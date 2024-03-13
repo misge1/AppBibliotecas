@@ -23,6 +23,13 @@
             app:menu="@menu/menu_favoritos"
             app:popupTheme="@style/Theme.AppBibliotecas.PopupOverlay">
 
+            <ImageView
+                android:id="@+id/backButtonSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:padding="8dp"
+                android:src="@drawable/back_icon" />
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/searchviewactivity"
                 android:layout_width="match_parent"

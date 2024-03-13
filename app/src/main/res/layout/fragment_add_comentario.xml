@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:layout_margin="8dp"
+        android:id="@+id/textViewComentario"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Añadir un comentario"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/title_color"
+        android:fontFamily="@font/fredoka_regular"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_margin="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewComentario"
+        app:layout_constraintBottom_toTopOf="@id/buttonAddComment"
+        android:id="@+id/textFieldComentario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:hint="Dinos tu opinión...">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputEditComentario"
+            android:layout_width="match_parent"
+            android:fontFamily="@font/fredoka_regular"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonAddComment"
+        android:layout_margin="8dp"
+        android:layout_width="wrap_content"
+        android:text="Añadir"
+        android:backgroundTint="@color/background_button_color"
+        android:fontFamily="@font/fredoka"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textFieldComentario"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

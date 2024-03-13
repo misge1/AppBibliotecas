@@ -15,6 +15,8 @@ interface APIService {
     @PUT("/editUserPass/{id}")
     fun cambiarPass(@Path("id") id: Int, @Query("pass") pass: String): Call<ResponseBody>
 
+    @PUT("/renovarPrestamo/{id}")
+    fun renovarPrestamo(@Path("id") id: Int, @Query("fecha_devolucion") fecha_devolucion: String): Call<ResponseBody>
     @PUT("/editUserInfo/{id}")
     fun updateUserInfo(@Path("id") id: Int, @Query("nombre") nombre: String,
                        @Query("telefono") telefono: String,
@@ -87,6 +89,8 @@ interface APIService {
     @GET("/comprobarfavoritos")
     suspend fun comprobarfavoritos(@Query("id_libro") id_libro: Int, @Query("id_usuario") id_usuario: Int): Response<String>
 
+    @GET("/getFavoritosTabla/{idUsuario}")
+    suspend fun getFavoritosTabla(@Path("idUsuario") id_usuario: Int): Response<List<Favoritos>>
     @GET("/getSubgenerosLibro/{id}")
     suspend fun getSubgenerosLibro(@Path("id") id: Int ): Response<List<Subgeneros>>
 
@@ -100,4 +104,19 @@ interface APIService {
     suspend fun buscar(@Query("busca") busca: ArrayList<String>): Response<List<LibroPre>>
     @DELETE("/borrarPrestamo/{id}")
     fun borrarPrestamo(@Path("id") id: Int): Call<ResponseBody>
+
+    @POST("/saveDispositivoToken")
+    fun saveDispositivoToken(@Body dispositivosUsuarios: DispositivosUsuarios): Call<ResponseBody>
+
+    @GET("/getComentarios")
+    suspend fun getComentarios(@Query("id_libro") id_libro: Int): Response<List<Comentario>>
+
+    @POST("/addComentario")
+    fun addComentario(@Body comentario: ComentarioSave): Call<ResponseBody>
+
+    @POST("/crearBibliotecaPersonal")
+    fun addBiblioteca(@Body biblioteca: BibliotecaPersonal): Call<ResponseBody>
+
+    @GET("/getBibliotecasPersonales")
+    suspend fun getBibliotecasPersonales(@Query("id_usuario") id_usuario: Int): Response<List<BibliotecaPersonal>>
 }

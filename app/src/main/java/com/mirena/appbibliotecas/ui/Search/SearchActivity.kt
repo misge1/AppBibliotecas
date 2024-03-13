@@ -3,6 +3,7 @@ package com.mirena.appbibliotecas.ui.Search
 import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
@@ -11,7 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.mirena.appbibliotecas.R
+import com.mirena.appbibliotecas.SessionManager
 import com.mirena.appbibliotecas.adapters.AdapterLibros
+import com.mirena.appbibliotecas.objects.Favoritos
 import com.mirena.appbibliotecas.objects.LibroPre
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -26,8 +29,11 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var mAdapter: AdapterLibros
     private lateinit var searchManager: SearchManager
     private lateinit var searchview: SearchView
+    private lateinit var sessionManager: SessionManager
     private lateinit var mrecyclerview: RecyclerView
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    private lateinit var listaFavoritos: List<Favoritos>
+    private lateinit var backButton: ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
@@ -35,6 +41,21 @@ class SearchActivity : AppCompatActivity() {
         searchViewModel = ViewModelProvider(this)[SearchActivityViewModel::class.java]
         swipeRefreshLayout = findViewById<SwipeRefreshLayout>(R.id.swipeResfresBusqueda)
         var query = intent.getStringExtra("query")
+        listaFavoritos = listOf<Favoritos>()
+        sessionManager = SessionManager(this)
+        backButton = findViewById(R.id.backButtonSearch)
+
+        if (sessionManager.fetchAuthToken()!=0){
+            searchViewModel.getFavoritosTabla(sessionManager.fetchAuthToken())
+
+            CoroutineScope(Dispatchers.IO).launch {
+                searchViewModel.getFavoritosTablaFlow().collectLatest {
+                    listaFavoritos = it
+                }
+            }
+        }
+
+
 
         if (query != null) {
             val savedList = isolateKeyWords(query)
@@ -49,7 +70,7 @@ class SearchActivity : AppCompatActivity() {
                             findViewById<RecyclerView>(R.id.recyclreviewBusqueda)
                         mrecyclerview.layoutManager =
                             LinearLayoutManager(context)
-                        mAdapter = AdapterLibros(context, listalibros)
+                        mAdapter = AdapterLibros(context, listalibros, listaFavoritos)
                         mrecyclerview.adapter = mAdapter
 
                     }
@@ -74,7 +95,7 @@ class SearchActivity : AppCompatActivity() {
                                 findViewById<RecyclerView>(R.id.recyclreviewBusqueda)
                             mrecyclerview.layoutManager =
                                 LinearLayoutManager(context)
-                            mAdapter = AdapterLibros(context, listalibros)
+                            mAdapter = AdapterLibros(context, listalibros, listaFavoritos)
                             mrecyclerview.adapter = mAdapter
 
                         }
@@ -102,6 +123,10 @@ class SearchActivity : AppCompatActivity() {
             }
 
         })
+
+        backButton.setOnClickListener {
+            this.finish()
+        }
     }
 
     override fun onBackPressed() {

@@ -221,6 +221,7 @@
             android:textColor="@color/title_color"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLines="10"
             android:text="Following the announcement of Google+ API deprecation scheduled for March 2019, a number of changes will be made to Blogger’s Google+ integration on 4 February 2019. *Google+ widgets:* Support for the “+1 Button”, “Google+ Followers” and “Google+ Badge” widgets in Layout will no longer be available. All instances of these widgets will be removed from all blogs. *+1 buttons:* The +1/G+ buttons and Google+ share links below blog posts and in the navigation bar will be removed. Please note that if you have a custom template that includes Google+ features, you may need to update ...">
 
         </TextView>
@@ -264,12 +265,34 @@
 
         </androidx.recyclerview.widget.RecyclerView>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:textSize="18sp"
+            android:text="Comentarios"
+            android:fontFamily="@font/fredoka"
+            android:textColor="@color/text_color_dark"
+            android:layout_marginBottom="10dp"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/comentariosLibroRView"
+            android:layout_margin="8dp"
+            android:nestedScrollingEnabled="true"
+            android:scrollbars="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <include
+            android:id="@+id/fragmentComentario"
+            layout="@layout/fragment_add_comentario"
+            />
 
 
     </LinearLayout>
-
-
-
 
 
 

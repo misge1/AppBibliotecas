@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageView
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -22,15 +23,16 @@ class AjustesActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAjustesBinding
     private lateinit var sessionManager: SessionManager
+    private lateinit var backButton: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityAjustesBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setSupportActionBar(findViewById(R.id.toolbar_ajustes))
         sessionManager = SessionManager(this)
+        backButton = binding.backButtonAccount
 
         binding.includeAjustes.cardviewCambiarpass.setOnClickListener {
             val intent = Intent(this, CambiarPassActivity::class.java)
@@ -40,6 +42,10 @@ class AjustesActivity : AppCompatActivity() {
         binding.includeAjustes.cardviwEditarperfil.setOnClickListener {
             val intent = Intent(this, EditarPerfilActivity::class.java)
             startActivity(intent)
+        }
+
+        backButton.setOnClickListener {
+            this.finish()
         }
 
     }

@@ -17,6 +17,7 @@ import com.mirena.appbibliotecas.R
 import com.mirena.appbibliotecas.SessionManager
 import com.mirena.appbibliotecas.adapters.AdapterLibros
 import com.mirena.appbibliotecas.databinding.ActivitySubgenerosBinding
+import com.mirena.appbibliotecas.objects.Favoritos
 import com.mirena.appbibliotecas.objects.LibroPre
 import com.mirena.appbibliotecas.ui.Account.AccountActivity
 import com.mirena.appbibliotecas.ui.Login.LoginActivity
@@ -34,6 +35,7 @@ class SubgenerosActivity : AppCompatActivity() {
     private lateinit var adapterLibros: AdapterLibros
     private lateinit var backButton: ImageView
     private lateinit var sessionManager: SessionManager
+    private lateinit var listaFavoritos: List<Favoritos>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySubgenerosBinding.inflate(layoutInflater)
@@ -48,9 +50,21 @@ class SubgenerosActivity : AppCompatActivity() {
         subgenerosActivityViewModel = ViewModelProvider(this)[SubgenerosActivityViewModel::class.java]
         subgenerosActivityViewModel.getLibrosSubgeneros(idSubgenero)
         sessionManager = SessionManager(this)
+        listaFavoritos = listOf<Favoritos>()
+
+        if (sessionManager.fetchAuthToken()!=0){
+            subgenerosActivityViewModel.getFavoritosTabla(sessionManager.fetchAuthToken())
+
+            CoroutineScope(Dispatchers.IO).launch {
+                subgenerosActivityViewModel.getFavoritosTablaFlow().collectLatest {
+                    listaFavoritos = it
+                }
+            }
+        }
 
         CoroutineScope(Dispatchers.IO).launch {
             var listaLibros = listOf<LibroPre>()
+
             subgenerosActivityViewModel.getLibrosSubgeneroFlow().collectLatest {
                 listaLibros = it
 
@@ -58,7 +72,7 @@ class SubgenerosActivity : AppCompatActivity() {
                     val recyclerViewLibros =
                         findViewById<RecyclerView>(R.id.recyclerviewLibrosSubgenero)
                     recyclerViewLibros.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                    adapterLibros = AdapterLibros(context, listaLibros)
+                    adapterLibros = AdapterLibros(context, listaLibros, listaFavoritos)
                     recyclerViewLibros.adapter = adapterLibros
                 }
             }

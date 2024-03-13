@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.mirena.appbibliotecas">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:allowBackup="true"
@@ -18,6 +18,16 @@
         android:theme="@style/Theme.AppBibliotecas"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".ui.bibliotecaPersonal.BibliotecaPersonalActivity"
+            android:exported="false"
+            android:label=""
+            android:theme="@style/Theme.AppBibliotecas.NoActionBar" />
+        <activity
+            android:name=".ui.nuevaBiblioteca.AnyadirBiblioteca"
+            android:exported="false"
+            android:label=""
+            android:theme="@style/Theme.AppBibliotecas.NoActionBar" />
         <activity
             android:name=".ui.Subgeneros.SubgenerosActivity"
             android:exported="false"
@@ -51,17 +61,17 @@
         <activity
             android:name=".ui.Search.SearchActivity"
             android:exported="false"
-            android:theme="@style/Theme.AppBibliotecas.NoActionBar"
-            android:label=""/>
+            android:label=""
+            android:theme="@style/Theme.AppBibliotecas.NoActionBar" />
         <activity
             android:name=".ui.EditarPerfil.EditarPerfilActivity"
             android:exported="false"
-            android:label="@string/title_activity_editar_perfil"
+            android:label="Editar perfil"
             android:theme="@style/Theme.AppBibliotecas.NoActionBar" />
         <activity
             android:name=".ui.Cambiarpass.CambiarPassActivity"
             android:exported="false"
-            android:label="@string/title_activity_cambiar_pass"
+            android:label=""
             android:theme="@style/Theme.AppBibliotecas.NoActionBar" />
         <activity
             android:name=".ui.SplashScreen.SplashScreen"
@@ -69,6 +79,7 @@
             android:theme="@style/SplashStyle">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -104,13 +115,13 @@
             android:name=".ui.Libro.LibroActivity2"
             android:exported="false"
             android:label=""
-            android:theme="@style/Theme.AppBibliotecas.NoActionBar" />
+            android:theme="@style/Theme.AppBibliotecas.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui.MainActivity.ScrollingActivity"
             android:exported="false"
             android:label="m"
-            android:theme="@style/Theme.AppBibliotecas.NoActionBar"
-            />
+            android:theme="@style/Theme.AppBibliotecas.NoActionBar" />
         <activity
             android:name=".ui.Account.AccountActivity"
             android:exported="false"
@@ -120,6 +131,14 @@
         <activity
             android:name=".ui.Login.LoginActivity"
             android:exported="false" />
+
+        <service
+            android:name=".notifications.FirebaseService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

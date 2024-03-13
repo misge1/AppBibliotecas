@@ -34,10 +34,10 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <ImageView
-        android:id="@+id/imagen_vacio_recoger"
+        android:id="@+id/imagenVacioRecoger"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/imagenvacio"
+        android:src="@drawable/vista_vacia"
         />
 
     <include

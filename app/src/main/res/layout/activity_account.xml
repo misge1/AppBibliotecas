@@ -262,9 +262,9 @@
                     android:layout_marginTop="30dp"
                     >
 
-                    <HorizontalScrollView
+                    <androidx.core.widget.NestedScrollView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:fitsSystemWindows="true"
                         android:layout_gravity="center"
                         android:paddingTop="10dp"
@@ -273,7 +273,7 @@
 
                         <LinearLayout
                             android:id="@+id/linear_layout_bibliotecas"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:paddingBottom="10dp"
@@ -282,13 +282,23 @@
                             >
 
                             <androidx.recyclerview.widget.RecyclerView
-                                android:layout_width="match_parent"
-                                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                android:id="@+id/recyclerview_mis_bibliotecas"
+                                android:layout_width="wrap_content"
+                                android:scrollbars="horizontal"
                                 android:layout_height="wrap_content">
 
                             </androidx.recyclerview.widget.RecyclerView>
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/anyadirBiblioteca"
+                                android:layout_width="wrap_content"
+                                android:drawableTop="@drawable/add_button"
+                                android:text="Añadir"
+                                android:textColor="@color/background_button_color"
+                                android:backgroundTint="@color/background_card_clear"
+                                android:layout_height="wrap_content"/>
                         </LinearLayout>
-                    </HorizontalScrollView>
+                    </androidx.core.widget.NestedScrollView>
                 </com.google.android.material.navigation.NavigationView>
             </com.google.android.material.card.MaterialCardView>
 
